@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Start.css';
 import TwitchLogo from '../../../assets/images/TwitchGlitchWhite.svg';
-import { Link } from 'react-router-dom';
+import { HashRouter, Link } from 'react-router-dom';
 
 const Start = () => {
   return (
@@ -14,18 +14,18 @@ const Start = () => {
             giveaways and draws using Twitch Channel Points.
           </p>
         </div>
-        <div className={styles.login}>
-          <Link to={`/dashboard`}>
-            <div className={styles.button}>
-              <p className={styles.text}>Login with Twitch</p>
-              <img
-                className={styles.logo}
-                src={TwitchLogo}
-                alt="White Twitch Glitch Logo"
-              />
-            </div>
-          </Link>
-        </div>
+          <div className={styles.login}>
+            <Link to={`/dashboard`}>
+              <div className={styles.button}>
+                <p className={styles.text}>Login with Twitch</p>
+                <img
+                  className={styles.logo}
+                  src={TwitchLogo}
+                  alt="White Twitch Glitch Logo"
+                />
+              </div>
+            </Link>
+          </div>
       </div>
     </div>
   );
