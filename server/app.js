@@ -15,7 +15,7 @@ app.get("/", (req, res, next) => {
   res.json({ PogPoints: "pog" });
 });
 
-app.get("/refresh", (req, res, next) => {
+app.get("/refresh", async (req, res, next) => {
   const { refreshToken } = req.body;
   const refreshOptions = {
     method: "POST",
@@ -33,9 +33,7 @@ app.get("/refresh", (req, res, next) => {
     const response = await axios(refreshOptions);
 
     res.json(response.data);
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 });
 
 app.use(middleware.unknownEndpoint);
