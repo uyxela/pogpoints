@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(middleware.requestLogger);
 
 app.get("/", (req, res, next) => {
-  res.json({ Hello: "World!" });
+  res.json({ PogPoints: "pog" });
 });
 
 app.get("/refresh", (req, res, next) => {
