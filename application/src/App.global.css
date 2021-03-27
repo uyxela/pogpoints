@@ -12,11 +12,8 @@ body {
   font-family: 'Red Hat Text', sans-serif;
   overflow-y: hidden;
 }
-.title {
-  font-size: 3em;
-}
 
-.text {
-  font-size: 1.5em;
-  margin: 0;
+a{
+  text-decoration: none;
+  color: inherit;
 }

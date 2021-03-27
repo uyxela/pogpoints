@@ -1,0 +1,35 @@
+.container {
+  height: 100vh;
+  display: inline-flexbox;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-left: 25%;
+}
+
+.row {
+  margin-left: 5%;
+  width: 30%;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 2em;
+  margin-bottom: 0;
+}
+
+.text {
+  font-size: 1.5em;
+  margin: 0;
+}
+.textinput {
+  backgroundColor: ivory;
+}
