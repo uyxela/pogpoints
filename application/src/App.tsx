@@ -8,7 +8,6 @@ export default function App() {
   return (
     <Router>
       <Switch>
-
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/" component={Start} />
       </Switch>

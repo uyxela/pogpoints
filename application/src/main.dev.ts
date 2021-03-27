@@ -12,6 +12,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
+import Store from 'electron-store';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -25,6 +26,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+Store.initRenderer();
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

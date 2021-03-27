@@ -5,7 +5,6 @@ import { HashRouter, Link } from 'react-router-dom';
 
 const Start = () => {
   return (
-
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.description}>
