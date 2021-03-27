@@ -1,3 +1,5 @@
-const {BrowserWindow} = require('electron');
-const authService = require("./service");
-const createAppWindow
+const {ipcRenderer} = require("electron");
+
+export function authenticate() {
+    ipcRenderer.invoke('authenticate');
+}

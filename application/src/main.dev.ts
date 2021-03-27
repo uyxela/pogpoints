@@ -11,11 +11,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, shell } from 'electron';
+import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import Store from 'electron-store';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+
+const authService = require("./components/auth/service");
 
 export default class AppUpdater {
   constructor() {
@@ -112,6 +114,37 @@ const createWindow = async () => {
   // eslint-disable-next-line
   new AppUpdater();
 };
+
+ipcMain.handle('authenticate', (event, arg) => {
+  const authWin: BrowserWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: "Log In - Twitch",
+    webPreferences: {
+      nodeIntegration: false
+    }
+    
+  });
+
+  authWin.loadURL(authService.getAuthenticationURL());
+  authWin.show();
+  authWin.focus();
+
+  const {session: {webRequest}} = authWin.webContents;
+
+  const filter = {
+    urls: [
+      'http://localhost/callback*'
+    ]
+  };
+
+  webRequest.onBeforeRequest(filter, async ({url}) => {
+    authService.handleCallback(url);
+    mainWindow?.reload();
+    mainWindow?.focus();
+    authWin.destroy();
+  });
+})
 
 /**
  * Add event listeners...
