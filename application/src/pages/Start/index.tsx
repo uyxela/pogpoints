@@ -2,12 +2,10 @@ import React from 'react';
 import styles from './Start.css';
 import TwitchLogo from '../../../assets/images/TwitchGlitchWhite.svg';
 import { validateToken } from '../../components/auth/service';
-import { Redirect } from 'react-router';
 import { authenticate } from '../../components/auth/process';
 
 const Start = () => {
   validateToken().then((valid) => {
-    console.log(valid);
     if (valid) {
       window.location.replace('#/dashboard');
     }

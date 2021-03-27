@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.css';
 import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
+import { getAccessToken, getUser } from '../../auth/service';
 
 export default function Nav() {
   const location = useLocation();
+
   const getNavStyle = (e: String) => {
     if (location.pathname === e) {
       return styles.navBarItemActive;
@@ -15,12 +17,26 @@ export default function Nav() {
       return styles.navBarItem;
     }
   };
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    getUser().then((user) => {
+      // console.log(getAccessToken());
+      console.log(user);
+      setUser(user);
+    });
+  }, []);
+
   return (
     <div>
       <div className={styles.navbar}>
         <div className={styles.navBarProfile}>
-          <img src={DefaultProfile} className={styles.navBarProfileIcon} />
-          <h3>John Suckanut</h3>
+          <img
+            src={user?.profile_image_url}
+            className={styles.navBarProfileIcon}
+          />
+          <h3>{user?.display_name}</h3>
         </div>
         <div className={getNavStyle('/dashboard')}>
           <FaHome size={20} />

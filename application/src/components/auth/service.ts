@@ -6,14 +6,27 @@ import {getItem, setItem, deleteItem} from '../data/Store';
 const {client_id, redirect_uri, response_type, scope} = env.twitch;
 
 let accessToken: String|null = getItem('accessToken');
-let userID: String|null = null;
 
 export function getAccessToken() {
     return accessToken;
 }
 
-export function getUserID() {
-    return userID;
+export async function getUser() {
+    let response;
+
+    try {
+        response = await axios.get(`https://api.twitch.tv/helix/users`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Client-Id": client_id
+            }
+        })
+    } catch(error) {
+        console.log(error);
+        return null;
+    }
+
+    return response.data.data[0];
 }
 
 export function getAuthenticationURL() {
