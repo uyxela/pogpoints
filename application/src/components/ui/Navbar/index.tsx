@@ -5,7 +5,7 @@ import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
 import { useLocation } from 'react-router-dom';
-import { getAccessToken, getUser } from '../../auth/service';
+import { getUser } from '../../auth/service';
 
 export default function Nav() {
   const location = useLocation();

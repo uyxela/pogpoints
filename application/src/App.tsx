@@ -6,7 +6,6 @@ import Dashboard from './pages/Dashboard';
 import PogPrize from './pages/PogPrize';
 import PogPrizeProgress from './pages/PogPrizeProgress';
 
-
 export default function App() {
   return (
     <Router>
