@@ -4,7 +4,6 @@ import './App.global.css';
 import Start from './pages/Start';
 import Dashboard from './pages/Dashboard';
 import PogPrize from './pages/PogPrize';
-import PogSpin from './pages/PogSpin';
 import PogPrizeProgress from './pages/PogPrizeProgress';
 
 export default function App() {
@@ -13,8 +12,8 @@ export default function App() {
       <Switch>
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/pogprize" component={PogPrize} />
-        <Route path="/pogspin" component={PogPrize} />
         <Route path="/pogprizeprogress" component={PogPrizeProgress} />
+        <Route path="/" component={Start} />
       </Switch>
     </Router>
   );
