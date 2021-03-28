@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import env from '../../components/data/env.json';
-import {getUserID} from '../../components/auth/service';
+import {getUserID, checkActivePogprize,getAccessToken} from '../../components/auth/service';
 import { useHistory } from "react-router-dom";
 
 const PogPrize = () => {
@@ -26,14 +26,22 @@ const PogPrize = () => {
       .join(':') as String,
     numberOfPrizes: 1 as number,
     broadcaster: '' as String,
+    accesstoken:'' as String,
   });
 
   useEffect(() => {
+    checkActivePogprize().then((res: any) => {
+      if (res !== null) {
+        history.push("/pogprizeprogress");
+      }
+    })
+
     getUserID().then(userid => {
-      console.log(userid)
-      setForm({
-        ...form,
-        broadcaster: userid
+        console.log(userid, getAccessToken())
+        setForm({
+          ...form,
+          broadcaster: userid,
+          accesstoken:getAccessToken()
       })
     })
   }, [])

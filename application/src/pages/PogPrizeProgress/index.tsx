@@ -10,7 +10,7 @@ import axios from 'axios';
 import env from '../../components/data/env.json';
 
 const PogPrizeProgress = () => {
-  const userid = getUserID();
+  // const userid as String;
   interface Prize {
     title: String;
     description: String;
@@ -18,14 +18,18 @@ const PogPrizeProgress = () => {
   }
 
   useEffect(() => {
-    console.log(userid)
-    axios.get(`${env.url}/pogprizes/${userid}`)
-    .then(response => {
-      console.log(response)
+    getUserID().then(userid=>{
+      userid = userid;
+      console.log(userid)
+      axios.get(`${env.url}/pogprizes/${userid}`)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
     })
-    .catch(error => {
-      console.log(error)
-    })
+
   }, [])
 
   return (
@@ -36,7 +40,8 @@ const PogPrizeProgress = () => {
         <Grid item xs={5}>
           <Grid container direction="column">
             <Grid item xs >
-              <h1 className={styles.title}>PogPrizes</h1>
+              <h1 className={styles.title}>PogPrize</h1>
+              <p className={styles.text}>In Progress</p>
             </Grid>
             {/* <Grid item xs>
               <p className={styles.text}>*Name</p>

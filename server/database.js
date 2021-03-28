@@ -40,7 +40,8 @@ const pogPrizeSchema = new Schema({
   broadcaster: {
     type: Schema.Types.ObjectId,
     ref: "User"
-  }
+  },
+  rewardId: String,
 });
 
 const userSchema = new Schema({
