@@ -46,20 +46,21 @@ app.post("/newPogPrize", async (req, res, next) => {
     title,
     description,
     pointsPerEntry,
-    end,
+    endsAt,
     prizeDescription,
     numberOfPrizes,
     broadcaster
-  } = req.body;
+  } = req.query;
 
   const broadcasterObject = await User.findOne({ twitchid: broadcaster });
+  // console.log(broadcasterObject);
 
   const newPogPrize = new PogPrize({
     title: title,
     description: description,
     pointsPerEntry: pointsPerEntry,
     start: Date.now(),
-    end: end,
+    endsAt: Date.parse(endsAt),
     prizeDescription: prizeDescription,
     numberOfPrizes: numberOfPrizes,
     entries: [],
@@ -67,7 +68,18 @@ app.post("/newPogPrize", async (req, res, next) => {
   });
 
   await newPogPrize.save();
+
+  // broadcasterObject.pogPrizes.push(newPogPrize);
+  // await broadcasterObject.save();
+
   res.status(201).json(newPogPrize);
+});
+
+app.get("/pogprizes/:id", async (req, res, next) => {
+  const twitchid = req.params.id;
+  const broadcaster = await User.findOne({ twitchid: twitchid });
+  const pogprizes = await PogPrize.find({ broadcaster: broadcaster }).exec();
+  res.json(pogprizes);
 });
 
 app.get("/", (req, res, next) => {

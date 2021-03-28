@@ -28,7 +28,7 @@ const pogPrizeSchema = new Schema({
   description: String,
   pointsPerEntry: Number,
   start: { type: Date, default: Date.now },
-  end: { type: Date },
+  endsAt: { type: Date },
   prizeDescription: String,
   numberOfPrizes: Number,
   entries: [
@@ -44,19 +44,19 @@ const pogPrizeSchema = new Schema({
 });
 
 const userSchema = new Schema({
-  twitchid: String,
-  pogPrizes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "PogPrize"
-    }
-  ],
-  prizes: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Prizes"
-    }
-  ]
+  twitchid: String
+  // pogPrizes: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "PogPrize"
+  //   }
+  // ],
+  // prizes: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: "Prizes"
+  //   }
+  // ]
 });
 
 const Prize = mongoose.model("Prize", prizeSchema);
