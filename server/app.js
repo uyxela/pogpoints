@@ -20,7 +20,6 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
   .then(oauthRes=>{
     // console.log(res);
     oauth = oauthRes.data.access_token;
-    console.log(oauthRes);
     var createWebHookParams = {
       host: "api.twitch.tv",
       path: "helix/eventsub/subscriptions",
