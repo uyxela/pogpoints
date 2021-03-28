@@ -121,7 +121,7 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
 
     return body.data[0].id;
   } catch (error) {
-    console.log("Failed to add the reward. Please try again.");
+    console.log(error);
     return false;
   }
 };
@@ -181,8 +181,6 @@ app.post("/newPogPrize", async (req, res, next) => {
 
   // broadcasterObject.pogPrizes.push(newPogPrize);
   // await broadcasterObject.save();
-
-  // create new custom reward with twitch
 
   res.status(201).json(newPogPrize);
 });
