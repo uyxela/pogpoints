@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.css';
-import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
-import { HiLogout } from 'react-icons/hi';
+import { IoMdExit } from 'react-icons/io';
 import { useLocation } from 'react-router-dom';
 import { getUser, logOut } from '../../auth/service';
 
@@ -51,8 +50,13 @@ export default function Nav() {
             <p>PogPrize</p>
           </Link>
         </div>
+<<<<<<< HEAD
         <div className={getNavStyle('/pogspin')} onClick={logOut}>
           <HiLogout size={20} />
+=======
+        <div className={styles.navBarItem} onClick={logOut}>
+          <IoMdExit size={20} />
+>>>>>>> b151c78ad45d8da429b8f6ce2c3b6419bb4570c7
           <Link to={`/`} replace>
             <p>Log Out</p>
           </Link>
