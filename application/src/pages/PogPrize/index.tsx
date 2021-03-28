@@ -30,7 +30,7 @@ const PogPrize = () => {
       .join(':') as String,
     numberOfPrizes: 1 as number,
     broadcaster: '' as String,
-    accesstoken: '' as String,
+    accessToken: '' as String,
   });
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const PogPrize = () => {
       setForm({
         ...form,
         broadcaster: userid,
-        accesstoken: getAccessToken(),
+        accessToken: getAccessToken(),
       });
     });
   }, []);
@@ -108,7 +108,7 @@ const PogPrize = () => {
               .post(
                 `${env.url}/createWebhook/${form.broadcaster}`,
                 {
-                  accessToken: form.accesstoken,
+                  accessToken: form.accessToken,
                 },
                 {
                   headers: {

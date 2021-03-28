@@ -142,13 +142,13 @@ app.post("/newPogPrize", async (req, res, next) => {
 
   const rewardHeaders = {
     Authorization: `Bearer ${accessToken}`,
-    "Client-ID": process.env.CLIENT_ID,
+    "client-id": process.env.CLIENT_ID,
     "Content-Type": "application/json",
   };
 
   const rewardBody = {
     title: `${title} - One Ticket`,
-    prompt: description,
+    prompt: prizeDescription,
     cost: pointsPerEntry,
     is_enabled: true,
     is_global_cooldown_enabled: true,
