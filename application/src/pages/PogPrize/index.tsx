@@ -19,7 +19,7 @@ const PogPrize = () => {
     pointsPerEntry: 1 as number,
     prize: [] as Prize[],
     endsAt: new Date() as Date,
-    numPrizes: -1 as number,
+    numPrizes: 1 as number,
   });
 
   const handleNameChange = (e: any) => {
@@ -56,12 +56,14 @@ const PogPrize = () => {
             <Grid item xs>
             <TextField
                 id="numPrizes"
-                label="Number of prizes"
+                label="Number of prizes (1-10)"
                 value={form.numPrizes}
                 variant="filled"
                 onChange={handleNameChange}
                 className={styles.textinput}
                 color="primary"
+                type="number"
+                InputProps={{ inputProps: { min: 1, max: 10 } }}
                 fullWidth
               />
             </Grid>
@@ -74,6 +76,7 @@ const PogPrize = () => {
                 onChange={handleNameChange}
                 className={styles.textinput}
                 color="primary"
+                type="number"
                 fullWidth
               />
             </Grid>
