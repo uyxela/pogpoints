@@ -117,7 +117,8 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
         headers: rewardHeaders,
       }
     );
-    console.log(body);
+    console.log("HELLO OVER HERE", body);
+    return body.data[0].id
 
   } catch (error) {
     console.log(error);
@@ -156,7 +157,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     ),
   };
 
-  await addCustomReward(
+  const rewardId = await addCustomReward(
     broadcaster,
     rewardBody,
     rewardHeaders
