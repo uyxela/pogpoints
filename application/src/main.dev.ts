@@ -123,7 +123,7 @@ ipcMain.handle('authenticate', (event, arg) => {
     webPreferences: {
       nodeIntegration: false
     }
-    
+
   });
 
   authWin.loadURL(authService.getAuthenticationURL());

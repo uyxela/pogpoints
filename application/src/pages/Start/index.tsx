@@ -3,6 +3,8 @@ import styles from './Start.css';
 import TwitchLogo from '../../../assets/images/TwitchGlitchWhite.svg';
 import { validateToken } from '../../components/auth/service';
 import { authenticate } from '../../components/auth/process';
+import {getUser} from '../../components/auth/service'
+import {getItem} from '../../components/data/Store'
 
 const Start = () => {
   validateToken().then((valid) => {

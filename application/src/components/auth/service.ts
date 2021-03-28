@@ -18,7 +18,7 @@ export async function checkActivePogprize() {
 }
 
 export async function getUser() {
-  if (user) {
+  if (user !== null) {
     return user;
   }
 
@@ -37,6 +37,7 @@ export async function getUser() {
   }
 
   user = response.data.data[0];
+  // console.log(user);
 
   return response.data.data[0];
 }
@@ -58,18 +59,21 @@ export function handleCallback(callbackURL: String) {
   const urlParts = url.parse(callbackURL, true);
   const result = urlParts.hash.substr(1).split('&')[0].split('=')[1];
   accessToken = result;
+
+  // deleteItem('accessToken')
   setItem('accessToken', result);
-  return urlParts.query;
+  // return urlParts.query;
 }
 
 export async function checkUser() {
   const userData = await getUser();
-  // console.log(userData);
+  console.log("here", userData.id);
   const response = await axios.get(`${apiUrl}/user/${userData.id}`);
-  // console.log(response);
-  if (response.data.twitchid == -1) {
-    // console.log("new user");
-    await axios.post(`${apiUrl}/newUser/${userData.id}`);
+  //console.log(response);
+  if (response.data.twitchid === -1) {
+    //console.log("new user");
+    const res = await axios.post(`${apiUrl}/newUser/${userData.id}`);
+    console.log(res.status);
   }
 }
 
@@ -93,4 +97,5 @@ export const validateToken = async () => {
 export const logOut = () => {
   deleteItem('accessToken');
   accessToken = null;
+  user = null;
 };
