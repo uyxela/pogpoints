@@ -79,6 +79,16 @@ app.post("/newPogPrize", async (req, res, next) => {
   res.status(201).json(newPogPrize);
 });
 
+app.get("/activepogprize/:id", async (req, res, next) => {
+  const twitchid = req.params.id;
+  const broadcaster = await User.findOne({ twitchid: twitchid });
+  const pogprizes = await PogPrize.findOne({
+    broadcaster: broadcaster,
+    endsAt: { $gt: Date.now() }
+  }).exec();
+  res.json(pogprizes);
+});
+
 app.get("/pogprizes/:id", async (req, res, next) => {
   const twitchid = req.params.id;
   const broadcaster = await User.findOne({ twitchid: twitchid });

@@ -13,6 +13,10 @@ export function getAccessToken() {
     return accessToken;
 }
 
+export async function checkActivePogprize() {
+    return await axios.get(`${apiUrl}/activepogprize/${user.id}`);
+}
+
 export async function getUser() {
 
     if (user) {
