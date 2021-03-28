@@ -110,15 +110,15 @@ app.post("/newUser/:id", (req, res, next) => {
 //creates custom twitch reward
 const addCustomReward = async (id, rewardBody, rewardHeaders) => {
   try {
-    let { body } = await axios.post(
+    let res = await axios.post(
       `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${id}`,
       JSON.stringify(rewardBody),
       {
         headers: rewardHeaders,
       }
     );
-    console.log("HELLO OVER HERE", body);
-    return body.data[0].id
+    console.log("HELLO OVER HERE", res);
+    return res.data[0].id
 
   } catch (error) {
     console.log(error);
