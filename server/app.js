@@ -203,7 +203,7 @@ app.get("/activepogprize/:id", async (req, res, next) => {
   const broadcaster = await User.findOne({ twitchid: twitchid });
   const pogprizes = await PogPrize.findOne({
     broadcaster: broadcaster,
-    endsAt: { $gt: Date.now() },
+    endsAt: { $gt: Date.now() - Date.now().getTimezoneOffset() * 60000},
   }).exec();
   res.json(pogprizes);
 });
