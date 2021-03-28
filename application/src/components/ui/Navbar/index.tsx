@@ -50,13 +50,8 @@ export default function Nav() {
             <p>PogPrize</p>
           </Link>
         </div>
-<<<<<<< HEAD
-        <div className={getNavStyle('/pogspin')} onClick={logOut}>
-          <HiLogout size={20} />
-=======
         <div className={styles.navBarItem} onClick={logOut}>
           <IoMdExit size={20} />
->>>>>>> b151c78ad45d8da429b8f6ce2c3b6419bb4570c7
           <Link to={`/`} replace>
             <p>Log Out</p>
           </Link>
