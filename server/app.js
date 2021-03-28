@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
+// Gets a user from the database based on the id
 app.get("/user/:id", async (req, res, next) => {
   const user = await User.findOne({ id: req.params.id }).exec();
   if (user == null) {
@@ -23,6 +24,7 @@ app.get("/user/:id", async (req, res, next) => {
   }
 });
 
+// Adds a user to the database with a given id
 app.post("/newUser/:id", (req, res, next) => {
   const newUser = new User({
     id: req.params.id,
@@ -35,6 +37,43 @@ app.post("/newUser/:id", (req, res, next) => {
     } else {
       res.sendStatus(201);
     }
+  });
+});
+
+// Adds a PogPrize to the database with a given id
+app.post("/newPogPrize", (req, res, next) => {
+  const {
+    title,
+    description,
+    pointsPerEntry,
+    start,
+    end,
+    prizes,
+    numberOfEntries
+  } = req.body;
+
+  let prizeList = [];
+
+  prizes.forEach(prize => {
+    prizeList.append(
+      new Prize({
+        title: prize,
+        status: "Unfulfilled",
+        user: null
+      })
+    );
+  });
+
+  const newPogPrize = new PogPrize({
+    title: title,
+    description,
+    description,
+    pointsPerEntry,
+    pointsPerEntry,
+    start: start,
+    end: end,
+    prizes: prizeList,
+    numberOfEntries: numberOfEntires
   });
 });
 
