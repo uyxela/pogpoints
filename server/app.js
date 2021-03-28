@@ -118,7 +118,7 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
       }
     );
     console.log("HELLO OVER HERE", res);
-    return res.data[0].id
+    return res.data.data[0].id
 
   } catch (error) {
     console.log(error);
