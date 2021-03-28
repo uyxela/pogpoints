@@ -1,52 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './PogPrize.css';
 import Navbar from '../../components/ui/Navbar';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
-
+import { errorMonitor } from 'stream';
+import axios from 'axios';
+import env from '../../components/data/env.json'
 const PogPrize = () => {
-  interface Prize {
-    title: String;
-    description: String;
-    value?: number;
-  }
 
   const [form, setForm] = useState({
     title: '' as String,
     description: '' as String,
     pointsPerEntry: 1 as number,
-    prize: [] as Prize[],
-    endsAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split(':').splice(0,2).join(':') as String,
-    numPrizes: 1 as number,
+    prizeDescription: '' as String,
+    endsAt: new Date(
+      new Date().getTime() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .split(':')
+      .splice(0, 2)
+      .join(':') as String,
+    numberOfPrizes: 1 as number,
   });
 
-  const handleNameChange = (e: any) => {
-    console.log(e.target.value);
-    if (e.target.id === 'numPrizes') {
-      if (e.target.value > 10) {
-        setForm({
-          ...form,
-          [e.target.id]: 10,
-        });
-      } else if (e.target.value < 1) {
-        setForm({
-          ...form,
-          [e.target.id]: 1,
-        });
-      } else {
-        setForm({
-          ...form,
-          [e.target.id]: e.target.value,
-        });
-      }
-    } else {
-      setForm({
-        ...form,
-        [e.target.id]: e.target.value,
-      });
+  const [error, setError] = useState({
+    title: false,
+    description: false,
+    pointsPerEntry: false,
+    prizeDescription: false,
+    endsAt: false,
+    numberOfPrizes: false,
+  });
+
+
+  const valerrorHandler = () => {
+    let numErrors = 0;
+    setError({
+      ...error,
+      title: (form.title.length < 1)?true:false,
+      description:(form.description.length < 1)?true:false,
+      numberOfPrizes:(form.numberOfPrizes < 1 || form.numberOfPrizes > 10)?true:false,
+      prizeDescription:(form.prizeDescription.length < 1)?true:false,
+      pointsPerEntry:(form.pointsPerEntry < 1)?true:false
+    })
+
+    if (form.title.length < 1 || form.description.length < 1 || form.numberOfPrizes < 1 || form.numberOfPrizes > 10 || form.prizeDescription.length < 1 || pointsPerEntry < 1) {
+      return false;
     }
+    return true;
+  }
+
+  const handleSubmit = () => {
+    if(valerrorHandler()){
+      axios.post(`${env.url}/newPogPrize`,JSON.stringify(form)).then(res => {
+        console.log(res);
+        if (res.status == 201) {
+          window.location.replace('/pogprizeprogress');
+        } else {
+          // error
+        }
+      })
+    }
+  }
+
+  const handleNameChange = (e: any) => {
+    setError({
+      ...error,
+      [e.target.id]:false
+    })
+    setForm({
+      ...form,
+      [e.target.id]: e.target.value,
+    });
   };
 
   return (
@@ -62,21 +89,22 @@ const PogPrize = () => {
             </Grid>
             <Grid item xs>
               <TextField
-                id="prize"
+                id="prizeDescription"
                 label="Prize Description"
-                value={form.prize}
+                value={form.prizeDescription}
                 variant="filled"
                 onChange={handleNameChange}
                 className={styles.textinput}
                 color="primary"
                 fullWidth
+                error={error.prizeDescription}
               />
             </Grid>
             <Grid item xs>
               <TextField
-                id="numPrizes"
+                id="numberOfPrizes"
                 label="Number of prizes (1-10)"
-                value={form.numPrizes}
+                value={form.numberOfPrizes}
                 variant="filled"
                 onChange={handleNameChange}
                 className={styles.textinput}
@@ -84,6 +112,7 @@ const PogPrize = () => {
                 type="number"
                 inputProps={{ min: '1', max: '10', step: '1' }}
                 fullWidth
+                error={error.numberOfPrizes}
               />
             </Grid>
             <Grid item xs>
@@ -97,6 +126,7 @@ const PogPrize = () => {
                 color="primary"
                 type="number"
                 fullWidth
+                error={error.pointsPerEntry}
               />
             </Grid>
             <Grid item xs>
@@ -110,16 +140,30 @@ const PogPrize = () => {
                 color="primary"
                 type="datetime-local"
                 defaultValue={form.endsAt}
-                inputProps={{min:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split(':').splice(0,2).join(':') as String}}
+                inputProps={{
+                  min: new Date(
+                    new Date().getTime() -
+                      new Date().getTimezoneOffset() * 60000
+                  )
+                    .toISOString()
+                    .split(':')
+                    .splice(0, 2)
+                    .join(':') as String,
+                }}
                 fullWidth
+                error={error.endsAt}
               />
             </Grid>
             <Grid item xs style={{ marginTop: '5%' }}>
-              <Link to={`/pogprizeprogress`} replace>
-                <Button className={styles.buttonStyle} size="large">
+              {/* <Link to={`/pogprizeprogress`} replace> */}
+                <Button
+                  className={styles.buttonStyle}
+                  size="large"
+                  onClick={handleSubmit}
+                >
                   Start
                 </Button>
-              </Link>
+              {/* </Link> */}
             </Grid>
           </Grid>
         </Grid>
@@ -134,6 +178,7 @@ const PogPrize = () => {
                 onChange={handleNameChange}
                 color="primary"
                 fullWidth
+                error={error.title}
               />
             </Grid>
             <Grid item xs>
@@ -147,6 +192,8 @@ const PogPrize = () => {
                 color="primary"
                 fullWidth
                 multiline
+                rows={8}
+                error={error.description}
               />
             </Grid>
           </Grid>
@@ -176,7 +223,6 @@ const PogPrize = () => {
         </Grid>
         <Grid item xs={0.5} />
       </Grid>
-
     </div>
   );
 };
