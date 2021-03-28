@@ -18,16 +18,35 @@ const PogPrize = () => {
     description: '' as String,
     pointsPerEntry: 1 as number,
     prize: [] as Prize[],
-    endsAt: new Date() as Date,
+    endsAt: new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split(':').splice(0,2).join(':') as String,
     numPrizes: 1 as number,
   });
 
   const handleNameChange = (e: any) => {
-    setForm({
-      ...form,
-      [e.target.id]: e.target.value,
-    });
-    console.log();
+    console.log(e.target.value);
+    if (e.target.id === 'numPrizes') {
+      if (e.target.value > 10) {
+        setForm({
+          ...form,
+          [e.target.id]: 10,
+        });
+      } else if (e.target.value < 1) {
+        setForm({
+          ...form,
+          [e.target.id]: 1,
+        });
+      } else {
+        setForm({
+          ...form,
+          [e.target.id]: e.target.value,
+        });
+      }
+    } else {
+      setForm({
+        ...form,
+        [e.target.id]: e.target.value,
+      });
+    }
   };
 
   return (
@@ -63,7 +82,7 @@ const PogPrize = () => {
                 className={styles.textinput}
                 color="primary"
                 type="number"
-                InputProps={{ inputProps: { min: 1, max: 10 } }}
+                inputProps={{ min: '1', max: '10', step: '1' }}
                 fullWidth
               />
             </Grid>
@@ -90,6 +109,8 @@ const PogPrize = () => {
                 className={styles.textinput}
                 color="primary"
                 type="datetime-local"
+                defaultValue={form.endsAt}
+                inputProps={{min:new Date(new Date().getTime() - (new Date().getTimezoneOffset() * 60000)).toISOString().split(':').splice(0,2).join(':') as String}}
                 fullWidth
               />
             </Grid>
@@ -155,26 +176,7 @@ const PogPrize = () => {
         </Grid>
         <Grid item xs={0.5} />
       </Grid>
-      {/* <div className={styles.minicontainer}>
-        <h1 className={styles.title}>PogPrizes</h1>
-        <p className={styles.text}>Set up draws using PogPrizes</p>
-      </div>
 
-      <div className={styles.content}>
-        <div className={styles.column}>
-
-          <Link to={`/pogprizeprogress`} replace>
-          <Button className={styles.buttonStyle} size="large">
-            Start
-          </Button>
-          </Link>
-        </div>
-
-        <div className={styles.column}>
-
-
-        </div>
-      </div> */}
     </div>
   );
 };
