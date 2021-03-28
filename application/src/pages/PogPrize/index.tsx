@@ -95,7 +95,6 @@ const PogPrize = () => {
         // endsAt: Date.parse(form.endsAt)
       };
 
-      console.log(typeof formData);
       axios
         .post(`${env.url}/newPogPrize`, formData, {
           headers: {
@@ -105,30 +104,28 @@ const PogPrize = () => {
         .then((res) => {
           console.log(res);
           if (res.status == 201) {
-            history.push('/pogprizeprogress');
-            // window.location.replace('/pogprizeprogress');
+            axios
+              .post(
+                `${env.url}/createWebhook/${form.broadcaster}`,
+                {
+                  accessToken: form.accesstoken,
+                },
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              )
+              .then((res1) => {
+                console.log(res1);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           } else {
             // error
-            console.log(res.message);
+            console.log(res);
           }
-        });
-      axios
-        .post(
-          `${env.url}/createWebhook/${form.broadcaster}`,
-          {
-            accessToken: form.accesstoken,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.log(error);
         });
     }
   };

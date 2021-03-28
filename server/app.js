@@ -13,46 +13,58 @@ app.use(express.json());
 app.use(middleware.requestLogger);
 
 app.post("/createWebhook/:broadcasterId", (req, res) => {
-  var createWebHookParams = {
-    host: "api.twitch.tv",
-    path: "helix/eventsub/subscriptions",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Client-ID": process.env.CLIENT_ID,
-      Authorization: "Bearer " + req.body.accessToken,
-    },
-  };
-  var createWebHookBody = {
-    type: "channel.follow",
-    version: "1",
-    condition: {
-      broadcaster_user_id: req.params.broadcasterId,
-    },
-    transport: {
-      method: "webhook",
-      // For testing purposes you can use an ngrok https tunnel as your callback URL
-      callback: "https://pogpoints.herokuapp.com" + "/notification", // If you change the /notification path make sure to also adjust in line 69
-      secret: process.env.CLIENT_SECRET, // Replace with your own secret
-    },
-  };
-  var responseData = "";
-  var webhookReq = https.request(createWebHookParams, (result) => {
-    result.setEncoding("utf8");
-    result
-      .on("data", function (d) {
-        responseData = responseData + d;
-      })
-      .on("end", function (result) {
-        var responseBody = JSON.parse(responseData);
-        res.send(responseBody);
-      });
-  });
-  webhookReq.on("error", (e) => {
-    console.log("Error");
-  });
-  webhookReq.write(JSON.stringify(createWebHookBody));
-  webhookReq.end();
+
+  let oauth;
+
+  axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&grant_type=client_credentials&scope=channel:read:redemptions%20channel:manage:redemptions`)
+  .then(res=>{
+    console.log(res);
+    oauth = res.data.accessToken;
+    var createWebHookParams = {
+      host: "api.twitch.tv",
+      path: "helix/eventsub/subscriptions",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-ID": process.env.CLIENT_ID,
+        Authorization: "Bearer " + req.body.accessToken,
+      },
+    };
+    var createWebHookBody = {
+      type: "channel.follow",
+      version: "1",
+      condition: {
+        broadcaster_user_id: req.params.broadcasterId,
+      },
+      transport: {
+        method: "webhook",
+        // For testing purposes you can use an ngrok https tunnel as your callback URL
+        callback: "https://pogpoints.herokuapp.com" + "/notification", // If you change the /notification path make sure to also adjust in line 69
+        secret: process.env.CLIENT_SECRET, // Replace with your own secret
+      },
+    };
+    var responseData = "";
+    var webhookReq = https.request(createWebHookParams, (result) => {
+      result.setEncoding("utf8");
+      result
+        .on("data", function (d) {
+          responseData = responseData + d;
+        })
+        .on("end", function (result) {
+          var responseBody = JSON.parse(responseData);
+          res.send(responseBody);
+        });
+    });
+    webhookReq.on("error", (e) => {
+      console.log("Error");
+    });
+    webhookReq.write(JSON.stringify(createWebHookBody));
+    webhookReq.end();
+  })
+  .catch(error=>{
+    console.log(error)
+  })
+  
 });
 
 app.post("/notification", (req, res) => {
