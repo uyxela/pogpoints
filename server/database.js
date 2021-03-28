@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-mongoose.connect(mongodb, { useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error: "));
@@ -32,6 +32,12 @@ const userSchema = new Schema({
   prizes: [prizeSchema]
 });
 
-export const Prize = mongoose.model("Prize", prizeSchema);
-export const PogPrize = mongoose.model("PogPrize", pogPrizeSchema);
-export const User = mongoose.model("User", userSchema);
+const Prize = mongoose.model("Prize", prizeSchema);
+const PogPrize = mongoose.model("PogPrize", pogPrizeSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = {
+  Prize,
+  PogPrize,
+  User
+};

@@ -12,12 +12,15 @@ app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
-app.get("/", (req, res, next) => {
-  res.json({ pog: "points" });
-});
-
 app.get("/user/:id", async (req, res, next) => {
-  return await User.findOne({ id: req.params.id }).exec();
+  const user = await User.findOne({ id: req.params.id }).exec();
+  if (user == null) {
+    res.json({
+      response: null
+    });
+  } else {
+    res.json(user);
+  }
 });
 
 app.post("/newUser/:id", (req, res, next) => {
@@ -29,6 +32,10 @@ app.post("/newUser/:id", (req, res, next) => {
   newUser.save(err => {
     console.log(err);
   });
+});
+
+app.get("/", (req, res, next) => {
+  res.json({ pog: "points" });
 });
 
 app.use(middleware.unknownEndpoint);
