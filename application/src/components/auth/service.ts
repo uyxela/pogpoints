@@ -48,7 +48,9 @@ export async function checkUser() {
     const userData = await getUser();
     // console.log(userData);
     const response = await axios.get(`${apiUrl}/user/${userData.id}`);
-    if (response.id == -1) {
+    console.log(response);
+    if (response.data.id == -1) {
+        console.log("hi");
         await axios.post(`${apiUrl}/newUser/${userData.id}`);
     }
 }

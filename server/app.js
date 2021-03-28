@@ -30,9 +30,12 @@ app.post("/newUser/:id", (req, res, next) => {
     prizes: []
   });
   newUser.save(err => {
-    console.log(err);
+    if (err) {
+      console.log(err);
+    } else {
+      res.sendStatus(201);
+    }
   });
-  res.sendStatus(201);
 });
 
 app.get("/", (req, res, next) => {
