@@ -36,33 +36,33 @@ const PogPrize = () => {
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={4}>
-          <Grid container direction="column">
+          <Grid container direction="column" >
             <Grid item xs>
               <h1 className={styles.title}>PogPrizes</h1>
               <p className={styles.text}>Set up draws using PogPrizes</p>
             </Grid>
             <Grid item xs>
-              <TextField
-                id="title"
-                label="Title"
-                value={form.title}
-                variant="filled"
-                onChange={handleNameChange}
-                color="primary"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="description"
-                label="Description"
-                value={form.description}
+            <TextField
+                id="prize"
+                label="Prize"
+                value={form.prize}
                 variant="filled"
                 onChange={handleNameChange}
                 className={styles.textinput}
                 color="primary"
                 fullWidth
-                multiline
+              />
+            </Grid>
+            <Grid item xs>
+            <TextField
+                id="numPrizes"
+                label="Number of prizes"
+                value={form.numPrizes}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
               />
             </Grid>
             <Grid item xs>
@@ -90,35 +90,6 @@ const PogPrize = () => {
                 fullWidth
               />
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={4}>
-          <Grid container direction="column" >
-            <Grid item xs></Grid>
-            <Grid item xs>
-              <TextField
-                id="prize"
-                label="Prize"
-                value={form.prize}
-                variant="filled"
-                onChange={handleNameChange}
-                className={styles.textinput}
-                color="primary"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="numPrizes"
-                label="Number of prizes"
-                value={form.numPrizes}
-                variant="filled"
-                onChange={handleNameChange}
-                className={styles.textinput}
-                color="primary"
-                fullWidth
-              />
-            </Grid>
             <Grid item xs style={{marginTop:"5%"}}>
               <Link to={`/pogprizeprogress`} replace>
                 <Button className={styles.buttonStyle} size="large">
@@ -126,6 +97,37 @@ const PogPrize = () => {
                 </Button>
               </Link>
             </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
+          <Grid container direction="column" style={{marginTop:"50%"}} >
+            <Grid item xs>
+            <TextField
+                id="title"
+                label="Title"
+                value={form.title}
+                variant="filled"
+                onChange={handleNameChange}
+                color="primary"
+                fullWidth
+              />
+
+            </Grid>
+            <Grid item xs>
+            <TextField
+                id="description"
+                label="Description"
+                value={form.description}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
+                multiline
+              />
+
+            </Grid>
+
           </Grid>
         </Grid>
 
