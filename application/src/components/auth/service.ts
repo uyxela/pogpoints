@@ -7,12 +7,18 @@ const {client_id, redirect_uri, response_type, scope} = env.twitch;
 const apiUrl = env.url;
 
 let accessToken: String|null = getItem('accessToken');
+let user: any = null;
 
 export function getAccessToken() {
     return accessToken;
 }
 
 export async function getUser() {
+
+    if (user) {
+        return user;
+    }
+
     let response;
 
     try {
@@ -26,6 +32,8 @@ export async function getUser() {
         console.log(error);
         return null;
     }
+
+    user = response.data.data[0];
 
     return response.data.data[0];
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.css';
-import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
 import { IoMdExit } from 'react-icons/io';
