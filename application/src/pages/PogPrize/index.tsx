@@ -19,7 +19,7 @@ const PogPrize = () => {
     pointsPerEntry: 1 as number,
     prize: [] as Prize[],
     endsAt: new Date() as Date,
-    numPrizes: -1 as number,
+    numPrizes: 1 as number,
   });
 
   const handleNameChange = (e: any) => {
@@ -36,15 +36,15 @@ const PogPrize = () => {
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={4}>
-          <Grid container direction="column" >
+          <Grid container direction="column">
             <Grid item xs>
               <h1 className={styles.title}>PogPrizes</h1>
               <p className={styles.text}>Set up draws using PogPrizes</p>
             </Grid>
             <Grid item xs>
-            <TextField
+              <TextField
                 id="prize"
-                label="Prize"
+                label="Prize Description"
                 value={form.prize}
                 variant="filled"
                 onChange={handleNameChange}
@@ -54,7 +54,7 @@ const PogPrize = () => {
               />
             </Grid>
             <Grid item xs>
-            <TextField
+              <TextField
                 id="numPrizes"
                 label="Number of prizes"
                 value={form.numPrizes}
@@ -80,17 +80,17 @@ const PogPrize = () => {
             <Grid item xs>
               <TextField
                 id="endsAt"
-                label="Duration (Minutes)"
+                label="Ends At"
                 value={form.endsAt}
                 variant="filled"
                 onChange={handleNameChange}
                 className={styles.textinput}
                 color="primary"
-                type="date"
+                type="datetime-local"
                 fullWidth
               />
             </Grid>
-            <Grid item xs style={{marginTop:"5%"}}>
+            <Grid item xs style={{ marginTop: '5%' }}>
               <Link to={`/pogprizeprogress`} replace>
                 <Button className={styles.buttonStyle} size="large">
                   Start
@@ -100,9 +100,9 @@ const PogPrize = () => {
           </Grid>
         </Grid>
         <Grid item xs={4}>
-          <Grid container direction="column" style={{marginTop:"50%"}} >
+          <Grid container direction="column" style={{ marginTop: '50%' }}>
             <Grid item xs>
-            <TextField
+              <TextField
                 id="title"
                 label="Title"
                 value={form.title}
@@ -111,10 +111,9 @@ const PogPrize = () => {
                 color="primary"
                 fullWidth
               />
-
             </Grid>
             <Grid item xs>
-            <TextField
+              <TextField
                 id="description"
                 label="Description"
                 value={form.description}
@@ -125,9 +124,7 @@ const PogPrize = () => {
                 fullWidth
                 multiline
               />
-
             </Grid>
-
           </Grid>
         </Grid>
 
