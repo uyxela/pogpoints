@@ -14,7 +14,7 @@ export default function App() {
       <Switch>
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/pogprize" component={PogPrize} />
-        <Route path="/pogspin" component={PogPrize} />
+        <Route path="/pogspin" component={PogSpin} />
         <Route path="/pogprizeprogress" component={PogPrizeProgress} />
       </Switch>
     </Router>
