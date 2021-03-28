@@ -17,9 +17,9 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
   let oauth;
 
   axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&grant_type=client_credentials&scope=channel:read:redemptions%20channel:manage:redemptions`)
-  .then(res=>{
-    console.log(res);
-    oauth = res.data.accessToken;
+  .then(oauthRes=>{
+    // console.log(res);
+    oauth = oauthRes.data.accessToken;
     var createWebHookParams = {
       host: "api.twitch.tv",
       path: "helix/eventsub/subscriptions",
