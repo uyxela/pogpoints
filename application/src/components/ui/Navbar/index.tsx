@@ -24,7 +24,7 @@ export default function Nav() {
   useEffect(() => {
     getUser().then((user) => {
       // console.log(getAccessToken());
-      console.log(user);
+      // console.log(user);
       setUser(user);
     });
   }, []);
