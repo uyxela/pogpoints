@@ -16,7 +16,11 @@ db.once("open", function () {
 const prizeSchema = new Schema({
   title: String,
   status: String,
-  user: String
+  broadcaster: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
+  viewer: String
 });
 
 const pogPrizeSchema = new Schema({
@@ -25,14 +29,39 @@ const pogPrizeSchema = new Schema({
   pointsPerEntry: Number,
   start: { type: Date, default: Date.now },
   end: { type: Date },
-  prizes: [prizeSchema],
-  numberOfEntries: Number
+  prizes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Prize"
+    }
+  ],
+  numberOfEntries: Number,
+  entries: [
+    {
+      time: { type: Date },
+      viewer: String
+    }
+  ],
+  broadcaster: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 const userSchema = new Schema({
-  id: String,
-  pogPrizes: [pogPrizeSchema],
-  prizes: [prizeSchema]
+  twitchid: String,
+  pogPrizes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "PogPrize"
+    }
+  ],
+  prizes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Prizes"
+    }
+  ]
 });
 
 const Prize = mongoose.model("Prize", prizeSchema);

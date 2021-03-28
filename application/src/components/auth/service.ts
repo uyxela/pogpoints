@@ -48,9 +48,9 @@ export async function checkUser() {
     const userData = await getUser();
     // console.log(userData);
     const response = await axios.get(`${apiUrl}/user/${userData.id}`);
-    console.log(response);
-    if (response.data.id == -1) {
-        console.log("hi");
+    // console.log(response);
+    if (response.data.twitchid == -1) {
+        // console.log("new user");
         await axios.post(`${apiUrl}/newUser/${userData.id}`);
     }
 }

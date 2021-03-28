@@ -14,10 +14,10 @@ app.use(middleware.requestLogger);
 
 // Gets a user from the database based on the id
 app.get("/user/:id", async (req, res, next) => {
-  const user = await User.findOne({ id: req.params.id }).exec();
+  const user = await User.findOne({ twitchid: req.params.id }).exec();
   if (user == null) {
     res.json({
-      id: -1
+      twitchid: -1
     });
   } else {
     res.json(user);
@@ -27,7 +27,7 @@ app.get("/user/:id", async (req, res, next) => {
 // Adds a user to the database with a given id
 app.post("/newUser/:id", (req, res, next) => {
   const newUser = new User({
-    id: req.params.id,
+    twitchid: req.params.id,
     pogPrizes: [],
     prizes: []
   });
@@ -41,40 +41,46 @@ app.post("/newUser/:id", (req, res, next) => {
 });
 
 // Adds a PogPrize to the database with a given id
-app.post("/newPogPrize", (req, res, next) => {
+app.post("/newPogPrize", async (req, res, next) => {
   const {
     title,
     description,
     pointsPerEntry,
-    start,
     end,
     prizes,
-    numberOfEntries
+    numberOfEntries,
+    broadcaster
   } = req.body;
+
+  const broadcasterObject = await User.findOne({ twitchid: broadcaster });
 
   let prizeList = [];
 
   prizes.forEach(prize => {
-    prizeList.append(
+    prizeList.push(
       new Prize({
         title: prize,
         status: "Unfulfilled",
-        user: null
+        broadcaster: broadcasterObject,
+        viewer: null
       })
     );
   });
 
   const newPogPrize = new PogPrize({
     title: title,
-    description,
-    description,
-    pointsPerEntry,
-    pointsPerEntry,
-    start: start,
+    description: description,
+    pointsPerEntry: pointsPerEntry,
+    start: Date.now(),
     end: end,
     prizes: prizeList,
-    numberOfEntries: numberOfEntires
+    numberOfEntries: numberOfEntries,
+    entries: [],
+    broadcaster: broadcasterObject
   });
+
+  await newPogPrize.save();
+  res.status(201);
 });
 
 app.get("/", (req, res, next) => {
