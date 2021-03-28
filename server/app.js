@@ -201,11 +201,13 @@ app.post("/newPogPrize", async (req, res, next) => {
 app.get("/activepogprize/:id", async (req, res, next) => {
   const twitchid = req.params.id;
   const broadcaster = await User.findOne({ twitchid: twitchid });
-  const pogprizes = await PogPrize.findOne({
-    broadcaster: broadcaster,
-    endsAt: { $gt: Date.now() - Date.now().getTimezoneOffset() * 60000},
+  const pogprizes = await PogPrize.find({
+    broadcaster: broadcaster
   }).exec();
-  res.json(pogprizes);
+  const pogprize = pogprizes.filter(pogprize => 
+    pogprize.endsAt - pogprize.start > 0
+  )
+  res.json(pogprize);
 });
 
 app.get("/pogprizes/:id", async (req, res, next) => {
