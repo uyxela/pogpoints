@@ -4,6 +4,7 @@ import env from "../data/env.json";
 import {getItem, setItem, deleteItem} from '../data/Store';
 
 const {client_id, redirect_uri, response_type, scope} = env.twitch;
+const apiUrl = env.url;
 
 let accessToken: String|null = getItem('accessToken');
 
@@ -41,6 +42,18 @@ export function handleCallback(callbackURL: String) {
     accessToken=result;
     setItem('accessToken', result);
     return urlParts.query;
+}
+
+export async function getUserDB(id: String) {
+    return await User.findOne({id: id}).exec();
+}
+
+export async function checkUser() {
+    const userData = await getUser();
+    const user = await axios.get(`${apiUrl}/user/${userData.id}`);
+    if (user == null) {
+        axios.get(`${apiUrl}/newUser/${userData.id}`);
+    }
 }
 
 export const validateToken = async () => {

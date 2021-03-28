@@ -255,6 +255,7 @@
     "electron-store": "^7.0.2",
     "electron-updater": "^4.3.4",
     "history": "^5.0.0",
+    "mongoose": "^5.12.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",

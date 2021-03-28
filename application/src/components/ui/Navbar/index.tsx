@@ -6,7 +6,7 @@ import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
 import { GiShipWheel } from 'react-icons/gi';
 import { useLocation } from 'react-router-dom';
-import { getAccessToken, getUser } from '../../auth/service';
+import { getUser } from '../../auth/service';
 
 export default function Nav() {
   const location = useLocation();
