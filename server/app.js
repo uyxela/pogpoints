@@ -147,14 +147,11 @@ app.post("/newPogPrize", async (req, res, next) => {
   };
 
   const rewardBody = {
-    title: `${title} - One Ticket`,
+    title: `${title} - One Entry`,
     prompt: prizeDescription,
     cost: pointsPerEntry,
     is_enabled: true,
-    is_global_cooldown_enabled: true,
-    global_cooldown_seconds: Math.floor(
-      (new Date(endsAt).getTime() - new Date().getTime()) / 1000
-    ),
+    should_redemptions_skip_request_queue:true
   };
 
   const rewardId = await addCustomReward(
@@ -173,7 +170,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     numberOfPrizes: numberOfPrizes,
     entries: [],
     broadcaster: broadcasterObject,
-    reward: rewardId,
+    rewardId: rewardId,
   });
 
   await newPogPrize.save();
