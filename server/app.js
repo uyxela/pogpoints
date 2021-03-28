@@ -5,13 +5,68 @@ const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 const axios = require("axios");
 const { User, PogPrize, Prize } = require("./database");
-
+const https = require("https");
 logger.info("connecting to", process.env.MONGODB_URI);
 
 app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
+app.post("/createWebhook/:broadcasterId", (req, res) => {
+  var createWebHookParams = {
+    host: "api.twitch.tv",
+    path: "helix/eventsub/subscriptions",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Client-ID": process.env.CLIENT_ID,
+      Authorization: "Bearer " + req.params.accessToken,
+    },
+  };
+  var createWebHookBody = {
+    type: "channel.follow",
+    version: "1",
+    condition: {
+      broadcaster_user_id: req.params.broadcaster,
+    },
+    transport: {
+      method: "webhook",
+      // For testing purposes you can use an ngrok https tunnel as your callback URL
+      callback: "https://pogpoints.herokuapp.com" + "/notification", // If you change the /notification path make sure to also adjust in line 69
+      secret: process.env.CLIENT_SECRET, // Replace with your own secret
+    },
+  };
+  var responseData = "";
+  var webhookReq = https.request(createWebHookParams, (result) => {
+    result.setEncoding("utf8");
+    result
+      .on("data", function (d) {
+        responseData = responseData + d;
+      })
+      .on("end", function (result) {
+        var responseBody = JSON.parse(responseData);
+        res.send(responseBody);
+      });
+  });
+  webhookReq.on("error", (e) => {
+    console.log("Error");
+  });
+  webhookReq.write(JSON.stringify(createWebHookBody));
+  webhookReq.end();
+});
+
+app.post("/notification", (req, res) => {
+  if (
+    req.header("Twitch-Eventsub-Message-Type") ===
+    "webhook_callback_verification"
+  ) {
+    console.log(req.body.challenge);
+    res.send(req.body.challenge); // Returning a 200 status with the received challenge to complete webhook creation flow
+  } else if (req.header("Twitch-Eventsub-Message-Type") === "notification") {
+    console.log(req.body.event); // Implement your own use case with the event data at this block
+    res.send(""); // Default .send is a 200 status
+  }
+});
 // Gets a user from the database based on the id
 app.get("/user/:id", async (req, res, next) => {
   const user = await User.findOne({ twitchid: req.params.id }).exec();
@@ -44,7 +99,8 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
   try {
     let { body } = await axios.post(
       `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${id}`,
-      {headers:rewardHeaders,
+      {
+        headers: rewardHeaders,
         body: JSON.stringify(rewardBody),
         responseType: "json",
       }
@@ -67,17 +123,17 @@ app.post("/newPogPrize", async (req, res, next) => {
     prizeDescription,
     numberOfPrizes,
     broadcaster,
-    accesstoken
+    accesstoken,
   } = req.body;
 
   const broadcasterObject = await User.findOne({ twitchid: broadcaster });
-  
+
   const rewardHeaders = {
-    "Authorization": `Bearer ${accessToken}`,
+    Authorization: `Bearer ${accessToken}`,
     "Client-ID": process.env.CLIENT_ID,
-    "Content-Type": "application/json"
-  }
-  
+    "Content-Type": "application/json",
+  };
+
   const rewardBody = {
     title: `${title} - One Ticket`,
     prompt: description,
@@ -89,7 +145,11 @@ app.post("/newPogPrize", async (req, res, next) => {
     ),
   };
 
-  const rewardId = await addCustomReward(broadcaster, rewardBody, rewardHeaders)
+  const rewardId = await addCustomReward(
+    broadcaster,
+    rewardBody,
+    rewardHeaders
+  );
 
   const newPogPrize = new PogPrize({
     title: title,
@@ -101,7 +161,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     numberOfPrizes: numberOfPrizes,
     entries: [],
     broadcaster: broadcasterObject,
-    reward: rewardId
+    reward: rewardId,
   });
 
   await newPogPrize.save();
@@ -110,7 +170,6 @@ app.post("/newPogPrize", async (req, res, next) => {
   // await broadcasterObject.save();
 
   // create new custom reward with twitch
-  
 
   res.status(201).json(newPogPrize);
 });

@@ -7,8 +7,12 @@ import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import env from '../../components/data/env.json';
-import {getUserID, checkActivePogprize,getAccessToken} from '../../components/auth/service';
-import { useHistory } from "react-router-dom";
+import {
+  getUserID,
+  checkActivePogprize,
+  getAccessToken,
+} from '../../components/auth/service';
+import { useHistory } from 'react-router-dom';
 
 const PogPrize = () => {
   const history = useHistory();
@@ -26,25 +30,25 @@ const PogPrize = () => {
       .join(':') as String,
     numberOfPrizes: 1 as number,
     broadcaster: '' as String,
-    accesstoken:'' as String,
+    accesstoken: '' as String,
   });
 
   useEffect(() => {
     checkActivePogprize().then((res: any) => {
       if (res !== null) {
-        history.push("/pogprizeprogress");
+        history.push('/pogprizeprogress');
       }
-    })
+    });
 
-    getUserID().then(userid => {
-        console.log(userid, getAccessToken())
-        setForm({
-          ...form,
-          broadcaster: userid,
-          accesstoken:getAccessToken()
-      })
-    })
-  }, [])
+    getUserID().then((userid) => {
+      console.log(userid, getAccessToken());
+      setForm({
+        ...form,
+        broadcaster: userid,
+        accesstoken: getAccessToken(),
+      });
+    });
+  }, []);
 
   const [error, setError] = useState({
     title: false,
@@ -55,57 +59,74 @@ const PogPrize = () => {
     numberOfPrizes: false,
   });
 
-
   const valerrorHandler = () => {
     let numErrors = 0;
     setError({
       ...error,
-      title: (form.title.length < 1)?true:false,
-      description:(form.description.length < 1)?true:false,
-      numberOfPrizes:(form.numberOfPrizes < 1 || form.numberOfPrizes > 10)?true:false,
-      prizeDescription:(form.prizeDescription.length < 1)?true:false,
-      pointsPerEntry:(form.pointsPerEntry < 1)?true:false
-    })
+      title: form.title.length < 1 ? true : false,
+      description: form.description.length < 1 ? true : false,
+      numberOfPrizes:
+        form.numberOfPrizes < 1 || form.numberOfPrizes > 10 ? true : false,
+      prizeDescription: form.prizeDescription.length < 1 ? true : false,
+      pointsPerEntry: form.pointsPerEntry < 1 ? true : false,
+    });
 
-    if (form.title.length < 1 || form.description.length < 1 || form.numberOfPrizes < 1 || form.numberOfPrizes > 10 || form.prizeDescription.length < 1 || pointsPerEntry < 1) {
+    if (
+      form.title.length < 1 ||
+      form.description.length < 1 ||
+      form.numberOfPrizes < 1 ||
+      form.numberOfPrizes > 10 ||
+      form.prizeDescription.length < 1 ||
+      pointsPerEntry < 1
+    ) {
       return false;
     }
     return true;
-  }
+  };
 
   const handleSubmit = () => {
-    if(valerrorHandler()){
+    if (valerrorHandler()) {
       console.log(error);
       let formData = {
         ...form,
         pointsPerEntry: parseInt(form.pointsPerEntry),
         numberOfPrizes: parseInt(form.numberOfPrizes),
         // endsAt: Date.parse(form.endsAt)
-      }
+      };
 
       console.log(typeof formData);
-      axios.post(`${env.url}/newPogPrize`,formData,{
-        headers:{
-          'Content-Type':'application/json'
-        }
-      }).then(res => {
-        console.log(res);
-        if (res.status == 201) {
-          history.push('/pogprizeprogress')
-          // window.location.replace('/pogprizeprogress');
-        } else {
-          // error
-          console.log(res.message);
-        }
-      })
+      axios
+        .post(`${env.url}/newPogPrize`, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status == 201) {
+            history.push('/pogprizeprogress');
+            // window.location.replace('/pogprizeprogress');
+          } else {
+            // error
+            console.log(res.message);
+          }
+        });
+      axios
+        .post(`${env.url}/createWebhook/${form.broadcaster}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  }
+  };
 
   const handleNameChange = (e: any) => {
     setError({
       ...error,
-      [e.target.id]:false
-    })
+      [e.target.id]: false,
+    });
     setForm({
       ...form,
       [e.target.id]: e.target.value,
@@ -192,13 +213,13 @@ const PogPrize = () => {
             </Grid>
             <Grid item xs style={{ marginTop: '5%' }}>
               {/* <Link to={`/pogprizeprogress`} replace> */}
-                <Button
-                  className={styles.buttonStyle}
-                  size="large"
-                  onClick={handleSubmit}
-                >
-                  Start
-                </Button>
+              <Button
+                className={styles.buttonStyle}
+                size="large"
+                onClick={handleSubmit}
+              >
+                Start
+              </Button>
               {/* </Link> */}
             </Grid>
           </Grid>
