@@ -27,7 +27,7 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
       headers: {
         "Content-Type": "application/json",
         "Client-ID": process.env.CLIENT_ID,
-        Authorization: "Bearer " + req.body.accessToken,
+        Authorization: "Bearer " + oauth,
       },
     };
     var createWebHookBody = {
@@ -135,7 +135,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     prizeDescription,
     numberOfPrizes,
     broadcaster,
-    accesstoken,
+    accessToken,
   } = req.body;
 
   const broadcasterObject = await User.findOne({ twitchid: broadcaster });
