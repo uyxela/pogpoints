@@ -4,7 +4,7 @@ import styles from './Navbar.css';
 import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
-import { GiShipWheel } from 'react-icons/gi';
+import { HiLogout } from 'react-icons/hi';
 import { useLocation } from 'react-router-dom';
 import { getUser, logOut } from '../../auth/service';
 
@@ -52,7 +52,7 @@ export default function Nav() {
           </Link>
         </div>
         <div className={getNavStyle('/pogspin')} onClick={logOut}>
-          <GiShipWheel size={20} />
+          <HiLogout size={20} />
           <Link to={`/`} replace>
             <p>Log Out</p>
           </Link>
