@@ -20,14 +20,14 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
     headers: {
       "Content-Type": "application/json",
       "Client-ID": process.env.CLIENT_ID,
-      Authorization: "Bearer " + req.params.accessToken,
+      Authorization: "Bearer " + req.body.accessToken,
     },
   };
   var createWebHookBody = {
-    type: "channel.follow",
+    type: "channel.channel_points_custom_reward_redemption.add",
     version: "1",
     condition: {
-      broadcaster_user_id: req.params.broadcaster,
+      broadcaster_user_id: req.params.broadcasterId,
     },
     transport: {
       method: "webhook",

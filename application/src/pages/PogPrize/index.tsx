@@ -35,7 +35,8 @@ const PogPrize = () => {
 
   useEffect(() => {
     checkActivePogprize().then((res: any) => {
-      if (res !== null) {
+      // console.log(res)
+      if (res.data !== null) {
         history.push('/pogprizeprogress');
       }
     });
@@ -112,7 +113,17 @@ const PogPrize = () => {
           }
         });
       axios
-        .post(`${env.url}/createWebhook/${form.broadcaster}`)
+        .post(
+          `${env.url}/createWebhook/${form.broadcaster}`,
+          {
+            accessToken: form.accesstoken,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
         })
