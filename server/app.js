@@ -32,6 +32,7 @@ app.post("/newUser/:id", (req, res, next) => {
   newUser.save(err => {
     console.log(err);
   });
+  res.sendStatus(201);
 });
 
 app.get("/", (req, res, next) => {
