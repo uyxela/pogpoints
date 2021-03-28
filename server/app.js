@@ -55,6 +55,10 @@ app.post("/newPogPrize", async (req, res, next) => {
   const broadcasterObject = await User.findOne({ twitchid: broadcaster });
   // console.log(broadcasterObject);
 
+  console.log(endsAt);
+  console.log(typeof endsAt);
+  console.log(Date.parse(endsAt));
+
   const newPogPrize = new PogPrize({
     title: title,
     description: description,
