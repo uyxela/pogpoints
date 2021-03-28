@@ -6,7 +6,7 @@ import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
 import { GiShipWheel } from 'react-icons/gi';
 import { useLocation } from 'react-router-dom';
-import { getUser } from '../../auth/service';
+import { getUser, logOut } from '../../auth/service';
 
 export default function Nav() {
   const location = useLocation();
@@ -51,10 +51,10 @@ export default function Nav() {
             <p>PogPrize</p>
           </Link>
         </div>
-        <div className={getNavStyle('/pogspin')}>
+        <div className={getNavStyle('/pogspin')} onClick={logOut}>
           <GiShipWheel size={20} />
-          <Link to={`/pogspin`} replace>
-            <p>PogSpin</p>
+          <Link to={`/`} replace>
+            <p>Log Out</p>
           </Link>
         </div>
       </div>

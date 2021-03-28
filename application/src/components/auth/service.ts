@@ -44,10 +44,6 @@ export function handleCallback(callbackURL: String) {
     return urlParts.query;
 }
 
-export async function getUserDB(id: String) {
-    return await User.findOne({id: id}).exec();
-}
-
 export async function checkUser() {
     const userData = await getUser();
     const user = await axios.get(`${apiUrl}/user/${userData.id}`);
@@ -71,4 +67,9 @@ export const validateToken = async () => {
     }
 
     return true;
+}
+
+export const logOut = () => {
+    deleteItem('accessToken');
+    accessToken = null;
 }
