@@ -4,6 +4,7 @@ import Navbar from '../../components/ui/Navbar';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 
 const PogPrize = () => {
   interface Prize {
@@ -18,8 +19,7 @@ const PogPrize = () => {
     pointsPerEntry: 1 as number,
     prize: [] as Prize[],
     endsAt: new Date() as Date,
-    maxEntries: -1 as number,
-    maxEntriesPerViewer: -1 as number,
+    numPrizes: -1 as number,
   });
 
   const handleNameChange = (e: any) => {
@@ -33,54 +33,134 @@ const PogPrize = () => {
   return (
     <div className={styles.container}>
       <Navbar />
-      <div className={styles.minicontainer}>
+      <Grid container spacing={3} style={{ marginTop: '2%' }}>
+        <Grid item xs={0.5} />
+        <Grid item xs={4}>
+          <Grid container direction="column">
+            <Grid item xs>
+              <h1 className={styles.title}>PogPrizes</h1>
+              <p className={styles.text}>Set up draws using PogPrizes</p>
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="title"
+                label="Title"
+                value={form.title}
+                variant="filled"
+                onChange={handleNameChange}
+                color="primary"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="description"
+                label="Description"
+                value={form.description}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
+                multiline
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="pointsPerEntry"
+                label="Points per entry"
+                value={form.pointsPerEntry}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="endsAt"
+                label="Duration (Minutes)"
+                value={form.endsAt}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                type="date"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={4}>
+          <Grid container direction="column" >
+            <Grid item xs></Grid>
+            <Grid item xs>
+              <TextField
+                id="prize"
+                label="Prize"
+                value={form.prize}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="numPrizes"
+                label="Number of prizes"
+                value={form.numPrizes}
+                variant="filled"
+                onChange={handleNameChange}
+                className={styles.textinput}
+                color="primary"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs style={{marginTop:"5%"}}>
+              <Link to={`/pogprizeprogress`} replace>
+                <Button className={styles.buttonStyle} size="large">
+                  Start
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="stretch"
+          >
+            <Grid item xs style={{ textAlign: 'center' }}>
+              <p className={styles.textsmall}>History</p>
+            </Grid>
+            <Grid
+              item
+              xs
+              style={{
+                marginTop: '3%',
+                textAlign: 'center',
+                backgroundColor: 'white',
+                borderRadius: '30px',
+              }}
+            ></Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={0.5} />
+      </Grid>
+      {/* <div className={styles.minicontainer}>
         <h1 className={styles.title}>PogPrizes</h1>
         <p className={styles.text}>Set up draws using PogPrizes</p>
       </div>
 
       <div className={styles.content}>
         <div className={styles.column}>
-          <TextField
-            id="title"
-            label="Title"
-            value={form.title}
-            variant="filled"
-            onChange={handleNameChange}
-            color="primary"
-            style={{ marginTop: '5%' }}
-            fullWidth
-          />
-          <TextField
-            id="pointsPerEntry"
-            label="Points per entry"
-            value={form.pointsPerEntry}
-            variant="filled"
-            onChange={handleNameChange}
-            className={styles.textinput}
-            color="primary"
-            fullWidth
-          />
-          <TextField
-            id="prize"
-            label="Prize"
-            value={form.prize}
-            variant="filled"
-            onChange={handleNameChange}
-            className={styles.textinput}
-            color="primary"
-            fullWidth
-          />
-          <TextField
-            id="endsAt"
-            label="Duration (Minutes)"
-            value={form.endsAt}
-            variant="filled"
-            onChange={handleNameChange}
-            className={styles.textinput}
-            color="primary"
-            type="date"
-            fullWidth
-          />
+
           <Link to={`/pogprizeprogress`} replace>
           <Button className={styles.buttonStyle} size="large">
             Start
@@ -89,40 +169,10 @@ const PogPrize = () => {
         </div>
 
         <div className={styles.column}>
-          <TextField
-            id="maxEntries"
-            label="Max Entries Total"
-            value={form.maxEntries}
-            variant="filled"
-            onChange={handleNameChange}
-            color="primary"
-            style={{ marginTop: '5%' }}
-            fullWidth
-          />
-          <TextField
-            id="maxEntriesPerViewer"
-            label="Max Entries Per Viewer"
-            value={form.maxEntriesPerViewer}
-            variant="filled"
-            onChange={handleNameChange}
-            className={styles.textinput}
-            color="primary"
-            fullWidth
-          />
-          <TextField
-            id="description"
-            label="Description"
-            value={form.description}
-            variant="filled"
-            onChange={handleNameChange}
-            className={styles.textinput}
-            color="primary"
-            fullWidth
-            multiline
-          />
+
 
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import styles from './Navbar.css';
 import DefaultProfile from '../../../../assets/images/default-profile.png';
 import { FaHome } from 'react-icons/fa';
 import { MdCasino } from 'react-icons/md';
+import { GiShipWheel } from 'react-icons/gi';
 import { useLocation } from 'react-router-dom';
 import { getUser } from '../../auth/service';
 
@@ -48,6 +49,12 @@ export default function Nav() {
           <MdCasino size={20} />
           <Link to={`/pogprize`} replace>
             <p>PogPrize</p>
+          </Link>
+        </div>
+        <div className={getNavStyle('/pogspin')}>
+          <GiShipWheel size={20} />
+          <Link to={`/pogspin`} replace>
+            <p>PogSpin</p>
           </Link>
         </div>
       </div>

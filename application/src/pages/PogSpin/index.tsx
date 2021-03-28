@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import styles from './PogPrizeProgress.css';
+import styles from './PogSpin.css';
 import Navbar from '../../components/ui/Navbar';
+import Button from '@material-ui/core/Button';
 import { Grid } from '@material-ui/core';
 import { MdTimer } from 'react-icons/md';
 import { MdPeople } from 'react-icons/md';
 import { AiFillTag} from 'react-icons/ai';
-const PogPrizeProgress = () => {
+const PogSpin = () => {
   interface Prize {
     title: String;
     description: String;
@@ -39,11 +40,13 @@ const PogPrizeProgress = () => {
           <Grid container direction="column">
             <Grid item xs >
               <h1 className={styles.title}>PogPrizes</h1>
+              <p className={styles.text}>Set up draws using PogPrizes</p>
             </Grid>
-            {/* <Grid item xs>
+
+            <Grid item xs>
               <p className={styles.text}>*Name</p>
               <p className={styles.textsmall}>*Description</p>
-            </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs>
@@ -96,4 +99,4 @@ const PogPrizeProgress = () => {
   );
 };
 
-export default PogPrizeProgress;
+export default PogSpin;
