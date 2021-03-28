@@ -153,6 +153,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     numberOfPrizes,
     broadcaster,
     accessToken,
+    active
   } = req.body;
 
   const broadcasterObject = await User.findOne({ twitchid: broadcaster });
@@ -167,7 +168,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     title: `${title} - One Entry`,
     prompt: prizeDescription,
     cost: pointsPerEntry,
-    is_enabled: true,
+    is_enabled: active,
     should_redemptions_skip_request_queue:true
   };
 
@@ -188,6 +189,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     entries: [],
     broadcaster: broadcasterObject,
     rewardId: rewardId,
+    active: active
   });
 
   await newPogPrize.save();
@@ -216,6 +218,8 @@ app.get("/pogprizes/:id", async (req, res, next) => {
   const pogprizes = await PogPrize.find({ broadcaster: broadcaster }).exec();
   res.json(pogprizes);
 });
+
+//add function to change active state of a pogprize
 
 app.get("/", (req, res, next) => {
   res.json({ pog: "points" });

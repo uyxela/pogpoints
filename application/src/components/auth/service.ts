@@ -14,7 +14,7 @@ export function getAccessToken() {
 }
 
 export async function checkActivePogprize() {
-    return await axios.get(`${apiUrl}/activepogprize/${user.id}`);
+  return await axios.get(`${apiUrl}/activepogprize/${await getUserID()}`);
 }
 
 export async function getUser() {
@@ -67,7 +67,7 @@ export function handleCallback(callbackURL: String) {
 
 export async function checkUser() {
   const userData = await getUser();
-  console.log("here", userData.id);
+  console.log('here', userData.id);
   const response = await axios.get(`${apiUrl}/user/${userData.id}`);
   //console.log(response);
   if (response.data.twitchid === -1) {
@@ -92,6 +92,16 @@ export const validateToken = async () => {
   }
 
   return true;
+};
+
+export const getEntries = async () => {
+  let res = await checkActivePogprize();
+
+  if (res.status === 200 && res.data.length == 0) {
+    return [];
+  } else {
+    return res.data[0].entries;
+  }
 };
 
 export const logOut = () => {

@@ -42,6 +42,7 @@ const pogPrizeSchema = new Schema({
     ref: "User"
   },
   rewardId: String,
+  active: Boolean,
 });
 
 const userSchema = new Schema({

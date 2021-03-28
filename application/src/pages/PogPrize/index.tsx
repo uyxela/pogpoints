@@ -31,13 +31,16 @@ const PogPrize = () => {
     numberOfPrizes: 1 as number,
     broadcaster: '' as String,
     accessToken: '' as String,
+    active: false as Boolean,
   });
 
   useEffect(() => {
     checkActivePogprize().then((res: any) => {
       // console.log(res)
-      if (res.data !== null) {
-        history.push('/pogprizeprogress');
+      if (res.data.length !== 0) {
+        if(res.data[0].active){
+          history.push('/pogprizeprogress');
+        }
       }
     });
 
@@ -98,6 +101,7 @@ const PogPrize = () => {
           .split(':')
           .splice(0, 2)
           .join(':'),
+          active: setActive(form.endsAt)
         //endsAt: Date.parse(form.endsAt)
       };
 
@@ -138,7 +142,7 @@ const PogPrize = () => {
   };
 
   const handleNameChange = (e: any) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setError({
       ...error,
       [e.target.id]: false,
@@ -147,6 +151,22 @@ const PogPrize = () => {
       ...form,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const setActive = (end) => {
+    if (
+      Date.parse(
+        new Date(end).toLocaleString('en-US', {
+          timeZone: 'UTC',
+        })
+      ) -
+        Date.now() >
+      0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
