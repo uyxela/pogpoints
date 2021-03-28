@@ -33,7 +33,7 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
         },
       };
       var createWebHookBody = {
-        type: "channel.follow",
+        type: "channel.channel_points_custom_reward_redemption.add",
         version: "1",
         condition: {
           broadcaster_user_id: req.params.broadcasterId,
