@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './PogPrizeProgress.css';
 import Navbar from '../../components/ui/Navbar';
 import { Grid } from '@material-ui/core';
 import { MdTimer } from 'react-icons/md';
 import { MdPeople } from 'react-icons/md';
 import { AiFillTag} from 'react-icons/ai';
+import {getUserID} from '../../components/auth/service';
+import axios from 'axios';
+import env from '../../components/data/env.json';
+
 const PogPrizeProgress = () => {
+  const userid = getUserID();
   interface Prize {
     title: String;
     description: String;
     value?: number;
   }
 
-  const [form, setForm] = useState({
-    title: '' as String,
-    description: '' as String,
-    pointsPerEntry: 1 as number,
-    prize: [] as Prize[],
-    endsAt: new Date() as Date,
-    maxEntries: -1 as number,
-    maxEntriesPerViewer: -1 as number,
-  });
-
-  const handleNameChange = (e: any) => {
-    setForm({
-      ...form,
-      [e.target.id]: e.target.value,
-    });
-    console.log();
-  };
+  useEffect(() => {
+    console.log(userid)
+    axios.get(`${env.url}/pogprizes/${userid}`)
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   return (
     <div className={styles.container}>

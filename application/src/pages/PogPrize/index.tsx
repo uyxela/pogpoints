@@ -5,11 +5,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
-import { errorMonitor } from 'stream';
 import axios from 'axios';
-import env from '../../components/data/env.json'
-const PogPrize = () => {
+import env from '../../components/data/env.json';
+import {getUserID} from '../../components/auth/service';
+import { useHistory } from "react-router-dom";
 
+const PogPrize = () => {
+  const history = useHistory();
   const [form, setForm] = useState({
     title: '' as String,
     description: '' as String,
@@ -23,7 +25,18 @@ const PogPrize = () => {
       .splice(0, 2)
       .join(':') as String,
     numberOfPrizes: 1 as number,
+    broadcaster: '' as String,
   });
+
+  useEffect(() => {
+    getUserID().then(userid => {
+      console.log(userid)
+      setForm({
+        ...form,
+        broadcaster: userid
+      })
+    })
+  }, [])
 
   const [error, setError] = useState({
     title: false,
@@ -54,12 +67,27 @@ const PogPrize = () => {
 
   const handleSubmit = () => {
     if(valerrorHandler()){
-      axios.post(`${env.url}/newPogPrize`,JSON.stringify(form)).then(res => {
+      console.log(error);
+      let formData = {
+        ...form,
+        pointsPerEntry: parseInt(form.pointsPerEntry),
+        numberOfPrizes: parseInt(form.numberOfPrizes),
+        // endsAt: Date.parse(form.endsAt)
+      }
+
+      console.log(typeof formData);
+      axios.post(`${env.url}/newPogPrize`,formData,{
+        headers:{
+          'Content-Type':'application/json'
+        }
+      }).then(res => {
         console.log(res);
         if (res.status == 201) {
-          window.location.replace('/pogprizeprogress');
+          history.push('/pogprizeprogress')
+          // window.location.replace('/pogprizeprogress');
         } else {
           // error
+          console.log(res.message);
         }
       })
     }
