@@ -16,7 +16,7 @@ app.get("/user/:id", async (req, res, next) => {
   const user = await User.findOne({ id: req.params.id }).exec();
   if (user == null) {
     res.json({
-      response: null
+      id: -1
     });
   } else {
     res.json(user);

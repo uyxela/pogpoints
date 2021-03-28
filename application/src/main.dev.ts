@@ -140,6 +140,7 @@ ipcMain.handle('authenticate', (event, arg) => {
 
   webRequest.onBeforeRequest(filter, async ({url}) => {
     authService.handleCallback(url);
+    authService.checkUser();
     mainWindow?.reload();
     mainWindow?.focus();
     authWin.destroy();

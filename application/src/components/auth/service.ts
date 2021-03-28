@@ -46,9 +46,10 @@ export function handleCallback(callbackURL: String) {
 
 export async function checkUser() {
     const userData = await getUser();
-    const user = await axios.get(`${apiUrl}/user/${userData.id}`);
-    if (user == null) {
-        axios.get(`${apiUrl}/newUser/${userData.id}`);
+    // console.log(userData);
+    const response = await axios.get(`${apiUrl}/user/${userData.id}`);
+    if (response.id == -1) {
+        await axios.post(`${apiUrl}/newUser/${userData.id}`);
     }
 }
 
