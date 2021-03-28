@@ -68,7 +68,7 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
     });
 });
 
-app.post("/notification", (req, res) => {
+app.post("/notification", async (req, res) => {
   if (
     req.header("Twitch-Eventsub-Message-Type") ===
     "webhook_callback_verification"
@@ -77,6 +77,22 @@ app.post("/notification", (req, res) => {
     res.send(req.body.challenge); // Returning a 200 status with the received challenge to complete webhook creation flow
   } else if (req.header("Twitch-Eventsub-Message-Type") === "notification") {
     console.log(req.body.event); // Implement your own use case with the event data at this block
+    const eventInfo = req.body.event;
+
+    const entry = {
+      time: Date.parse(eventInfo.redeemed_at),
+      viewer: eventInfo.user_id
+    }
+
+    const pogprize = await PogPrize.findOne({
+      broadcaster: eventInfo.broadcaster_user_id,
+      endsAt: { $gt: Date.now() },
+    })
+
+    pogprize.entries.push(entry);
+
+    await pogprize.save();
+
     res.send(""); // Default .send is a 200 status
   }
 });
@@ -131,6 +147,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     title,
     description,
     pointsPerEntry,
+    start,
     endsAt,
     prizeDescription,
     numberOfPrizes,
@@ -164,7 +181,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     title: title,
     description: description,
     pointsPerEntry: pointsPerEntry,
-    start: Date.now(),
+    start: Date.parse(start),
     endsAt: Date.parse(endsAt),
     prizeDescription: prizeDescription,
     numberOfPrizes: numberOfPrizes,

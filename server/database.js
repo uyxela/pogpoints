@@ -27,7 +27,7 @@ const pogPrizeSchema = new Schema({
   title: String,
   description: String,
   pointsPerEntry: Number,
-  start: { type: Date, default: Date.now },
+  start: { type: Date },
   endsAt: { type: Date },
   prizeDescription: String,
   numberOfPrizes: Number,

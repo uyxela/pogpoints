@@ -61,7 +61,6 @@ const PogPrize = () => {
   });
 
   const valerrorHandler = () => {
-    let numErrors = 0;
     setError({
       ...error,
       title: form.title.length < 1 ? true : false,
@@ -92,7 +91,14 @@ const PogPrize = () => {
         ...form,
         pointsPerEntry: parseInt(form.pointsPerEntry),
         numberOfPrizes: parseInt(form.numberOfPrizes),
-        // endsAt: Date.parse(form.endsAt)
+        start: new Date(
+          new Date().getTime() - new Date().getTimezoneOffset() * 60000
+        )
+          .toISOString()
+          .split(':')
+          .splice(0, 2)
+          .join(':'),
+        //endsAt: Date.parse(form.endsAt)
       };
 
       axios
@@ -118,6 +124,7 @@ const PogPrize = () => {
               )
               .then((res1) => {
                 console.log(res1);
+                history.push('/pogprizeprogress');
               })
               .catch((error) => {
                 console.log(error);
@@ -131,6 +138,7 @@ const PogPrize = () => {
   };
 
   const handleNameChange = (e: any) => {
+    console.log(e.target.value)
     setError({
       ...error,
       [e.target.id]: false,

@@ -46,10 +46,26 @@
   margin-left: 2%;
 }
 
+
 .text {
   font-size: 1.5em;
   margin: 0;
   margin-left: 2%;
+}
+.pogprizeTitle {
+  font-size: 1.5em;
+  margin: 0;
+  margin-left: 2%;
+  font-weight: bolder;
+  font-style: italic;
+}
+.pogprizeDesc {
+  font-size: 1.2em;
+  margin: 0;
+  margin-left: 2%;
+  margin-bottom: 10%;
+  /* font-weight: bolder; */
+  /* font-style: italic; */
 }
 .textsmall {
   font-size: 1.2em;
