@@ -9,7 +9,7 @@ const Dashboard = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <Navbar />
-        <button onClick={() => checkUser()} />
+        {/* <button onClick={() => checkUser()} /> */}
       </div>
     </div>
   );
