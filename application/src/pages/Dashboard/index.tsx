@@ -9,6 +9,7 @@ import {
   getUser,
   getPogPrizes,
   checkActivePogprize,
+  getPrizes,
 } from '../../components/auth/service';
 import { useHistory } from 'react-router-dom';
 
@@ -51,6 +52,11 @@ const Dashboard = () => {
       total += pogPrize.entries.length * pogPrize.pointsPerEntry;
     });
     return total;
+  };
+  const prizeList = () => {
+    getPrizes().then((prizes) => {
+      console.log(prizes);
+    });
   };
   const cardStyle = {
     backgroundColor: 'white',
