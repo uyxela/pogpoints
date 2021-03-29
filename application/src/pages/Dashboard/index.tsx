@@ -12,6 +12,11 @@ import {
   getPrizes,
   redeemReward,
 } from '../../components/auth/service';
+import {
+  openEntries,
+  openPogPrizeInfo,
+  openPrizeQueue,
+} from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -226,12 +231,18 @@ const Dashboard = () => {
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
-              <p className="dashboardTextsmall">Past PogPrizes</p>
+              <p className="dashboardTextsmall">Shortcuts</p>
             </Grid>
             <Grid item xs style={cardStyle}>
-              {/* <p className="dashboardCardSub">Viewers entered:</p>
-                  <p className="dashboardCardMain">{totalEntries()}</p>
-                  <p className="dashboardCardSub">times</p> */}
+                {/* <Link to={`/pogprizeprogress`} replace> */}
+                <Button
+                  className="pogprizeButtonStyle"
+                  size="large"
+                  onClick={openEntries}
+                >
+                  Open Entries
+                </Button>
+                {/* </Link> */}
             </Grid>
           </Grid>
         </Grid>

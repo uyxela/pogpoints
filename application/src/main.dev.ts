@@ -17,7 +17,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 
-const authService = require("./components/auth/service");
+const authService = require('./components/auth/service');
 
 export default class AppUpdater {
   constructor() {
@@ -86,7 +86,7 @@ const createWindow = async () => {
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
-    console.log(mainWindow.webContents.getURL())
+    console.log(mainWindow.webContents.getURL());
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
@@ -120,67 +120,131 @@ ipcMain.handle('authenticate', (event, arg) => {
   const authWin: BrowserWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    title: "Log In - Twitch",
+    title: 'Log In - Twitch',
     webPreferences: {
-      nodeIntegration: false
-    }
-
+      nodeIntegration: false,
+    },
   });
 
   authWin.loadURL(authService.getAuthenticationURL());
   authWin.show();
   authWin.focus();
 
-  const {session: {webRequest}} = authWin.webContents;
+  const {
+    session: { webRequest },
+  } = authWin.webContents;
 
   const filter = {
-    urls: [
-      'http://localhost/callback*'
-    ]
+    urls: ['http://localhost/callback*'],
   };
 
-  webRequest.onBeforeRequest(filter, async ({url}) => {
+  webRequest.onBeforeRequest(filter, async ({ url }) => {
     authService.handleCallback(url);
     authService.checkUser();
     mainWindow?.reload();
     mainWindow?.focus();
     authWin.destroy();
   });
-})
+});
 
-// ipcMain.handle('fulfill', (event, arg) => {
+ipcMain.handle('entries', (event, arg) => {
+  const entriesWindow: BrowserWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: `Viewer Entries`,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+    },
+  });
 
-//   const fulfillWindow: BrowserWindow = new BrowserWindow({
-//     width: 800,
-//     height: 600,
-//     title: `Fulfill Reward`,
-//     webPreferences: {
-//       nodeIntegration: true,
-//       webSecurity:false,
-//     }
+  entriesWindow.loadURL(`file://${__dirname}/index.html#entries`);
+  entriesWindow.show();
+  entriesWindow.focus();
 
-//   });
+  const {
+    session: { webRequest },
+  } = entriesWindow.webContents;
 
-//   fulfillWindow.loadURL(`file://${__dirname}/index.html#fulfill/${arg.title}/${arg.name}`);
-//   fulfillWindow.show();
-//   fulfillWindow.focus();
+  const filter = {
+    urls: ['http://localhost/callback*'],
+  };
 
-//   const {session: {webRequest}} = fulfillWindow.webContents;
+  webRequest.onBeforeRequest(filter, async ({ url }) => {
+    // authService.handleCallback(url);
+    // authService.checkUser();
+    mainWindow?.reload();
+    mainWindow?.focus();
+    entriesWindow.destroy();
+  });
+});
 
-//   const filter = {
-//     urls: [
-//       'http://localhost/callback*'
-//     ]
-//   };
+ipcMain.handle('pogprizeinfo', (event, arg) => {
+  const infoWindow: BrowserWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: `PogPrize Info`,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+    },
+  });
 
-//   webRequest.onBeforeRequest(filter, async ({url}) => {
-//     // authService.handleCallback(url);
-//     // authService.checkUser();
-//     mainWindow?.reload();
-//     mainWindow?.focus();
-//     fulfillWindow.destroy();
-//   });
-// })
+  infoWindow.loadURL(`file://${__dirname}/index.html#pogprizeinfo`);
+  infoWindow.show();
+  infoWindow.focus();
+
+  const {
+    session: { webRequest },
+  } = infoWindow.webContents;
+
+  const filter = {
+    urls: ['http://localhost/callback*'],
+  };
+
+  webRequest.onBeforeRequest(filter, async ({ url }) => {
+    // authService.handleCallback(url);
+    // authService.checkUser();
+    mainWindow?.reload();
+    mainWindow?.focus();
+    infoWindow.destroy();
+  });
+});
+
+ipcMain.handle('prizequeue', (event, arg) => {
+  const queueWindow: BrowserWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: `Prize Queue`,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity: false,
+    },
+  });
+
+  queueWindow.loadURL(`file://${__dirname}/index.html#prizequeue`);
+  queueWindow.show();
+  queueWindow.focus();
+
+  const {
+    session: { webRequest },
+  } = infoWiqueueWindowndow.webContents;
+
+  const filter = {
+    urls: ['http://localhost/callback*'],
+  };
+
+  webRequest.onBeforeRequest(filter, async ({ url }) => {
+    // authService.handleCallback(url);
+    // authService.checkUser();
+    mainWindow?.reload();
+    mainWindow?.focus();
+    queueWindow.destroy();
+  });
+});
 /**
  * Add event listeners...
  */
