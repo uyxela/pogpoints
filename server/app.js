@@ -6,6 +6,7 @@ const logger = require("./utils/logger");
 const axios = require("axios");
 const { User, PogPrize, Prize } = require("./database");
 const https = require("https");
+
 logger.info("connecting to", process.env.MONGODB_URI);
 
 app.use(cors());
@@ -19,7 +20,7 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
     .post(
       `https://id.twitch.tv/oauth2/token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&grant_type=client_credentials&scope=channel:read:redemptions%20channel:manage:redemptions`
     )
-    .then((oauthRes) => {
+    .then(oauthRes => {
       // console.log(res);
       oauth = oauthRes.data.access_token;
       var createWebHookParams = {
@@ -29,24 +30,24 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
         headers: {
           "Content-Type": "application/json",
           "Client-ID": process.env.CLIENT_ID,
-          Authorization: "Bearer " + oauth,
-        },
+          Authorization: "Bearer " + oauth
+        }
       };
       var createWebHookBody = {
         type: "channel.channel_points_custom_reward_redemption.add",
         version: "1",
         condition: {
-          broadcaster_user_id: req.params.broadcasterId,
+          broadcaster_user_id: req.params.broadcasterId
         },
         transport: {
           method: "webhook",
           // For testing purposes you can use an ngrok https tunnel as your callback URL
           callback: "https://pogpoints.herokuapp.com" + "/notification", // If you change the /notification path make sure to also adjust in line 69
-          secret: process.env.CLIENT_SECRET, // Replace with your own secret
-        },
+          secret: process.env.CLIENT_SECRET // Replace with your own secret
+        }
       };
       var responseData = "";
-      var webhookReq = https.request(createWebHookParams, (result) => {
+      var webhookReq = https.request(createWebHookParams, result => {
         result.setEncoding("utf8");
         result
           .on("data", function (d) {
@@ -57,13 +58,13 @@ app.post("/createWebhook/:broadcasterId", (req, res) => {
             res.send(responseBody);
           });
       });
-      webhookReq.on("error", (e) => {
+      webhookReq.on("error", e => {
         console.log("Error");
       });
       webhookReq.write(JSON.stringify(createWebHookBody));
       webhookReq.end();
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
     });
 });
@@ -82,12 +83,12 @@ app.post("/notification", async (req, res) => {
     const entry = {
       time: Date.parse(eventInfo.redeemed_at),
       viewer: eventInfo.user_id
-    }
+    };
 
     const pogprize = await PogPrize.findOne({
       broadcaster: eventInfo.broadcaster_user_id,
-      endsAt: { $gt: Date.now() },
-    })
+      endsAt: { $gt: Date.now() }
+    });
 
     pogprize.entries.push(entry);
 
@@ -101,7 +102,7 @@ app.get("/user/:id", async (req, res, next) => {
   const user = await User.findOne({ twitchid: req.params.id }).exec();
   if (user == null) {
     res.json({
-      twitchid: -1,
+      twitchid: -1
     });
   } else {
     res.json(user);
@@ -113,9 +114,9 @@ app.post("/newUser/:id", (req, res, next) => {
   const newUser = new User({
     twitchid: req.params.id,
     pogPrizes: [],
-    prizes: [],
+    prizes: []
   });
-  newUser.save((err) => {
+  newUser.save(err => {
     if (err) {
       console.log(err);
     } else {
@@ -130,12 +131,11 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
       `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${id}`,
       JSON.stringify(rewardBody),
       {
-        headers: rewardHeaders,
+        headers: rewardHeaders
       }
     );
     console.log("HELLO OVER HERE", res);
-    return res.data.data[0].id
-
+    return res.data.data[0].id;
   } catch (error) {
     console.log(error);
   }
@@ -161,7 +161,7 @@ app.post("/newPogPrize", async (req, res, next) => {
   const rewardHeaders = {
     Authorization: `Bearer ${accessToken}`,
     "client-id": process.env.CLIENT_ID,
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   };
 
   const rewardBody = {
@@ -169,7 +169,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     prompt: prizeDescription,
     cost: pointsPerEntry,
     is_enabled: active,
-    should_redemptions_skip_request_queue:true
+    should_redemptions_skip_request_queue: true
   };
 
   const rewardId = await addCustomReward(
@@ -204,12 +204,10 @@ app.get("/activepogprize/:id", async (req, res, next) => {
   const twitchid = req.params.id;
   const broadcaster = await User.findOne({ twitchid: twitchid });
   const pogprizes = await PogPrize.find({
-    broadcaster: broadcaster
+    broadcaster: broadcaster,
+    active: true
   }).exec();
-  const pogprize = pogprizes.filter(pogprize => 
-    pogprize.endsAt - pogprize.start > 0
-  )
-  res.json(pogprize);
+  res.json(pogprizes);
 });
 
 app.get("/pogprizes/:id", async (req, res, next) => {
@@ -219,7 +217,56 @@ app.get("/pogprizes/:id", async (req, res, next) => {
   res.json(pogprizes);
 });
 
-//add function to change active state of a pogprize
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+app.post("/drawpogprize/:id", async (req, res, next) => {
+  const twitchid = req.params.id;
+  const broadcaster = await User.findOne({ twitchid: twitchid });
+  const pogprizes = await PogPrize.find({
+    broadcaster: broadcaster,
+    active: true
+  }).exec();
+
+  await PogPrize.updateOne(
+    {
+      broadcaster: broadcaster,
+      active: true
+    },
+    {
+      active: false
+    }
+  );
+
+  let winners = [];
+  let i = pogprizes.numberOfPrizes;
+  // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
+  while (i > 0) {
+    let entry = pogprizes.entries[getRandomInt(0, pogprizes.entries.length)];
+    if (!winners.includes(entry.viewer)) {
+      winners.push(entry.viewer);
+      i--;
+    }
+  }
+
+  console.log(winners);
+
+  // create a prize object for each winner and save it to the database
+  winners.forEach(winner => {
+    const prize = new Prize({
+      title: pogprizes.prizeDescription,
+      status: "Unfulfilled",
+      broadcaster: broadcaster,
+      viewer: winner
+    });
+    prize.save();
+  });
+
+  res.sendStatus(200);
+});
 
 app.get("/", (req, res, next) => {
   res.json({ pog: "points" });

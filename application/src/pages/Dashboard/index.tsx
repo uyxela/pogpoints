@@ -29,7 +29,7 @@ const Dashboard = () => {
     checkActivePogprize().then((response) => {
       console.log(response.data);
       if (response.status === 200 && response.data.length == 0) {
-        if (response.data[0].active) {
+        if (response.data[0] && response.data[0].active) {
           setCurrentPogPrize(null);
         }
       }
@@ -75,7 +75,12 @@ const Dashboard = () => {
         <p className={styles.cardSub}>Active PogPrize:</p>
         <p className={styles.cardMainSmall}>{currentPogPrize.title}</p>
         <Button
-          style={{width:'50%',backgroundColor:'#FFA6EB',marginTop:'10%',marginBottom:'20%'}}
+          style={{
+            width: '50%',
+            backgroundColor: '#FFA6EB',
+            marginTop: '10%',
+            marginBottom: '20%',
+          }}
           onClick={() => history.push('/pogprizeprogress')}
         >
           View

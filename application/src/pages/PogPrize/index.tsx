@@ -38,7 +38,7 @@ const PogPrize = () => {
     checkActivePogprize().then((res: any) => {
       // console.log(res)
       if (res.data.length !== 0) {
-        if(res.data[0].active){
+        if (res.data[0].active) {
           history.push('/pogprizeprogress');
         }
       }
@@ -101,7 +101,7 @@ const PogPrize = () => {
           .split(':')
           .splice(0, 2)
           .join(':'),
-          active: setActive(form.endsAt)
+        active: setActive(form.endsAt),
         //endsAt: Date.parse(form.endsAt)
       };
 
