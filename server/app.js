@@ -252,7 +252,10 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     broadcaster: broadcaster,
     active: true
   }).exec();
-  let i = (pogprize.entries.length>=pogprize.numberOfPrizes) ? pogprize.numberOfPrizes:pogprize.entries.length;
+  let i =
+    pogprize.entries.length >= pogprize.numberOfPrizes
+      ? pogprize.numberOfPrizes
+      : pogprize.entries.length;
   await PogPrize.updateOne(
     {
       broadcaster: broadcaster,
@@ -306,16 +309,22 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 });
 
 app.get("/prizelist/:id", async (req, res, next) => {
-  const broadcaster = await User.findOne({twitchid: req.params.id});
-  const prizes = await Prize.find({broadcaster: broadcaster}).exec();
+  const broadcaster = await User.findOne({ twitchid: req.params.id });
+  const prizes = await Prize.find({ broadcaster: broadcaster }).exec();
   res.json(prizes);
 });
 
 app.get("/winningprizes", async (req, res, next) => {
   const { pogPrizeTitle, userId } = req.body;
-  const broadcaster = await User.findOne({twitchid: userId});
-  const pogprize = await PogPrize.findOne({ title: pogPrizeTitle });
-  const prizes = await Prize.find({broadcaster: broadcaster, pogprize: pogprize}).exec();
+  const broadcaster = await User.findOne({ twitchid: userId });
+  const pogprize = await PogPrize.findOne({
+    title: pogPrizeTitle,
+    broadcaster: broadcaster
+  });
+  const prizes = await Prize.find({
+    broadcaster: broadcaster,
+    pogprize: pogprize
+  }).exec();
   res.json(prizes);
 });
 

@@ -5,15 +5,15 @@ import Navbar from '../../components/ui/Navbar';
 import { Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { MdTimer, MdPeople } from 'react-icons/md';
-import {
-  getWinningPrizes,
-} from '../../components/auth/service';
+import { getWinningPrizes } from '../../components/auth/service';
 import { useHistory, useLocation } from 'react-router-dom';
+import { getItem } from '../../components/data/Store';
 
 const PogPrizeEnd = (props) => {
   const location = useLocation();
   const history = useHistory();
-  const [prizes, setPrizes] = useState(null)
+  const pogprize = getItem('pogprize');
+  const [prizes, setPrizes] = useState(null);
   const cardStyle = {
     backgroundColor: 'white',
     borderRadius: '20px',
@@ -22,11 +22,12 @@ const PogPrizeEnd = (props) => {
     textAlign: 'center',
     alignItems: 'center',
   };
+
   useEffect(() => {
-    getWinningPrizes(location.state.pogPrize.title).then(winningPrizes => {
-        setPrizes(winningPrizes);
-        console.log(winningPrizes)
-    })
+    getWinningPrizes(pogprize.title).then((winningPrizes) => {
+      setPrizes(winningPrizes);
+      console.log('winning prizes', winningPrizes);
+    });
   }, []);
 
   return (
@@ -36,10 +37,12 @@ const PogPrizeEnd = (props) => {
         <Grid item xs={0.5} />
         <Grid item xs={8}>
           <h1 className="dashboardTitle">And our PogWinners are...</h1>
-          <p className="dashboardPogprizeTitle">Hi, </p>
-          <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}>
-            Some quick stats for you:
-          </p>
+          {/* {prizes?.map((prize) => (
+            <p className="dashboardPogprizeText" style={{ marginTop: '%' }}>
+              {prize.name} won {prize.title}
+            </p>
+          ))} */}
+          <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}></p>
         </Grid>
       </Grid>
     </div>

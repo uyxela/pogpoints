@@ -17,8 +17,9 @@ import {
 import { useHistory } from 'react-router-dom';
 import Countdown from 'react-countdown';
 import useInterval from '../../components/hooks/useInterval';
+import { setItem } from '../../components/data/Store';
 
-const PogPrizeProgress = props => {
+const PogPrizeProgress = (props) => {
   const [pogprize, setPogprize] = useState(null);
   const [isRunning, setIsRunning] = useState(true);
   const [entries, setEntries] = useState([]);
@@ -30,16 +31,13 @@ const PogPrizeProgress = props => {
     checkActivePogprize().then((response) => {
       if (response.status === 200 && response.data.length == 0) {
         history.push('/pogprize');
-      }
-      else if (!response.data[0].active) {
+      } else if (!response.data[0].active) {
         // go to /pogprize
         history.push('/pogprize');
-      }
-      else {
+      } else {
         setPogprize(response.data[0]);
       }
       console.log(response);
-
     });
   }, []);
 
@@ -122,9 +120,12 @@ const PogPrizeProgress = props => {
                 className="progressButtonStyle"
                 // size="large"
                 onClick={() => {
-                  // drawPogprize();
-                  // setIsRunning(false);
-                  history.push({pathname:'/pogprizeend',state:{pogPrize:pogprize}})
+                  drawPogprize();
+                  setIsRunning(false);
+                  setItem('pogPrize', pogprize);
+                  history.push({
+                    pathname: '/pogprizeend',
+                  });
                 }}
               >
                 PogStop
