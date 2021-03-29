@@ -37,18 +37,46 @@ const PogPrizeEnd = (props) => {
       <Navbar />
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
+
         <Grid item xs={8}>
-          <h1 className="dashboardTitle">And our PogWinners are...</h1>
-          {prizes?.map((prize, i) => (
-            <p
-              key={i}
-              className="dashboardPogprizeText"
-              style={{ marginTop: '5%' }}
+          <Grid container direction="column">
+            <Grid item xs>
+              <h1 className="dashboardTitle">And our PogWinners are...</h1>
+            </Grid>
+            <Grid
+              item
+              xs
+              style={{
+                // padding: '3%',
+                // marginTop: '10%',
+                backgroundColor: '#232340',
+                borderRadius: '20px',
+              }}
             >
-              {prize.name} won {prize.title}
-            </p>
-          ))}
-          <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}></p>
+              {prizes?.map((prize, i) => (
+                <>
+                  <p
+                    key={i}
+                    className="progressPogprizeTitle"
+                    style={{ marginTop: '5%' }}
+                  >
+                    Prize: {prize.title}
+                  </p>
+                  <p
+                    key={i}
+                    className="progressPogprizeDesc"
+                    style={{ marginTop: '5%' }}
+                  >
+                    Winner: {prize.name}
+                  </p>
+                </>
+              ))}
+              <p
+                className="dashboardPogprizeText"
+                style={{ marginTop: '5%' }}
+              ></p>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

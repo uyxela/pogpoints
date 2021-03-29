@@ -14,6 +14,9 @@ import {
   getEntries,
   drawPogprize,
 } from '../../components/auth/service';
+import {
+  openEntries,openPogPrizeInfo
+} from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
 import Countdown from 'react-countdown';
 import useInterval from '../../components/hooks/useInterval';
@@ -114,12 +117,22 @@ const PogPrizeProgress = (props) => {
               <p className="progressPogprizeText">
                 Description: {pogprize.prizeDescription}
               </p>
+
             </Grid>
-            <Grid item xs style={{ marginTop: '10%', textAlign: 'center' }}>
+            <Grid item xs style={{textAlign:'center',marginTop: '5%',padding:'3%'}}>
+              <Button
+                className="pogprizeButtonStyle"
+                onClick={openPogPrizeInfo}
+                fullWidth
+              >
+                Launch PogPrize Info Window
+              </Button>
+            </Grid>
+            <Grid item xs style={{ marginTop:'2%', textAlign: 'center',padding:'3%'}}>
               {/* <Link to={`/pogprizeprogress`} replace> */}
               <Button
                 className="progressButtonStyle"
-                // size="large"
+                fullWidth
                 onClick={() => {
                   drawPogprize();
                   setIsRunning(false);
@@ -218,15 +231,25 @@ const PogPrizeProgress = (props) => {
                 textAlign: 'center',
                 backgroundColor: 'white',
                 borderRadius: '20px',
-                minHeight: '70vh',
+                minHeight: '60vh',
               }}
             >
               <div
                 className="progressEntriesThing"
-                style={{ overflow: 'scroll', height: '70vh' }}
+                style={{ overflow: 'scroll', height: '50vh' }}
               >
                 {entrylist}
               </div>
+            </Grid>
+            <Grid item xs style={{textAlign:'center',padding:'5%'}}>
+              <Button
+                className="pogprizeButtonStyle"
+                size="normal"
+                onClick={openEntries}
+                fullWidth
+              >
+                Launch Entries Window
+              </Button>
             </Grid>
           </Grid>
         </Grid>

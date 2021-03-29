@@ -225,10 +225,20 @@ const Dashboard = () => {
             >
               <div
                 className="progressEntriesThing"
-                style={{ overflow: 'scroll', height: '70vh' }}
+                style={{ overflow: 'scroll', height: '60vh' }}
               >
                 {pastPrizes}
               </div>
+            </Grid>
+            <Grid item xs style={{textAlign:'center',padding:'5%'}}>
+              <Button
+                className="pogprizeButtonStyle"
+                size="small"
+                onClick={openPrizeQueue}
+                fullWidth
+              >
+                Launch Queue Window
+              </Button>
             </Grid>
           </Grid>
         </Grid>
@@ -239,29 +249,9 @@ const Dashboard = () => {
               <p className="dashboardTextsmall">Shortcuts</p>
             </Grid>
             <Grid item xs style={cardStyle}>
-              <Button
-                className="pogprizeButtonStyle"
-                size="large"
-                onClick={openEntries}
-              >
-                Open Entries
-              </Button>
-              <Button
-                className="pogprizeButtonStyle"
-                size="large"
-                onClick={openPrizeQueue}
-              >
-                Open Prize Queue
-              </Button>
-              <Button
-                className="pogprizeButtonStyle"
-                size="large"
-                onClick={openPogPrizeInfo}
-              >
-                Open PogPrize Info
-              </Button>
-            </Grid>
 
+
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
