@@ -12,7 +12,7 @@ import { getItem } from '../../components/data/Store';
 const PogPrizeEnd = (props) => {
   const location = useLocation();
   const history = useHistory();
-  const pogprize = getItem('pogprize');
+  const pogprize = getItem('pogPrize');
   const [prizes, setPrizes] = useState(null);
   const cardStyle = {
     backgroundColor: 'white',
@@ -24,9 +24,11 @@ const PogPrizeEnd = (props) => {
   };
 
   useEffect(() => {
-    getWinningPrizes(pogprize?.title).then((winningPrizes) => {
+    //console.log('location', location.hash);
+    // console.log('pogprize', pogprize);
+    getWinningPrizes(pogprize.title).then((winningPrizes) => {
       setPrizes(winningPrizes);
-      console.log('winning prizes', winningPrizes);
+      //console.log('winning prizes', winningPrizes);
     });
   }, []);
 
@@ -37,11 +39,15 @@ const PogPrizeEnd = (props) => {
         <Grid item xs={0.5} />
         <Grid item xs={8}>
           <h1 className="dashboardTitle">And our PogWinners are...</h1>
-          {/* {prizes?.map((prize) => (
-            <p className="dashboardPogprizeText" style={{ marginTop: '%' }}>
+          {prizes?.map((prize, i) => (
+            <p
+              key={i}
+              className="dashboardPogprizeText"
+              style={{ marginTop: '5%' }}
+            >
               {prize.name} won {prize.title}
             </p>
-          ))} */}
+          ))}
           <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}></p>
         </Grid>
       </Grid>

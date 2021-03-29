@@ -36,6 +36,7 @@ const PogPrizeProgress = (props) => {
         history.push('/pogprize');
       } else {
         setPogprize(response.data[0]);
+        setItem('pogPrize', response.data[0]);
       }
       console.log(response);
     });
@@ -122,9 +123,8 @@ const PogPrizeProgress = (props) => {
                 onClick={() => {
                   drawPogprize();
                   setIsRunning(false);
-                  setItem('pogPrize', pogprize);
                   history.push({
-                    pathname: '/pogprizeend',
+                    pathname: `/pogprizeend`,
                   });
                 }}
               >
