@@ -32,11 +32,12 @@ const Dashboard = () => {
     checkActivePogprize().then((response) => {
       console.log(response.data);
       if (response.status === 200 && response.data.length == 0) {
-        if (response.data[0] && response.data[0].active) {
-          setCurrentPogPrize(null);
-        }
+        setCurrentPogPrize(null);
+      } else if (!response.data[0].active) {
+        setCurrentPogPrize(null);
+      } else {
+        setCurrentPogPrize(response.data[0]);
       }
-      setCurrentPogPrize(response.data[0]);
     });
     getPrizes().then((response) => {
       // console.log(response.data);

@@ -279,7 +279,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
-    let entry = pogprize.entries[0][getRandomInt(0, pogprize.entries.length)];
+    let entry = pogprize.entries[getRandomInt(0, pogprize.entries.length)];
     if (!winners.includes(entry.name)) {
       winners.push(entry.name);
       i--;

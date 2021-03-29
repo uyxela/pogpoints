@@ -29,13 +29,17 @@ const PogPrizeProgress = () => {
     console.log('pog prize progress');
     checkActivePogprize().then((response) => {
       if (response.status === 200 && response.data.length == 0) {
-        if (!response.data[0].active) {
-          // go to /pogprize
-          history.push('/pogprize');
-        }
+        history.push('/pogprize');
+      }
+      else if (!response.data[0].active) {
+        // go to /pogprize
+        history.push('/pogprize');
+      }
+      else {
+        setPogprize(response.data[0]);
       }
       console.log(response);
-      setPogprize(response.data[0]);
+
     });
   }, []);
 
