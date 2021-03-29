@@ -252,14 +252,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     broadcaster: broadcaster,
     active: true
   }).exec();
-<<<<<<< HEAD
-  let i =
-    pogprizes.entries[0].length >= pogprizes.numberOfPrizes
-      ? pogprizes.numberOfPrizes
-      : pogprizes.entries[0].length;
-=======
   let i = (pogprize.entries.length>=pogprize.numberOfPrizes) ? pogprize.numberOfPrizes:pogprize.entries.length;
->>>>>>> 85df99cce8229b006ed1e9c5587af37f8b8fa42c
   await PogPrize.updateOne(
     {
       broadcaster: broadcaster,
@@ -270,19 +263,8 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     }
   );
 
-<<<<<<< HEAD
-  console.log(
-    "pogprizes",
-    pogprizes,
-    "i value",
-    i,
-    pogprizes.entries[0].length
-  );
-  console.log(typeof pogprizes.entries, typeof pogprizes.entries[0]);
-=======
   console.log("pogprizes", pogprize, "i value", i, pogprize.entries;
   console.log(typeof pogprize.entries)
->>>>>>> 85df99cce8229b006ed1e9c5587af37f8b8fa42c
 
   // delete custom reward
   const rewardHeaders = {
@@ -297,12 +279,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
-<<<<<<< HEAD
-    let entry =
-      pogprizes.entries[0][getRandomInt(0, pogprizes.entries[0].length)];
-=======
     let entry = pogprize.entries[0][getRandomInt(0, pogprize.entries.length)];
->>>>>>> 85df99cce8229b006ed1e9c5587af37f8b8fa42c
     if (!winners.includes(entry.name)) {
       winners.push(entry.name);
       i--;

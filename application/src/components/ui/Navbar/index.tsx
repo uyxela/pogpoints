@@ -12,9 +12,9 @@ export default function Nav() {
 
   const getNavStyle = (e: String) => {
     if (location.pathname === e) {
-      return styles.navBarItemActive;
+      return 'navBarItemActive';
     } else {
-      return styles.navBarItem;
+      return 'navBarItem';
     }
   };
 
@@ -30,12 +30,9 @@ export default function Nav() {
 
   return (
     <div>
-      <div className={styles.navbar}>
-        <div className={styles.navBarProfile}>
-          <img
-            src={user?.profile_image_url}
-            className={styles.navBarProfileIcon}
-          />
+      <div className="navbar">
+        <div className="navBarProfile">
+          <img src={user?.profile_image_url} className="navBarProfileIcon" />
           <h3>{user?.display_name}</h3>
         </div>
         <div className={getNavStyle('/dashboard')}>
@@ -50,7 +47,7 @@ export default function Nav() {
             <p>PogPrize</p>
           </Link>
         </div>
-        <div className={styles.navBarItem} onClick={logOut}>
+        <div className="navBarItem" onClick={logOut}>
           <IoMdExit size={20} />
           <Link to={`/`} replace>
             <p>Log Out</p>
