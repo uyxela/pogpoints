@@ -200,7 +200,7 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{ marginTop: '2%' }}>
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdTimer size={30} />
@@ -221,7 +221,7 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{ marginTop: '2%' }}>
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
