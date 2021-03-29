@@ -141,7 +141,7 @@ const Dashboard = () => {
     }
   };
 
-  if (prizeList.length > 0) {
+  if (prizeList?.length > 0) {
     console.log(prizeList[0].status);
     pastPrizes = prizeList.map((prize, i) => (
       // <p className="dashboardCardSub">No past prizes.</p>;
