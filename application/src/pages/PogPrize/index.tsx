@@ -39,7 +39,7 @@ const PogPrize = () => {
       // console.log(res)
       if (res.data.length !== 0) {
         if (res.data[0].active) {
-          history.push('/pogprizeprogress');
+          // history.push('/pogprizeprogress');
         }
       }
     });
@@ -143,7 +143,6 @@ const PogPrize = () => {
   };
 
   const handleNameChange = (e: any) => {
-    console.log(e.target.value);
     setError({
       ...error,
       [e.target.id]: false,
@@ -173,126 +172,135 @@ const PogPrize = () => {
   return (
     <div className="pogprizeContainer">
       <Navbar />
-      <Grid container spacing={3} style={{ marginTop: '2%' }}>
-        <Grid item xs={0.5} />
-        <Grid item xs={4}>
-          <Grid container direction="column">
-            <Grid item xs>
-              <h1 className="pogprizeTitle">PogPrize</h1>
-              <p className="pogprizeText">Set up draws using PogPrizes</p>
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="prizeDescription"
-                label="Prize Description"
-                value={form.prizeDescription}
-                variant="filled"
-                onChange={handleNameChange}
-                className="pogprizeTextinput"
-                color="primary"
-                fullWidth
-                error={error.prizeDescription}
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="numberOfPrizes"
-                label="Number of prizes (1-10)"
-                value={form.numberOfPrizes}
-                variant="filled"
-                onChange={handleNameChange}
-                className="pogprizeTextinput"
-                color="primary"
-                type="number"
-                inputProps={{ min: '1', max: '10', step: '1' }}
-                fullWidth
-                error={error.numberOfPrizes}
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="pointsPerEntry"
-                label="Points per entry"
-                value={form.pointsPerEntry}
-                variant="filled"
-                onChange={handleNameChange}
-                className="pogprizeTextinput"
-                color="primary"
-                type="number"
-                fullWidth
-                error={error.pointsPerEntry}
-              />
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="endsAt"
-                label="Ends At"
-                value={form.endsAt}
-                variant="filled"
-                onChange={handleNameChange}
-                className="pogprizeTextinput"
-                color="primary"
-                type="datetime-local"
-                defaultValue={form.endsAt}
-                inputProps={{
-                  min: new Date(
-                    new Date().getTime() -
-                      new Date().getTimezoneOffset() * 60000
-                  )
-                    .toISOString()
-                    .split(':')
-                    .splice(0, 2)
-                    .join(':') as String,
-                }}
-                fullWidth
-                error={error.endsAt}
-              />
-            </Grid>
-            <Grid item xs style={{ marginTop: '5%' }}>
-              {/* <Link to={`/pogprizeprogress`} replace> */}
-              <Button
-                className="pogprizeButtonStyle"
-                size="large"
-                onClick={handleSubmit}
-              >
-                Start
-              </Button>
-              {/* </Link> */}
-            </Grid>
-          </Grid>
+      <Grid
+        container
+        spacing={3}
+        style={{ marginTop: '2%' }}
+        direction="column"
+      >
+        <Grid item xs style={{ marginLeft: '5%' }}>
+          <h1 className="pogprizeTitle" style={{ marginLeft: '0' }}>
+            PogPrize
+          </h1>
+          <p className="pogprizeText">Set up draws using PogPrizes</p>
         </Grid>
-        <Grid item xs={4}>
-          <Grid container direction="column" style={{ marginTop: '50%' }}>
-            <Grid item xs>
-              <TextField
-                id="title"
-                label="Title"
-                value={form.title}
-                variant="filled"
-                onChange={handleNameChange}
-                color="primary"
-                fullWidth
-                error={error.title}
-              />
+        <Grid item xs>
+          <Grid container direction="row">
+            <Grid item xs={5} style={{ padding: '3%', marginLeft: '2%' }}>
+              <Grid item xs>
+                <TextField
+                  id="prizeDescription"
+                  label="Prize Description"
+                  value={form.prizeDescription}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  className="pogprizeTextinput"
+                  color="primary"
+                  fullWidth
+                  error={error.prizeDescription}
+                />
+              </Grid>
+              <Grid item xs>
+                <TextField
+                  id="numberOfPrizes"
+                  label="Number of prizes (1-10)"
+                  value={form.numberOfPrizes}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  className="pogprizeTextinput"
+                  color="primary"
+                  type="number"
+                  inputProps={{ min: '1', max: '10', step: '1' }}
+                  fullWidth
+                  error={error.numberOfPrizes}
+                />
+              </Grid>
+              <Grid item xs>
+                <TextField
+                  id="pointsPerEntry"
+                  label="Points per entry"
+                  value={form.pointsPerEntry}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  className="pogprizeTextinput"
+                  color="primary"
+                  type="number"
+                  fullWidth
+                  error={error.pointsPerEntry}
+                />
+              </Grid>
+              <Grid item xs>
+                <TextField
+                  id="endsAt"
+                  label="Ends At"
+                  value={form.endsAt}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  className="pogprizeTextinput"
+                  color="primary"
+                  type="datetime-local"
+                  defaultValue={form.endsAt}
+                  inputProps={{
+                    min: new Date(
+                      new Date().getTime() -
+                        new Date().getTimezoneOffset() * 60000
+                    )
+                      .toISOString()
+                      .split(':')
+                      .splice(0, 2)
+                      .join(':') as String,
+                  }}
+                  fullWidth
+                  error={error.endsAt}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs>
-              <TextField
-                id="description"
-                label="Description"
-                value={form.description}
-                variant="filled"
-                onChange={handleNameChange}
-                className="pogprizeTextinput"
-                color="primary"
-                fullWidth
-                multiline
-                rows={8}
-                error={error.description}
-              />
+            <Grid item xs={5} style={{ padding: '3%' }}>
+              <Grid item xs>
+                <TextField
+                  id="title"
+                  label="Title"
+                  value={form.title}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  color="primary"
+                  fullWidth
+                  error={error.title}
+                />
+              </Grid>
+              <Grid item xs>
+                <TextField
+                  id="description"
+                  label="Description"
+                  value={form.description}
+                  variant="filled"
+                  onChange={handleNameChange}
+                  className="pogprizeTextinput"
+                  color="primary"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  error={error.description}
+                />
+              </Grid>
+              <Grid item xs style={{ marginTop: '5%' }}>
+                {/* <Link to={`/pogprizeprogress`} replace> */}
+                <Button
+                  className="pogprizeButtonStyle"
+                  size="large"
+                  onClick={handleSubmit}
+                >
+                  Start
+                </Button>
+                {/* </Link> */}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
 
+        {/* </Grid> */}
+
+        {/*
         <Grid item xs>
           <Grid
             container
@@ -314,7 +322,7 @@ const PogPrize = () => {
               }}
             ></Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Grid item xs={0.5} />
       </Grid>
     </div>
