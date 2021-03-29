@@ -301,7 +301,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       pogprize: pogprize,
       name: winner
     });
-    console.log("PRIZE PRIZE PRIZE", prize);
+    //console.log("PRIZE PRIZE PRIZE", prize);
     prize.save();
   });
 
@@ -316,11 +316,15 @@ app.get("/prizelist/:id", async (req, res, next) => {
 
 app.get("/winningprizes", async (req, res, next) => {
   const { pogPrizeTitle, userId } = req.body;
+  console.log(pogPrizeTitle, userId);
+
   const broadcaster = await User.findOne({ twitchid: userId });
+
   const pogprize = await PogPrize.findOne({
     title: pogPrizeTitle,
     broadcaster: broadcaster
   });
+  å;
   const prizes = await Prize.find({
     broadcaster: broadcaster,
     pogprize: pogprize

@@ -125,10 +125,11 @@ export const redeemReward = async (title: String, name: String) => {
 };
 
 export const getWinningPrizes = async (title: String) => {
-  return await axios.get(`${apiUrl}/winningprizes`, {
+  const response = await axios.get(`${apiUrl}/winningprizes`, {
     pogPrizeTitle: title,
     userId: await getUserID(),
   });
+  return response.data;
 };
 
 export const logOut = () => {

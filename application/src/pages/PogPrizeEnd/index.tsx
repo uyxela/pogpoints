@@ -24,7 +24,7 @@ const PogPrizeEnd = (props) => {
   };
 
   useEffect(() => {
-    getWinningPrizes(pogprize.title).then((winningPrizes) => {
+    getWinningPrizes(pogprize?.title).then((winningPrizes) => {
       setPrizes(winningPrizes);
       console.log('winning prizes', winningPrizes);
     });
