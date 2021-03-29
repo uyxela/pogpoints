@@ -125,7 +125,9 @@ export const redeemReward = async (title: String, name: String) => {
 };
 
 export const getWinningPrizes = async (title: String) => {
+  // console.log("title", title);
   const response = await axios.get(`${apiUrl}/winningprizes/${await getUserID()}/${title}`);
+  // console.log(response);
   return response.data;
 };
 

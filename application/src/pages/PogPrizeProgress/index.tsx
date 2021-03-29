@@ -36,6 +36,7 @@ const PogPrizeProgress = (props) => {
         history.push('/pogprize');
       } else {
         setPogprize(response.data[0]);
+        setItem('pogPrize', response.data[0]);
       }
       console.log(response);
     });
@@ -122,7 +123,9 @@ const PogPrizeProgress = (props) => {
                 onClick={() => {
                   drawPogprize();
                   setIsRunning(false);
-                  history.push({pathname:'/pogprizeend',state:{pogPrize:pogprize}})
+                  history.push({
+                    pathname: `/pogprizeend`,
+                  });
                 }}
               >
                 PogStop
@@ -218,7 +221,10 @@ const PogPrizeProgress = (props) => {
                 minHeight: '70vh',
               }}
             >
-              <div className="progressEntriesThing" style={{ overflow: 'scroll', height: '70vh' }}>
+              <div
+                className="progressEntriesThing"
+                style={{ overflow: 'scroll', height: '70vh' }}
+              >
                 {entrylist}
               </div>
             </Grid>
