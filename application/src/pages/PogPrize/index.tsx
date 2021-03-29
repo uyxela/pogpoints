@@ -177,7 +177,7 @@ const PogPrize = () => {
         <Grid item xs={4}>
           <Grid container direction="column">
             <Grid item xs>
-              <h1 className={styles.title}>PogPrizes</h1>
+              <h1 className={styles.title}>PogPrize</h1>
               <p className={styles.text}>Set up draws using PogPrizes</p>
             </Grid>
             <Grid item xs>

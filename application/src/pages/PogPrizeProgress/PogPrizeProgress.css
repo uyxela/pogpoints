@@ -44,6 +44,7 @@
   font-size: 2em;
   margin-bottom: 0;
   margin-left: 2%;
+  font-style: italic;
 }
 
 
@@ -67,6 +68,15 @@
   /* font-weight: bolder; */
   /* font-style: italic; */
 }
+.pogprizeText {
+  font-size: 1.3em;
+  margin: 0;
+  margin-left: 2%;
+  /* margin-bottom: 5%; */
+  color:rgb(218, 218, 218);
+  /* font-weight: bolder; */
+  /* font-style: italic; */
+}
 .textsmall {
   font-size: 1.2em;
   margin: 0;
@@ -80,7 +90,7 @@
 
 .buttonStyle {
   width: 50%;
-  background-color: #9cdbff;
+  background-color: #FFA6EB;
   color: black;
 }
 

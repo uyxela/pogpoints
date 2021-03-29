@@ -17,6 +17,10 @@ export async function checkActivePogprize() {
   return await axios.get(`${apiUrl}/activepogprize/${await getUserID()}`);
 }
 
+export async function getPogPrizes() {
+  return await axios.get(`${apiUrl}/pogprizes/${await getUserID()}`);
+}
+
 export async function getUser() {
   if (user !== null) {
     return user;
