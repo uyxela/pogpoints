@@ -324,7 +324,7 @@ app.get("/winningprizes", async (req, res, next) => {
     title: pogPrizeTitle,
     broadcaster: broadcaster
   });
-  å;
+
   const prizes = await Prize.find({
     broadcaster: broadcaster,
     pogprize: pogprize
