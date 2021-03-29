@@ -118,6 +118,7 @@ const PogPrizeProgress = () => {
                 onClick={() => {
                   drawPogprize();
                   setIsRunning(false);
+                  history.push('/dashboard')
                 }}
               >
                 PogStop

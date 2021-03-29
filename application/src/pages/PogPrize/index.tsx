@@ -80,11 +80,12 @@ const PogPrize = () => {
       form.numberOfPrizes < 1 ||
       form.numberOfPrizes > 10 ||
       form.prizeDescription.length < 1 ||
-      pointsPerEntry < 1
+      form.pointsPerEntry < 1
     ) {
       return false;
+    } else {
+      return true;
     }
-    return true;
   };
 
   const handleSubmit = () => {

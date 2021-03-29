@@ -273,11 +273,17 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     "client-id": process.env.CLIENT_ID,
     "Content-Type": "application/json"
   };
-
+  
   await deleteCustomReward(twitchid, pogprizes[0].rewardId, rewardHeaders);
 
   let winners = [];
-  let i = pogprizes.numberOfPrizes;
+  if(pogprizes.entries.length>=pogprizes.numberOfPrizes){
+    let i = pogprizes.numberOfPrizes;
+  }
+  else{
+    let i = pogprizes.entries.length
+  }
+  
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
     let entry = pogprizes.entries[getRandomInt(0, pogprizes.entries.length)];
