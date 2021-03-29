@@ -5,6 +5,7 @@ import Start from './pages/Start';
 import Dashboard from './pages/Dashboard';
 import PogPrize from './pages/PogPrize';
 import PogPrizeProgress from './pages/PogPrizeProgress';
+import Fulfill from './pages/Fulfill'
 import { AnimatedSwitch } from 'react-router-transition';
 
 export default function App() {
@@ -18,6 +19,8 @@ export default function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/pogprize" component={PogPrize} />
         <Route path="/pogprizeprogress" component={PogPrizeProgress} />
+        <Route path="/pogprizeprogress" component={PogPrizeProgress} />
+        <Route path="/fulfill/:title/:name" component={Fulfill} />
         <Route path="/" component={Start} />
       </AnimatedSwitch>
     </Router>

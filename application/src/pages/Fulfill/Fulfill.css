@@ -3,8 +3,7 @@
   display: inline-flexbox;
   justify-content: center;
   align-items: center;
-  margin-left: 20%;
-  width: 79%;
+  text-align: center;
 }
 
 .content {
@@ -44,7 +43,6 @@
   font-size: 2em;
   margin-bottom: 0;
   margin-left: 2%;
-  font-style: italic;
 }
 
 

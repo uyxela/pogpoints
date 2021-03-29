@@ -17,7 +17,6 @@ export async function checkActivePogprize() {
   return await axios.get(`${apiUrl}/activepogprize/${await getUserID()}`);
 }
 export async function getPrizes() {
-  console.log('hi')
   return await axios.get(`${apiUrl}/prizelist`);
 }
 

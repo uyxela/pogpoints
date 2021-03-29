@@ -11,6 +11,7 @@ import {
   checkActivePogprize,
   getPrizes,
 } from '../../components/auth/service';
+import { redeemReward } from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -18,13 +19,15 @@ const Dashboard = () => {
   const [user, setUser] = useState();
   const [pogPrizeList, setPogPrizeList] = useState(null);
   const [currentPogPrize, setCurrentPogPrize] = useState(null);
+  const [prizeList, setPrizeList] = useState(null);
   useEffect(() => {
-    getUser().then((user) => {
-      setUser(user);
+    getUser().then((response) => {
+      console.log(response);
+      setUser(response);
     });
-    getPogPrizes().then((data) => {
-      console.log(data.data);
-      setPogPrizeList(data.data);
+    getPogPrizes().then((response) => {
+      console.log(response.data);
+      setPogPrizeList(response.data);
     });
     checkActivePogprize().then((response) => {
       console.log(response.data);
@@ -34,6 +37,10 @@ const Dashboard = () => {
         }
       }
       setCurrentPogPrize(response.data[0]);
+    });
+    getPrizes().then((response) => {
+      console.log(response.data);
+      setPrizeList(response.data);
     });
   }, []);
   const totalPogPrizes = () => {
@@ -52,11 +59,6 @@ const Dashboard = () => {
       total += pogPrize.entries.length * pogPrize.pointsPerEntry;
     });
     return total;
-  };
-  const prizeList = () => {
-    getPrizes().then((prizes) => {
-      console.log(prizes);
-    });
   };
   const cardStyle = {
     backgroundColor: 'white',
@@ -93,6 +95,50 @@ const Dashboard = () => {
       </>
     );
   }
+  let pastPrizes;
+
+  const fulfillReward = (name, title) => {
+    redeemReward({ name: name, title: title });
+  };
+
+  const redemptionButton = (status, name, title) => {
+    if (status == 'Unfulfilled') {
+      return (
+        <>
+          <Grid item xs style={{textAlign:'center'}}>
+            <Button size="small" style={{marginTop:'2%',marginBottom:'-2%'}} onClick={() => fulfillReward(name, title)}>
+              Fulfill
+            </Button>
+          </Grid>
+        </>
+      );
+    }
+    return null;
+  };
+
+  if (prizeList.length > 0) {
+    console.log(prizeList[0].status);
+    pastPrizes = prizeList.map((prize, i) => (
+      // <p className={styles.cardSub}>No past prizes.</p>;
+      <>
+        <p className={styles.cardMainPP}>
+          {i + 1}. {prize.title}
+        </p>
+        <p className={styles.cardSubPP}>
+          <b>Status: </b>
+          {prize.status}
+        </p>
+        <p className={styles.cardSubPP}>
+          <b>Winner: </b>
+          {prize.name}
+        </p>
+        {redemptionButton(prize.status, prize.name, prize.title)}
+      </>
+    ));
+  } else {
+    pastPrizes = <p className={styles.cardMainPP}>No past prizes.</p>;
+  }
+
   return (
     <div className={styles.container}>
       <Navbar />
@@ -140,8 +186,18 @@ const Dashboard = () => {
               <MdTimer size={30} />
               <p className={styles.textsmall}>Past PogPrizes</p>
             </Grid>
-            <Grid item xs style={cardStyle}>
-              {prizeList()}
+            <Grid
+              item
+              xs
+              style={{
+                ...cardStyle,
+                textAlign: 'left',
+                paddingLeft: '10%',
+                paddingRight: '10%',
+                paddingBottom: '10%',
+              }}
+            >
+              {pastPrizes}
             </Grid>
           </Grid>
         </Grid>

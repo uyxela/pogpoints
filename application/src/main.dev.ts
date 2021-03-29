@@ -86,7 +86,7 @@ const createWindow = async () => {
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
   mainWindow.webContents.on('did-finish-load', () => {
-    console.log(authservice.getUser())
+    console.log(mainWindow.webContents.getURL())
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
@@ -148,6 +148,39 @@ ipcMain.handle('authenticate', (event, arg) => {
   });
 })
 
+ipcMain.handle('fulfill', (event, arg) => {
+
+  const fulfillWindow: BrowserWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    title: `Fulfill Reward`,
+    webPreferences: {
+      nodeIntegration: true,
+      webSecurity:false,
+    }
+
+  });
+
+  fulfillWindow.loadURL(`file://${__dirname}/index.html#fulfill/${arg.title}/${arg.name}`);
+  fulfillWindow.show();
+  fulfillWindow.focus();
+
+  const {session: {webRequest}} = fulfillWindow.webContents;
+
+  const filter = {
+    urls: [
+      'http://localhost/callback*'
+    ]
+  };
+
+  webRequest.onBeforeRequest(filter, async ({url}) => {
+    // authService.handleCallback(url);
+    // authService.checkUser();
+    mainWindow?.reload();
+    mainWindow?.focus();
+    fulfillWindow.destroy();
+  });
+})
 /**
  * Add event listeners...
  */
