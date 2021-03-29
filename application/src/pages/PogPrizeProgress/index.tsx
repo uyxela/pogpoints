@@ -211,10 +211,11 @@ const PogPrizeProgress = () => {
                 backgroundColor: 'white',
                 borderRadius: '20px',
                 minHeight: '70vh',
-                overflow: 'scroll',
               }}
             >
-              {entrylist}
+              <div style={{ overflow: 'scroll', height: '70vh' }}>
+                {entrylist}
+              </div>
             </Grid>
           </Grid>
         </Grid>

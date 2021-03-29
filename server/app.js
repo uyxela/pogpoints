@@ -83,7 +83,7 @@ app.post("/notification", async (req, res) => {
     const entry = {
       time: Date.parse(eventInfo.redeemed_at),
       viewer: eventInfo.user_id,
-      name: user_name
+      name: eventInfo.user_name
     };
 
     const broadcaster = await User.findOne({
