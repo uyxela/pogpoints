@@ -59,7 +59,7 @@ const Entries = (props) => {
           size="large"
           onClick={() => window.close()}
         >
-          Start
+          Close
         </Button>
       </Grid>
     </div>

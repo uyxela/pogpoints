@@ -68,41 +68,50 @@ const PrizeQueue = (props) => {
               Description: {pogprize.prizeDescription}
             </p>
           </Grid>
-          <Grid item xs style={{ textAlign: 'center',marginTop:'4%' }}>
-              <MdTimer size={30} />
-              <p className="progressTextsmall">Timer</p>
-            </Grid>
-            <Grid
-              item
-              xs
-              style={{
-                marginTop: '3%',
-                textAlign: 'center',
-                backgroundColor: 'white',
-                borderRadius: '20px',
-              }}
-            >
-              <p className="progressCardSub">Draw ends in:</p>
+          <Grid item xs style={{ textAlign: 'center', marginTop: '4%' }}>
+            <MdTimer size={30} />
+            <p className="progressTextsmall">Timer</p>
+          </Grid>
+          <Grid
+            item
+            xs
+            style={{
+              marginTop: '3%',
+              textAlign: 'center',
+              backgroundColor: 'white',
+              borderRadius: '20px',
+            }}
+          >
+            <p className="progressCardSub">Draw ends in:</p>
 
-              <Countdown
-                date={Date.parse(
-                  new Date(pogprize.endsAt).toLocaleString('en-US', {
-                    timeZone: 'UTC',
-                  })
-                )}
-                renderer={timerenderer}
-              />
-              <p className="progressCardSub">minutes</p>
-              <p className="progressCardSub">at</p>
-              <p className="progressCardSub">
-                {new Date(pogprize.endsAt)
-                  .toLocaleString('en-US', { timeZone: 'UTC' })
-                  .split(':')
-                  .splice(0, 2)
-                  .join(':')
-                  .concat(' PM')}
-              </p>
-            </Grid>
+            <Countdown
+              date={Date.parse(
+                new Date(pogprize.endsAt).toLocaleString('en-US', {
+                  timeZone: 'UTC',
+                })
+              )}
+              renderer={timerenderer}
+            />
+            <p className="progressCardSub">minutes</p>
+            <p className="progressCardSub">at</p>
+            <p className="progressCardSub">
+              {new Date(pogprize.endsAt)
+                .toLocaleString('en-US', { timeZone: 'UTC' })
+                .split(':')
+                .splice(0, 2)
+                .join(':')
+                .concat(' PM')}
+            </p>
+          </Grid>
+          <Grid item xs style={{ marginTop: '5%', textAlign: 'center' }}>
+            <Button
+              className="pogprizeButtonStyle"
+              size="large"
+              onClick={() => window.close()}
+            >
+              Close
+            </Button>
+          </Grid>
         </Grid>
       </div>
     ))
@@ -124,7 +133,15 @@ const PrizeQueue = (props) => {
           }}
         >
           <p className="progressPogprizeTitle">Title: No Active Pogprize</p>
-
+        </Grid>
+        <Grid item xs style={{ marginTop: '5%', textAlign: 'center' }}>
+          <Button
+            className="pogprizeButtonStyle"
+            size="large"
+            onClick={() => window.close()}
+          >
+            Close
+          </Button>
         </Grid>
       </Grid>
     </div>

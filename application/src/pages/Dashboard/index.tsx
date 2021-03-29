@@ -13,8 +13,6 @@ import {
   redeemReward,
 } from '../../components/auth/service';
 import {
-  openEntries,
-  openPogPrizeInfo,
   openPrizeQueue,
 } from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
