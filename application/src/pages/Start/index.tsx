@@ -1,6 +1,7 @@
 import React from 'react';
 // import styles from './Start.css';
 import TwitchLogo from '../../../assets/images/TwitchGlitchWhite.svg';
+import PogPoints from '../../../assets/images/pogpoints-image.png';
 import { validateToken } from '../../components/auth/service';
 import { authenticate } from '../../components/auth/process';
 import { getUser } from '../../components/auth/service';
@@ -24,6 +25,18 @@ const Start = () => {
           </p>
         </div>
         <div className="startLogin">
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '20px',
+              marginTop: '-40px',
+            }}
+          >
+            <img src={PogPoints} alt="PogPoints" style={{ height: '200px' }} />
+          </div>
+
           <div className="startButton" onClick={authenticate}>
             <p className="startText">Login with Twitch</p>
             <img

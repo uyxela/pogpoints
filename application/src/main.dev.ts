@@ -163,18 +163,7 @@ ipcMain.handle('entries', (event, arg) => {
   entriesWindow.show();
   entriesWindow.focus();
 
-  const {
-    session: { webRequest },
-  } = entriesWindow.webContents;
-
-  const filter = {
-    urls: ['http://localhost/callback*'],
-  };
-
-  webRequest.onBeforeRequest(filter, async ({ url }) => {
-    // authService.handleCallback(url);
-    // authService.checkUser();
-    mainWindow?.reload();
+  entriesWindow.on('closed', () => {
     mainWindow?.focus();
     entriesWindow.destroy();
   });
@@ -196,18 +185,7 @@ ipcMain.handle('pogprizeinfo', (event, arg) => {
   infoWindow.show();
   infoWindow.focus();
 
-  const {
-    session: { webRequest },
-  } = infoWindow.webContents;
-
-  const filter = {
-    urls: ['http://localhost/callback*'],
-  };
-
-  webRequest.onBeforeRequest(filter, async ({ url }) => {
-    // authService.handleCallback(url);
-    // authService.checkUser();
-    mainWindow?.reload();
+  infoWindow.on('closed', () => {
     mainWindow?.focus();
     infoWindow.destroy();
   });
@@ -229,18 +207,7 @@ ipcMain.handle('prizequeue', (event, arg) => {
   queueWindow.show();
   queueWindow.focus();
 
-  const {
-    session: { webRequest },
-  } = queueWindow.webContents;
-
-  const filter = {
-    urls: ['http://localhost/callback*'],
-  };
-
-  webRequest.onBeforeRequest(filter, async ({ url }) => {
-    // authService.handleCallback(url);
-    // authService.checkUser();
-    mainWindow?.reload();
+  queueWindow.on('closed', () => {
     mainWindow?.focus();
     queueWindow.destroy();
   });

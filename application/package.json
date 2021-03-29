@@ -30,7 +30,7 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
+    "productName": "PogPoints",
     "appId": "org.erb.ElectronReact",
     "files": [
       "dist/",

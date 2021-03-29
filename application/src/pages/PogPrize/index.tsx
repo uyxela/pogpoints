@@ -33,6 +33,7 @@ const PogPrize = () => {
     accessToken: '' as String,
     active: false as Boolean,
   });
+  const [buttonPressed, setButtonPressed] = useState(false);
 
   useEffect(() => {
     checkActivePogprize().then((res: any) => {
@@ -277,6 +278,7 @@ const PogPrize = () => {
                   onChange={handleNameChange}
                   className="pogprizeTextinput"
                   color="primary"
+                  spellCheck={false}
                   fullWidth
                   multiline
                   rows={4}

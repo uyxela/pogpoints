@@ -1,6 +1,8 @@
-# PogPoints README
+# PogPoints
 
-This is the README for your extension "htn-v3". After writing up a brief description, we recommend including the following sections.
+<img src="images/thumbnail.png" alt="PogPoints thumbnail" width="200" />
+
+PogPoints is a Twitch Channel Points integration that allows you to run draws and giveaways (PogPrizes) on your stream for new ways to interact with and engage with your audience. Viewers redeem channel points for tickets and streamers use the PogPoints desktop application to manage and showcase PogPrizes on their streams.
 
 ## Features
 

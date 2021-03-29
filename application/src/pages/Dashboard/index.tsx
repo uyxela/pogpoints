@@ -12,9 +12,7 @@ import {
   getPrizes,
   redeemReward,
 } from '../../components/auth/service';
-import {
-  openPrizeQueue,
-} from '../../components/auth/process';
+import { openPrizeQueue } from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -30,7 +28,13 @@ const Dashboard = () => {
     });
     getPogPrizes().then((response) => {
       console.log(response.data);
-      setPogPrizeList(response.data);
+      let pastPogPrizesList = [];
+      response.data.forEach((pp) => {
+        if (!pp.active) {
+          pastPogPrizesList.push(pp);
+        }
+      });
+      setPogPrizeList(pastPogPrizesList);
     });
     checkActivePogprize().then((response) => {
       console.log(response.data);
@@ -84,7 +88,9 @@ const Dashboard = () => {
     currentPogCard = (
       <>
         <p className="dashboardCardSub">Active PogPrize:</p>
-        <p className="dashboardCardMainSmall">{currentPogPrize.title}</p>
+        <p className="dashboardCardMainSmall" style={{ fontSize: '1em' }}>
+          {currentPogPrize.title}
+        </p>
         <Button
           style={{
             width: '50%',
@@ -168,16 +174,14 @@ const Dashboard = () => {
     pastPogPrizes = pogPrizeList.map((pogPrize, i) => (
       // <p className="dashboardCardSub">No past prizes.</p>;
       <>
-        <p className="dashboardCardMainPP">
-          {pogPrize.prizeDescription}
-        </p>
+        <p className="dashboardCardMainPP">{pogPrize.prizeDescription}</p>
         <p className="dashboardCardSubPP" style={{ marginTop: '0' }}>
           <b>Total Entries: </b>
           {pogPrize.entries.length}
         </p>
         <p className="dashboardCardSubPP" style={{ marginTop: '0' }}>
           <b>Ended: </b>
-          {new Date(pogPrize.endsAt).toLocaleDateString("en-US")}
+          {new Date(pogPrize.endsAt).toLocaleDateString('en-US')}
         </p>
       </>
     ));

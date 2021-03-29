@@ -24,13 +24,23 @@ const PogPrizeEnd = (props) => {
   };
 
   useEffect(() => {
-    //console.log('location', location.hash);
-    // console.log('pogprize', pogprize);
-    getWinningPrizes(pogprize.title).then((winningPrizes) => {
-      setPrizes(winningPrizes);
-      //console.log('winning prizes', winningPrizes);
-    });
+    const timer = setTimeout(() => {
+      getWinningPrizes(pogprize.title).then((winningPrizes) => {
+        setPrizes(winningPrizes);
+        //console.log('winning prizes', winningPrizes);
+      });
+    }, 1000);
+    return () => clearTimeout(timer);
   }, []);
+
+  // useEffect(() => {
+  //   //console.log('location', location.hash);
+  //   console.log('pogprize', pogprize);
+  //   getWinningPrizes(pogprize.title).then((winningPrizes) => {
+  //     setPrizes(winningPrizes);
+  //     //console.log('winning prizes', winningPrizes);
+  //   });
+  // }, []);
 
   return (
     <div className="dashboardContainer">
@@ -54,7 +64,7 @@ const PogPrizeEnd = (props) => {
               }}
             >
               {prizes?.map((prize, i) => (
-                <>
+                <div style={{ marginLeft: '24px' }}>
                   <p
                     key={i}
                     className="progressPogprizeTitle"
@@ -63,13 +73,13 @@ const PogPrizeEnd = (props) => {
                     Prize: {prize.title}
                   </p>
                   <p
-                    key={i}
+                    key={i + 11}
                     className="progressPogprizeDesc"
                     style={{ marginTop: '5%' }}
                   >
                     Winner: {prize.name}
                   </p>
-                </>
+                </div>
               ))}
               <p
                 className="dashboardPogprizeText"
