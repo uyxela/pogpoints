@@ -274,7 +274,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     "Content-Type": "application/json"
   };
 
-  await deleteCustomReward(twitchid, pogprizes.rewardId, rewardHeaders);
+  await deleteCustomReward(twitchid, pogprizes[0].rewardId, rewardHeaders);
 
   let winners = [];
   let i = pogprizes.numberOfPrizes;
