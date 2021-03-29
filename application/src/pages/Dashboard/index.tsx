@@ -138,12 +138,10 @@ const Dashboard = () => {
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdTimer size={30} />
-              <p className={styles.textsmall}>PogPrize History</p>
+              <p className={styles.textsmall}>Past PogPrizes</p>
             </Grid>
             <Grid item xs style={cardStyle}>
-              {/* <p className={styles.cardSub}>Viewers entered:</p>
-                  <p className={styles.cardMain}>{totalEntries()}</p>
-                  <p className={styles.cardSub}>times</p> */}
+              {prizeList()}
             </Grid>
           </Grid>
         </Grid>
