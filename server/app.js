@@ -272,7 +272,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     "Content-Type": "application/json"
   };
 
-  await deleteCustomReward(twitchid, pogprizes.rewardid, rewardHeaders);
+  await deleteCustomReward(twitchid, pogprizes.rewardId, rewardHeaders);
 
   let winners = [];
   let i = pogprizes.numberOfPrizes;
@@ -302,7 +302,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 });
 
 app.get("/prizelist", async (req, res, next) => {
-  const prizes = await Prize.find({ }).exec();
+  const prizes = await Prize.find({}).exec();
   res.json(prizes);
 });
 
