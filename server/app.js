@@ -314,8 +314,8 @@ app.get("/prizelist/:id", async (req, res, next) => {
   res.json(prizes);
 });
 
-app.get("/winningprizes", async (req, res, next) => {
-  const { title, id } = req.body;
+app.get("/winningprizes/:id/:title", async (req, res, next) => {
+  const { id, title } = req.params;
   console.log(title, id);
 
   const broadcaster = await User.findOne({ twitchid: id });
