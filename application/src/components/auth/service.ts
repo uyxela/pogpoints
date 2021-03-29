@@ -17,7 +17,7 @@ export async function checkActivePogprize() {
   return await axios.get(`${apiUrl}/activepogprize/${await getUserID()}`);
 }
 export async function getPrizes() {
-  return await axios.get(`${apiUrl}/prizelist`);
+  return await axios.get(`${apiUrl}/prizelist/${await getUserID()}`);
 }
 
 export async function getPogPrizes() {
@@ -112,17 +112,17 @@ export const getEntries = async () => {
 };
 
 export const drawPogprize = async () => {
-    await axios.post(`${apiUrl}/drawpogprize/${await getUserID()}`, {
-        accessToken: accessToken
-    });
-}
+  await axios.post(`${apiUrl}/drawpogprize/${await getUserID()}`, {
+    accessToken: accessToken,
+  });
+};
 
 export const redeemReward = async (title: String, name: String) => {
   await axios.put(`${apiUrl}/fulfillprize`, {
     title: title,
-    name: name
-  })
-}
+    name: name,
+  });
+};
 
 export const logOut = () => {
   deleteItem('accessToken');

@@ -74,10 +74,10 @@ app.post("/notification", async (req, res) => {
     req.header("Twitch-Eventsub-Message-Type") ===
     "webhook_callback_verification"
   ) {
-    console.log(req.body.challenge);
+    // console.log(req.body.challenge);
     res.send(req.body.challenge); // Returning a 200 status with the received challenge to complete webhook creation flow
   } else if (req.header("Twitch-Eventsub-Message-Type") === "notification") {
-    console.log(req.body.event); // Implement your own use case with the event data at this block
+    // console.log(req.body.event); // Implement your own use case with the event data at this block
     const eventInfo = req.body.event;
 
     const entry = {
@@ -280,7 +280,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
     let entry = pogprize.entries[getRandomInt(0, pogprize.entries.length)];
-    console.log(entry);
+    console.log("entry", entry);
     if (!winners.includes(entry.name)) {
       winners.push(entry.name);
       i--;
@@ -304,8 +304,9 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   res.sendStatus(200);
 });
 
-app.get("/prizelist", async (req, res, next) => {
-  const prizes = await Prize.find({}).exec();
+app.get("/prizelist/:id", async (req, res, next) => {
+  const broadcaster = User.findOne({twitchid: req.params.id});
+  const prizes = await Prize.find({broadcaster: broadcaster}).exec();
   res.json(prizes);
 });
 
