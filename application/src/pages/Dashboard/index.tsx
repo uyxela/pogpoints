@@ -102,7 +102,7 @@ const Dashboard = () => {
     );
   }
   let pastPrizes;
-
+  let pastPogPrizes;
   const fulfillReward = (name, title) => {
     redeemReward(title, name);
     getPrizes().then((response) => {
@@ -163,6 +163,28 @@ const Dashboard = () => {
     ));
   } else {
     pastPrizes = <p className="dashboardCardMainPP">No past prizes.</p>;
+  }
+
+  if (pogPrizeList?.length > 0) {
+    console.log(pogPrizeList[0]);
+    pastPogPrizes = pogPrizeList.map((pogPrize, i) => (
+      // <p className="dashboardCardSub">No past prizes.</p>;
+      <>
+        <p className="dashboardCardMainPP">
+          {pogPrize.prizeDescription}
+        </p>
+        <p className="dashboardCardSubPP" style={{ marginTop: '0' }}>
+          <b>Total Entries: </b>
+          {pogPrize.entries.length}
+        </p>
+        <p className="dashboardCardSubPP" style={{ marginTop: '0' }}>
+          <b>Ended: </b>
+          {new Date(pogPrize.endsAt).toLocaleDateString("en-US")}
+        </p>
+      </>
+    ));
+  } else {
+    pastPogPrizes = <p className="dashboardCardMainPP">No past PogPrizes.</p>;
   }
 
   return (
@@ -230,7 +252,7 @@ const Dashboard = () => {
                 {pastPrizes}
               </div>
             </Grid>
-            <Grid item xs style={{textAlign:'center',padding:'5%'}}>
+            <Grid item xs style={{ textAlign: 'center', padding: '5%' }}>
               <Button
                 className="pogprizeButtonStyle"
                 size="small"
@@ -246,11 +268,25 @@ const Dashboard = () => {
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
-              <p className="dashboardTextsmall">Shortcuts</p>
+              <p className="dashboardTextsmall">Past Pogprizes</p>
             </Grid>
-            <Grid item xs style={cardStyle}>
-
-
+            <Grid
+              item
+              xs
+              style={{
+                ...cardStyle,
+                textAlign: 'left',
+                paddingLeft: '10%',
+                paddingRight: '10%',
+                paddingBottom: '10%',
+              }}
+            >
+              <div
+                className="progressEntriesThing"
+                style={{ overflow: 'scroll', height: '60vh' }}
+              >
+                {pastPogPrizes}
+              </div>
             </Grid>
           </Grid>
         </Grid>
