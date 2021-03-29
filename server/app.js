@@ -265,6 +265,8 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     }
   );
 
+  console.log("pogprizes", pogprizes);
+
   // delete custom reward
   const rewardHeaders = {
     Authorization: `Bearer ${accessToken}`,
