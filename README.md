@@ -6,7 +6,9 @@ PogPoints is a Twitch Channel Points integration that allows you to run draws an
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+The PogPoints application provides a clean interface to run PogPrizes on a stream:
+
+<img src="images/" />
 
 For example if there is an image subfolder under your extension project workspace:
 
