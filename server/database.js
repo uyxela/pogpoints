@@ -42,7 +42,7 @@ const pogPrizeSchema = new Schema({
     ref: "User"
   },
   rewardId: String,
-  active: Boolean,
+  active: Boolean
 });
 
 const userSchema = new Schema({
@@ -70,3 +70,4 @@ module.exports = {
   PogPrize,
   User
 };
+t;

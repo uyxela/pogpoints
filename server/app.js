@@ -85,9 +85,13 @@ app.post("/notification", async (req, res) => {
       viewer: eventInfo.user_id
     };
 
+    const broadcaster = await User.findOne({
+      twitchid: eventInfo.broadcaster_user_id
+    });
+
     const pogprize = await PogPrize.findOne({
-      broadcaster: eventInfo.broadcaster_user_id,
-      endsAt: { $gt: Date.now() }
+      broadcaster: broadcaster,
+      active: true
     });
 
     pogprize.entries.push(entry);
@@ -134,7 +138,7 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
         headers: rewardHeaders
       }
     );
-    console.log("HELLO OVER HERE", res);
+    // console.log("HELLO OVER HERE", res);
     return res.data.data[0].id;
   } catch (error) {
     console.log(error);

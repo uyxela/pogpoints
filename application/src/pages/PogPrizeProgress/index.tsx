@@ -9,7 +9,11 @@ import { AiFillTag } from 'react-icons/ai';
 import { getUserID } from '../../components/auth/service';
 import axios from 'axios';
 import env from '../../components/data/env.json';
-import { checkActivePogprize, getEntries } from '../../components/auth/service';
+import {
+  checkActivePogprize,
+  getEntries,
+  drawPogprize,
+} from '../../components/auth/service';
 import { useHistory } from 'react-router-dom';
 import Countdown from 'react-countdown';
 import useInterval from '../../components/hooks/useInterval';
@@ -40,6 +44,10 @@ const PogPrizeProgress = () => {
       getEntries().then((val) => {
         setEntries(val);
       });
+      // if (new Date(pogprize?.endsAt) - new Date() < 0) {
+      //   // drawPogprize();
+      //   console.log('draw!');
+      // }
     },
     isRunning ? delay : null
   );
@@ -79,17 +87,21 @@ const PogPrizeProgress = () => {
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={5}>
-          <Grid container direction="column" >
+          <Grid container direction="column">
             <Grid item xs>
               <h1 className={styles.title}>PogPrize</h1>
               <p className={styles.text}>In Progress</p>
             </Grid>
-            <Grid item xs style={{
+            <Grid
+              item
+              xs
+              style={{
                 padding: '3%',
-                marginTop:'10%',
+                marginTop: '10%',
                 backgroundColor: '#232340',
                 borderRadius: '20px',
-              }}>
+              }}
+            >
               <p className={styles.pogprizeTitle}>Title: {pogprize.title}</p>
               <p className={styles.pogprizeDesc}>
                 Prompt: {pogprize.description}
@@ -98,11 +110,15 @@ const PogPrizeProgress = () => {
                 Description: {pogprize.prizeDescription}
               </p>
             </Grid>
-            <Grid item xs style={{ marginTop: '10%',textAlign:'center' }}>
+            <Grid item xs style={{ marginTop: '10%', textAlign: 'center' }}>
               {/* <Link to={`/pogprizeprogress`} replace> */}
               <Button
                 className={styles.buttonStyle}
                 // size="large"
+                onClick={() => {
+                  drawPogprize();
+                  setIsRunning(false);
+                }}
               >
                 PogStop
               </Button>
@@ -116,7 +132,7 @@ const PogPrizeProgress = () => {
             direction="column"
             justify="flex-start"
             alignItems="stretch"
-            style={{minHeight:'80vh'}}
+            style={{ minHeight: '80vh' }}
           >
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdTimer size={30} />

@@ -16,6 +16,9 @@ export function getAccessToken() {
 export async function checkActivePogprize() {
   return await axios.get(`${apiUrl}/activepogprize/${await getUserID()}`);
 }
+export async function getPrizes() {
+  return await axios.get(`${apiUrl}/prizes`);
+}
 
 export async function getPogPrizes() {
   return await axios.get(`${apiUrl}/pogprizes/${await getUserID()}`);
@@ -107,6 +110,10 @@ export const getEntries = async () => {
     return res.data[0].entries;
   }
 };
+
+export const drawPogprize = async () => {
+    await axios.post(`${apiUrl}/drawpogprize/${await getUserID()}`);
+}
 
 export const logOut = () => {
   deleteItem('accessToken');
