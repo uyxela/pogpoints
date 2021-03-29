@@ -112,7 +112,9 @@ export const getEntries = async () => {
 };
 
 export const drawPogprize = async () => {
-    await axios.post(`${apiUrl}/drawpogprize/${await getUserID()}`);
+    await axios.post(`${apiUrl}/drawpogprize/${await getUserID()}`, {
+        accessToken: accessToken
+    });
 }
 
 export const logOut = () => {

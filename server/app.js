@@ -248,6 +248,7 @@ function getRandomInt(min, max) {
 
 app.post("/drawpogprize/:id", async (req, res, next) => {
   const twitchid = req.params.id;
+  const { accessToken } = req.body;
   const broadcaster = await User.findOne({ twitchid: twitchid });
   const pogprizes = await PogPrize.find({
     broadcaster: broadcaster,
@@ -284,7 +285,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     }
   }
 
-  console.log(winners);
+  console.log("winners", winners);
 
   // create a prize object for each winner and save it to the database
   winners.forEach(winner => {
