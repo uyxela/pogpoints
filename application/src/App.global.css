@@ -276,6 +276,9 @@ a {
   /* font-weight: bolder; */
   /* font-style: italic; */
 }
+.progressEntriesThing::-webkit-scrollbar {
+  display: none;
+}
 .progressPogprizeText {
   font-size: 1.3em;
   margin: 0;

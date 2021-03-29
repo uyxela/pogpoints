@@ -36,9 +36,9 @@ const PogPrizeEnd = (props) => {
         <Grid item xs={0.5} />
         <Grid item xs={8}>
           <h1 className="dashboardTitle">And our PogWinners are...</h1>
-          <p className="dashboardPogprizeTitle">Hi, </p>
+          {prizes?.map(prize => <p className="dashboardPogprizeText" style={{marginTop: '%'}}>{prize.name} won {prize.title}</p>)}
           <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}>
-            Some quick stats for you:
+
           </p>
         </Grid>
       </Grid>
