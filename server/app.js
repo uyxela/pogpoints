@@ -301,6 +301,11 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   res.sendStatus(200);
 });
 
+app.get("/prizelist", async (req, res, next) => {
+  const prizes = await Prize.find({ }).exec();
+  res.json(prizes);
+});
+
 app.get("/", (req, res, next) => {
   res.json({ pog: "points" });
 });
