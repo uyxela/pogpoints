@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from 'react';
-// import styles from './PogPrizeProgress.css';
-import Navbar from '../../components/ui/Navbar';
+import React, { useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { MdTimer } from 'react-icons/md';
 import { MdPeople } from 'react-icons/md';
 import Button from '@material-ui/core/Button';
-import { AiFillTag } from 'react-icons/ai';
-// import { getUserID } from '../../components/auth/service';
-// import axios from 'axios';
-// import env from '../../components/data/env.json';
 import {
-  checkActivePogprize,
   getEntries,
-  drawPogprize,
 } from '../../components/auth/service';
-import { useHistory } from 'react-router-dom';
-import Countdown from 'react-countdown';
 import useInterval from '../../components/hooks/useInterval';
-import { setItem } from '../../components/data/Store';
 
 const Entries = (props) => {
-  const [entries, setEntries] = useState([])
+  const [entries, setEntries] = useState([]);
   const [isRunning, setIsRunning] = useState(true);
   const delay = 2000;
   useInterval(
@@ -42,7 +30,7 @@ const Entries = (props) => {
     entrylist = <p className="progressCardSub">No entries yet :(</p>;
   }
   return (
-    <div className="progressContainer">
+    <div className="entriesContainer">
       <Grid item xs style={{ textAlign: 'center' }}>
         <MdPeople size={30} />
         <p className="progressTextsmall">Pogprize Entries</p>
@@ -64,6 +52,15 @@ const Entries = (props) => {
         >
           {entrylist}
         </div>
+      </Grid>
+      <Grid item xs style={{ marginTop: '5%', textAlign: 'center' }}>
+        <Button
+          className="pogprizeButtonStyle"
+          size="large"
+          onClick={() => window.close()}
+        >
+          Start
+        </Button>
       </Grid>
     </div>
   );

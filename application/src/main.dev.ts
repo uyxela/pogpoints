@@ -149,7 +149,7 @@ ipcMain.handle('authenticate', (event, arg) => {
 
 ipcMain.handle('entries', (event, arg) => {
   const entriesWindow: BrowserWindow = new BrowserWindow({
-    width: 800,
+    width: 350,
     height: 600,
     title: `Viewer Entries`,
     frame: false,
@@ -182,8 +182,8 @@ ipcMain.handle('entries', (event, arg) => {
 
 ipcMain.handle('pogprizeinfo', (event, arg) => {
   const infoWindow: BrowserWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 450,
+    height: 650,
     title: `PogPrize Info`,
     frame: false,
     webPreferences: {
@@ -215,7 +215,7 @@ ipcMain.handle('pogprizeinfo', (event, arg) => {
 
 ipcMain.handle('prizequeue', (event, arg) => {
   const queueWindow: BrowserWindow = new BrowserWindow({
-    width: 800,
+    width: 350,
     height: 600,
     title: `Prize Queue`,
     frame: false,
@@ -231,7 +231,7 @@ ipcMain.handle('prizequeue', (event, arg) => {
 
   const {
     session: { webRequest },
-  } = infoWiqueueWindowndow.webContents;
+  } = queueWindow.webContents;
 
   const filter = {
     urls: ['http://localhost/callback*'],

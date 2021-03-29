@@ -223,7 +223,12 @@ const Dashboard = () => {
                 paddingBottom: '10%',
               }}
             >
-              {pastPrizes}
+              <div
+                className="progressEntriesThing"
+                style={{ overflow: 'scroll', height: '70vh' }}
+              >
+                {pastPrizes}
+              </div>
             </Grid>
           </Grid>
         </Grid>
@@ -234,16 +239,29 @@ const Dashboard = () => {
               <p className="dashboardTextsmall">Shortcuts</p>
             </Grid>
             <Grid item xs style={cardStyle}>
-                {/* <Link to={`/pogprizeprogress`} replace> */}
-                <Button
-                  className="pogprizeButtonStyle"
-                  size="large"
-                  onClick={openEntries}
-                >
-                  Open Entries
-                </Button>
-                {/* </Link> */}
+              <Button
+                className="pogprizeButtonStyle"
+                size="large"
+                onClick={openEntries}
+              >
+                Open Entries
+              </Button>
+              <Button
+                className="pogprizeButtonStyle"
+                size="large"
+                onClick={openPrizeQueue}
+              >
+                Open Prize Queue
+              </Button>
+              <Button
+                className="pogprizeButtonStyle"
+                size="large"
+                onClick={openPogPrizeInfo}
+              >
+                Open PogPrize Info
+              </Button>
             </Grid>
+
           </Grid>
         </Grid>
       </Grid>
