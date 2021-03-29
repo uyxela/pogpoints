@@ -190,9 +190,7 @@ app.post("/newPogPrize", async (req, res, next) => {
     prompt: prizeDescription,
     cost: pointsPerEntry,
     is_enabled: active,
-    should_redemptions_skip_request_queue: true,
-    is_max_per_user_per_stream_enabled: true,
-    max_per_user_per_stream: 999
+    should_redemptions_skip_request_queue: true
   };
 
   const rewardId = await addCustomReward(
@@ -306,6 +304,21 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 app.get("/prizelist", async (req, res, next) => {
   const prizes = await Prize.find({}).exec();
   res.json(prizes);
+});
+
+app.put("/fulfillprize", async (req, res, next) => {
+  const { title, name } = req.body;
+  console.log(req);
+
+  await Prize.updateOne(
+    {
+      title: title,
+      name: name
+    },
+    { status: "Fulfilled" }
+  );
+
+  res.sendStatus(301);
 });
 
 app.get("/", (req, res, next) => {
