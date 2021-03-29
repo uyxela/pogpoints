@@ -309,7 +309,7 @@ const PogPrize = () => {
                 marginTop: '3%',
                 textAlign: 'center',
                 backgroundColor: 'white',
-                borderRadius: '30px',
+                borderRadius: '20px',
               }}
             ></Grid>
           </Grid>

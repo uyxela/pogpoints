@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.css';
 import Navbar from '../../components/ui/Navbar';
-import { checkUser } from '../../components/auth/service';
-import { getItem } from '../../components/data/Store';
+
 import { Grid } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { MdTimer, MdPeople } from 'react-icons/md';
@@ -55,7 +54,7 @@ const Dashboard = () => {
   };
   const cardStyle = {
     backgroundColor: 'white',
-    borderRadius: '30px',
+    borderRadius: '20px',
     // minHeight: '25vh',
     margin: '5%',
     textAlign: 'center',

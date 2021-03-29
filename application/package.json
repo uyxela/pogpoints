@@ -1,7 +1,7 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Fast Refresh for rapid application development",
+  "name": "PogPoints",
+  "productName": "PogPoints",
+  "description": "PogPoints",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
@@ -92,28 +92,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/uyxela/pogpoints"
   },
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Alex Yu, Aryan Misra",
+    "email": "aryanmisra4@gmail.com",
+    "url": "https://github.com/uyxela/pogpoints"
   },
   "contributors": [
     {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
+      "name": "Alex YU",
+      "email": "alex@alexyu.ca",
+      "url": "https://github.com/uyxela"
     },
     {
-      "name": "John Tran",
-      "email": "jptran318@gmail.com",
-      "url": "https://github.com/jooohhn"
+      "name": "Aryan Misra",
+      "email": "aryanmisra4@gmail.com",
+      "url": "https://github.com/aryanmisra"
     }
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/uyxela/pogpoints/issues"
   },
   "keywords": [
     "electron",
@@ -126,7 +126,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/uyxela/pogpoints",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
@@ -265,7 +265,9 @@
     "react-router-dom": "^5.2.0",
     "react-router-transition": "^2.1.0",
     "regenerator-runtime": "^0.13.5",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "typescript-plugin-css-modules": "^3.2.0",
+    "typings-for-css-modules-loader": "^1.7.0"
   },
   "devEngines": {
     "node": ">=10.x",

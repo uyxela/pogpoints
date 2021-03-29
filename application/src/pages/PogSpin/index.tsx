@@ -60,7 +60,7 @@ const PogSpin = () => {
               <MdTimer size={30} />
               <p className={styles.textsmall}>Timer</p>
             </Grid>
-            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"30px"}}>
+            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"20px"}}>
               <p className={styles.cardSub}>Draw ends in:</p>
               <p className={styles.cardMain}>xx:xx</p>
               <p className={styles.cardSub}>minutes</p>
@@ -69,7 +69,7 @@ const PogSpin = () => {
               <AiFillTag size={30} />
               <p className={styles.textsmall}>Points</p>
             </Grid>
-            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"30px"}}>
+            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"20px"}}>
               <p className={styles.cardSub}>Total points spent:</p>
               <p className={styles.cardMain}>x</p>
               <p className={styles.cardSub}>points</p>
@@ -87,7 +87,7 @@ const PogSpin = () => {
               <MdPeople size={30} />
               <p className={styles.textsmall}>Top Entrants</p>
             </Grid>
-            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"30px"}}>
+            <Grid item xs style={{marginTop:"3%",textAlign:"center", backgroundColor:"white", borderRadius:"20px"}}>
               <p className={styles.cardMain}>1. user</p>
               <p className={styles.cardSub}>user1</p>
             </Grid>
