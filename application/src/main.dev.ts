@@ -172,7 +172,7 @@ ipcMain.handle('entries', (event, arg) => {
 ipcMain.handle('pogprizeinfo', (event, arg) => {
   const infoWindow: BrowserWindow = new BrowserWindow({
     width: 450,
-    height: 650,
+    height: 700,
     title: `PogPrize Info`,
     frame: false,
     webPreferences: {

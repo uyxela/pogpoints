@@ -115,7 +115,7 @@ const PogPrizeProgress = (props) => {
                 Prompt: {pogprize.description}
               </p>
               <p className="progressPogprizeText">
-                Description: {pogprize.prizeDescription}
+                Prize Description: {pogprize.prizeDescription}
               </p>
 
             </Grid>
