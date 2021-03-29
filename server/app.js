@@ -271,7 +271,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     "client-id": process.env.CLIENT_ID,
     "Content-Type": "application/json"
   };
-  
+
   await deleteCustomReward(twitchid, pogprizes[0].rewardId, rewardHeaders);
 
   let winners = [];
@@ -295,7 +295,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       broadcaster: broadcaster,
       name: winner
     });
-    console.log('PRIZE PRIZE PRIZE', prize)
+    console.log("PRIZE PRIZE PRIZE", prize);
     prize.save();
   });
 
@@ -309,7 +309,6 @@ app.get("/prizelist", async (req, res, next) => {
 
 app.put("/fulfillprize", async (req, res, next) => {
   const { title, name } = req.body;
-  console.log(req);
 
   await Prize.updateOne(
     {
