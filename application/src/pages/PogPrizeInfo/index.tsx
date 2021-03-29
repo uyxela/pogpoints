@@ -65,7 +65,7 @@ const PrizeQueue = (props) => {
               Prompt: {pogprize.description}
             </p>
             <p className="progressPogprizeText">
-              Description: {pogprize.prizeDescription}
+              Prize Description: {pogprize.prizeDescription}
             </p>
           </Grid>
           <Grid item xs style={{ textAlign: 'center', marginTop: '4%' }}>
