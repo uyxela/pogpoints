@@ -279,8 +279,8 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
     let entry = pogprizes.entries[getRandomInt(0, pogprizes.entries.length)];
-    if (!winners.includes(entry.viewer)) {
-      winners.push(entry.viewer);
+    if (!winners.includes(entry.name)) {
+      winners.push(entry.name);
       i--;
     }
   }
@@ -293,7 +293,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       title: pogprizes.prizeDescription,
       status: "Unfulfilled",
       broadcaster: broadcaster,
-      viewer: winner
+      name: winner
     });
     prize.save();
   });
