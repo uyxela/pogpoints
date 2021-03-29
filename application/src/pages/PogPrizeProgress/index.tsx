@@ -74,9 +74,10 @@ const PogPrizeProgress = () => {
       return <Completed />;
     } else {
       // Render a countdown
+
       return (
         <p className={styles.cardMain}>
-          {hours}:{minutes}:{seconds}
+          {('0' + hours).slice(-2)}:{('0' + minutes).slice(-2)}:{('0' + seconds).slice(-2)}
         </p>
       );
     }
