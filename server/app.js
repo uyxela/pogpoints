@@ -129,6 +129,7 @@ app.post("/newUser/:id", (req, res, next) => {
     }
   });
 });
+
 //creates custom twitch reward
 const addCustomReward = async (id, rewardBody, rewardHeaders) => {
   try {
@@ -141,6 +142,21 @@ const addCustomReward = async (id, rewardBody, rewardHeaders) => {
     );
     // console.log("HELLO OVER HERE", res);
     return res.data.data[0].id;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//creates custom twitch reward
+const deleteCustomReward = async (id, rewardid, rewardHeaders) => {
+  try {
+    let res = await axios.delete(
+      `https://api.twitch.tv/helix/channel_points/custom_rewards?broadcaster_id=${id}&id=${rewardid}`,
+      {
+        headers: rewardHeaders
+      }
+    );
+    // console.log("HELLO OVER HERE", res);
   } catch (error) {
     console.log(error);
   }
@@ -174,7 +190,9 @@ app.post("/newPogPrize", async (req, res, next) => {
     prompt: prizeDescription,
     cost: pointsPerEntry,
     is_enabled: active,
-    should_redemptions_skip_request_queue: true
+    should_redemptions_skip_request_queue: true,
+    is_max_per_user_per_stream_enabled: true,
+    max_per_user_per_stream: 999
   };
 
   const rewardId = await addCustomReward(
@@ -245,6 +263,15 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       active: false
     }
   );
+
+  // delete custom reward
+  const rewardHeaders = {
+    Authorization: `Bearer ${accessToken}`,
+    "client-id": process.env.CLIENT_ID,
+    "Content-Type": "application/json"
+  };
+
+  await deleteCustomReward(twitchid, pogprizes.rewardid, rewardHeaders);
 
   let winners = [];
   let i = pogprizes.numberOfPrizes;
