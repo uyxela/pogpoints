@@ -248,11 +248,11 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   const twitchid = req.params.id;
   const { accessToken } = req.body;
   const broadcaster = await User.findOne({ twitchid: twitchid });
-  const pogprizes = await PogPrize.find({
+  const pogprize = await PogPrize.findOne({
     broadcaster: broadcaster,
     active: true
   }).exec();
-  let i = (pogprizes.entries[0].length>=pogprizes.numberOfPrizes) ? pogprizes.numberOfPrizes:pogprizes.entries[0].length;
+  let i = (pogprize.entries.length>=pogprize.numberOfPrizes) ? pogprize.numberOfPrizes:pogprize.entries.length;
   await PogPrize.updateOne(
     {
       broadcaster: broadcaster,
@@ -263,8 +263,8 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     }
   );
 
-  console.log("pogprizes", pogprizes, "i value", i, pogprizes.entries[0].length);
-  console.log(typeof pogprizes.entries,typeof pogprizes.entries[0])
+  console.log("pogprizes", pogprize, "i value", i, pogprize.entries;
+  console.log(typeof pogprize.entries)
 
   // delete custom reward
   const rewardHeaders = {
@@ -273,13 +273,13 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     "Content-Type": "application/json"
   };
 
-  await deleteCustomReward(twitchid, pogprizes[0].rewardId, rewardHeaders);
+  await deleteCustomReward(twitchid, pogprize.rewardId, rewardHeaders);
 
   let winners = [];
   
   // randomly select an entry and add the viewer to the winner list if the viewer is not already in the list
   while (i > 0) {
-    let entry = pogprizes.entries[0][getRandomInt(0, pogprizes.entries[0].length)];
+    let entry = pogprize.entries[0][getRandomInt(0, pogprize.entries.length)];
     if (!winners.includes(entry.name)) {
       winners.push(entry.name);
       i--;
@@ -291,7 +291,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
   // create a prize object for each winner and save it to the database
   winners.forEach(winner => {
     const prize = new Prize({
-      title: pogprizes.prizeDescription,
+      title: pogprize.prizeDescription,
       status: "Unfulfilled",
       broadcaster: broadcaster,
       name: winner
