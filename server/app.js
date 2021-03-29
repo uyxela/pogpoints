@@ -315,13 +315,13 @@ app.get("/prizelist/:id", async (req, res, next) => {
 });
 
 app.get("/winningprizes", async (req, res, next) => {
-  const { pogPrizeTitle, userId } = req.body;
-  console.log(pogPrizeTitle, userId);
+  const { title, id } = req.body;
+  console.log(title, id);
 
-  const broadcaster = await User.findOne({ twitchid: userId });
+  const broadcaster = await User.findOne({ twitchid: id });
 
   const pogprize = await PogPrize.findOne({
-    title: pogPrizeTitle,
+    title: title,
     broadcaster: broadcaster
   });
 
@@ -329,6 +329,7 @@ app.get("/winningprizes", async (req, res, next) => {
     broadcaster: broadcaster,
     pogprize: pogprize
   }).exec();
+
   res.json(prizes);
 });
 

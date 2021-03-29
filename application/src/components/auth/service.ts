@@ -126,8 +126,8 @@ export const redeemReward = async (title: String, name: String) => {
 
 export const getWinningPrizes = async (title: String) => {
   const response = await axios.get(`${apiUrl}/winningprizes`, {
-    pogPrizeTitle: title,
-    userId: await getUserID(),
+    title: title,
+    id: await getUserID(),
   });
   return response.data;
 };
