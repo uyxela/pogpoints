@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './PogPrizeProgress.css';
+// import styles from './PogPrizeProgress.css';
 import Navbar from '../../components/ui/Navbar';
 import { Grid } from '@material-ui/core';
 import { MdTimer } from 'react-icons/md';
@@ -59,14 +59,14 @@ const PogPrizeProgress = () => {
   let entrylist;
   if (entries.length > 0) {
     entrylist = entries.map((data, i) => (
-      <p className={styles.cardSub}>
+      <p className="progressCardSub">
         {i + 1}: {data.name}
       </p>
     ));
   } else {
-    entrylist = <p className={styles.cardSub}>No entries yet :(</p>;
+    entrylist = <p className="progressCardSub">No entries yet :(</p>;
   }
-  const Completed = () => <p className={styles.cardMain}>Draw Over!</p>;
+  const Completed = () => <p className="progressCardMain">Draw Over!</p>;
 
   const timerenderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -75,22 +75,22 @@ const PogPrizeProgress = () => {
     } else {
       // Render a countdown
       return (
-        <p className={styles.cardMain}>
+        <p className="progressCardMain">
           {hours}:{minutes}:{seconds}
         </p>
       );
     }
   };
   return (
-    <div className={styles.container}>
+    <div className="progressContainer">
       <Navbar />
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={5}>
           <Grid container direction="column">
             <Grid item xs>
-              <h1 className={styles.title}>PogPrize</h1>
-              <p className={styles.text}>In Progress</p>
+              <h1 className="progressTitle">PogPrize</h1>
+              <p className="progressText">In Progress</p>
             </Grid>
             <Grid
               item
@@ -102,23 +102,22 @@ const PogPrizeProgress = () => {
                 borderRadius: '20px',
               }}
             >
-              <p className={styles.pogprizeTitle}>Title: {pogprize.title}</p>
-              <p className={styles.pogprizeDesc}>
+              <p className="progressPogprizeTitle">Title: {pogprize.title}</p>
+              <p className="progressPogprizeDesc">
                 Prompt: {pogprize.description}
               </p>
-              <p className={styles.pogprizeText}>
+              <p className="progressPogprizeText">
                 Description: {pogprize.prizeDescription}
               </p>
             </Grid>
             <Grid item xs style={{ marginTop: '10%', textAlign: 'center' }}>
               {/* <Link to={`/pogprizeprogress`} replace> */}
               <Button
-                className={styles.buttonStyle}
+                className="progressButtonStyle"
                 // size="large"
                 onClick={() => {
                   drawPogprize();
                   setIsRunning(false);
-                  history.push('/dashboard')
                 }}
               >
                 PogStop
@@ -137,7 +136,7 @@ const PogPrizeProgress = () => {
           >
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdTimer size={30} />
-              <p className={styles.textsmall}>Timer</p>
+              <p className="progressTextsmall">Timer</p>
             </Grid>
             <Grid
               item
@@ -149,7 +148,7 @@ const PogPrizeProgress = () => {
                 borderRadius: '20px',
               }}
             >
-              <p className={styles.cardSub}>Draw ends in:</p>
+              <p className="progressCardSub">Draw ends in:</p>
 
               <Countdown
                 date={Date.parse(
@@ -159,9 +158,9 @@ const PogPrizeProgress = () => {
                 )}
                 renderer={timerenderer}
               />
-              <p className={styles.cardSub}>minutes</p>
-              <p className={styles.cardSub}>at</p>
-              <p className={styles.cardSub}>
+              <p className="progressCardSub">minutes</p>
+              <p className="progressCardSub">at</p>
+              <p className="progressCardSub">
                 {new Date(pogprize.endsAt)
                   .toLocaleString('en-US', { timeZone: 'UTC' })
                   .split(':')
@@ -172,7 +171,7 @@ const PogPrizeProgress = () => {
             </Grid>
             <Grid item xs style={{ textAlign: 'center', marginTop: '15%' }}>
               <AiFillTag size={30} />
-              <p className={styles.textsmall}>Points</p>
+              <p className="progressTextsmall">Points</p>
             </Grid>
             <Grid
               item
@@ -184,11 +183,11 @@ const PogPrizeProgress = () => {
                 borderRadius: '20px',
               }}
             >
-              <p className={styles.cardSub}>Total points spent:</p>
-              <p className={styles.cardMain}>
+              <p className="progressCardSub">Total points spent:</p>
+              <p className="progressCardMain">
                 {pogprize.pointsPerEntry * entries.length}
               </p>
-              <p className={styles.cardSub}>points</p>
+              <p className="progressCardSub">points</p>
             </Grid>
           </Grid>
         </Grid>
@@ -201,7 +200,7 @@ const PogPrizeProgress = () => {
           >
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
-              <p className={styles.textsmall}>Pogprize Entries</p>
+              <p className="progressTextsmall">Pogprize Entries</p>
             </Grid>
             <Grid
               item

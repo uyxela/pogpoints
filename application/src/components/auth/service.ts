@@ -117,6 +117,13 @@ export const drawPogprize = async () => {
     });
 }
 
+export const redeemReward = async (title: String, name: String) => {
+  await axios.put(`${apiUrl}/fulfillprize`, {
+    title: title,
+    name: name
+  })
+}
+
 export const logOut = () => {
   deleteItem('accessToken');
   accessToken = null;

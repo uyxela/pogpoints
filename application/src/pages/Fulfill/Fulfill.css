@@ -45,7 +45,6 @@
   margin-left: 2%;
 }
 
-
 .text {
   font-size: 1.5em;
   margin: 0;
@@ -71,7 +70,7 @@
   margin-left: 2%;
 
   /* margin-bottom: 5%; */
-  color:rgb(218, 218, 218);
+  color: rgb(218, 218, 218);
   /* font-weight: bolder; */
   /* font-style: italic; */
 }
@@ -85,7 +84,6 @@
   margin-top: 5%;
   margin-bottom: 5%;
 }
-
 
 .cardSub {
   color: #6361aa;

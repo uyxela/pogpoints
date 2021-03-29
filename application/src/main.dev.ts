@@ -148,39 +148,39 @@ ipcMain.handle('authenticate', (event, arg) => {
   });
 })
 
-ipcMain.handle('fulfill', (event, arg) => {
+// ipcMain.handle('fulfill', (event, arg) => {
 
-  const fulfillWindow: BrowserWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    title: `Fulfill Reward`,
-    webPreferences: {
-      nodeIntegration: true,
-      webSecurity:false,
-    }
+//   const fulfillWindow: BrowserWindow = new BrowserWindow({
+//     width: 800,
+//     height: 600,
+//     title: `Fulfill Reward`,
+//     webPreferences: {
+//       nodeIntegration: true,
+//       webSecurity:false,
+//     }
 
-  });
+//   });
 
-  fulfillWindow.loadURL(`file://${__dirname}/index.html#fulfill/${arg.title}/${arg.name}`);
-  fulfillWindow.show();
-  fulfillWindow.focus();
+//   fulfillWindow.loadURL(`file://${__dirname}/index.html#fulfill/${arg.title}/${arg.name}`);
+//   fulfillWindow.show();
+//   fulfillWindow.focus();
 
-  const {session: {webRequest}} = fulfillWindow.webContents;
+//   const {session: {webRequest}} = fulfillWindow.webContents;
 
-  const filter = {
-    urls: [
-      'http://localhost/callback*'
-    ]
-  };
+//   const filter = {
+//     urls: [
+//       'http://localhost/callback*'
+//     ]
+//   };
 
-  webRequest.onBeforeRequest(filter, async ({url}) => {
-    // authService.handleCallback(url);
-    // authService.checkUser();
-    mainWindow?.reload();
-    mainWindow?.focus();
-    fulfillWindow.destroy();
-  });
-})
+//   webRequest.onBeforeRequest(filter, async ({url}) => {
+//     // authService.handleCallback(url);
+//     // authService.checkUser();
+//     mainWindow?.reload();
+//     mainWindow?.focus();
+//     fulfillWindow.destroy();
+//   });
+// })
 /**
  * Add event listeners...
  */

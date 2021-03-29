@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from './PogPrize.css';
+//import styles from './PogPrize.css';
 import Navbar from '../../components/ui/Navbar';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -171,15 +171,15 @@ const PogPrize = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="pogprizeContainer">
       <Navbar />
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={4}>
           <Grid container direction="column">
             <Grid item xs>
-              <h1 className={styles.title}>PogPrize</h1>
-              <p className={styles.text}>Set up draws using PogPrizes</p>
+              <h1 className="pogprizeTitle">PogPrize</h1>
+              <p className="pogprizeText">Set up draws using PogPrizes</p>
             </Grid>
             <Grid item xs>
               <TextField
@@ -188,7 +188,7 @@ const PogPrize = () => {
                 value={form.prizeDescription}
                 variant="filled"
                 onChange={handleNameChange}
-                className={styles.textinput}
+                className="pogprizeTextinput"
                 color="primary"
                 fullWidth
                 error={error.prizeDescription}
@@ -201,7 +201,7 @@ const PogPrize = () => {
                 value={form.numberOfPrizes}
                 variant="filled"
                 onChange={handleNameChange}
-                className={styles.textinput}
+                className="pogprizeTextinput"
                 color="primary"
                 type="number"
                 inputProps={{ min: '1', max: '10', step: '1' }}
@@ -216,7 +216,7 @@ const PogPrize = () => {
                 value={form.pointsPerEntry}
                 variant="filled"
                 onChange={handleNameChange}
-                className={styles.textinput}
+                className="pogprizeTextinput"
                 color="primary"
                 type="number"
                 fullWidth
@@ -230,7 +230,7 @@ const PogPrize = () => {
                 value={form.endsAt}
                 variant="filled"
                 onChange={handleNameChange}
-                className={styles.textinput}
+                className="pogprizeTextinput"
                 color="primary"
                 type="datetime-local"
                 defaultValue={form.endsAt}
@@ -251,7 +251,7 @@ const PogPrize = () => {
             <Grid item xs style={{ marginTop: '5%' }}>
               {/* <Link to={`/pogprizeprogress`} replace> */}
               <Button
-                className={styles.buttonStyle}
+                className="pogprizeButtonStyle"
                 size="large"
                 onClick={handleSubmit}
               >
@@ -282,7 +282,7 @@ const PogPrize = () => {
                 value={form.description}
                 variant="filled"
                 onChange={handleNameChange}
-                className={styles.textinput}
+                className="pogprizeTextinput"
                 color="primary"
                 fullWidth
                 multiline
@@ -301,7 +301,7 @@ const PogPrize = () => {
             alignItems="stretch"
           >
             <Grid item xs style={{ textAlign: 'center' }}>
-              <p className={styles.textsmall}>History</p>
+              <p className="pogprizeTextsmall">History</p>
             </Grid>
             <Grid
               item

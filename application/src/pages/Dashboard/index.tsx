@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Dashboard.css';
+// import styles from './Dashboard.css';
 import Navbar from '../../components/ui/Navbar';
 
 import { Grid } from '@material-ui/core';
@@ -10,8 +10,8 @@ import {
   getPogPrizes,
   checkActivePogprize,
   getPrizes,
+  redeemReward,
 } from '../../components/auth/service';
-import { redeemReward } from '../../components/auth/process';
 import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -39,7 +39,7 @@ const Dashboard = () => {
       setCurrentPogPrize(response.data[0]);
     });
     getPrizes().then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setPrizeList(response.data);
     });
   }, []);
@@ -74,13 +74,13 @@ const Dashboard = () => {
   let currentPogCard;
   if (currentPogPrize == null) {
     currentPogCard = (
-      <p className={styles.cardSub}>No current Pogprizes running.</p>
+      <p className="dashboardCardSub">No current Pogprizes running.</p>
     );
   } else {
     currentPogCard = (
       <>
-        <p className={styles.cardSub}>Active PogPrize:</p>
-        <p className={styles.cardMainSmall}>{currentPogPrize.title}</p>
+        <p className="dashboardCardSub">Active PogPrize:</p>
+        <p className="dashboardCardMainSmall">{currentPogPrize.title}</p>
         <Button
           style={{
             width: '50%',
@@ -98,37 +98,57 @@ const Dashboard = () => {
   let pastPrizes;
 
   const fulfillReward = (name, title) => {
-    redeemReward({ name: name, title: title });
+    redeemReward(title, name);
+    getPrizes().then((response) => {
+      console.log(response.data);
+      setPrizeList(response.data);
+    });
   };
 
   const redemptionButton = (status, name, title) => {
     if (status == 'Unfulfilled') {
       return (
         <>
-          <Grid item xs style={{textAlign:'center'}}>
-            <Button size="small" style={{marginTop:'2%',marginBottom:'-2%'}} onClick={() => fulfillReward(name, title)}>
+          <Grid item xs style={{ textAlign: 'center' }}>
+            <Button
+              size="small"
+              style={{ marginTop: '2%', marginBottom: '-2%' }}
+              onClick={() => fulfillReward(name, title)}
+            >
               Fulfill
             </Button>
           </Grid>
         </>
       );
+    } else {
+      return (
+        <>
+          <Grid item xs style={{ textAlign: 'center' }}>
+            <Button
+              size="small"
+              style={{
+                marginTop: '2%',
+                marginBottom: '-2%',
+                backgroundColor: 'white',
+              }}
+            >
+              Fulfilled
+            </Button>
+          </Grid>
+        </>
+      );
     }
-    return null;
   };
 
   if (prizeList.length > 0) {
     console.log(prizeList[0].status);
     pastPrizes = prizeList.map((prize, i) => (
-      // <p className={styles.cardSub}>No past prizes.</p>;
+      // <p className="dashboardCardSub">No past prizes.</p>;
       <>
-        <p className={styles.cardMainPP}>
+        <p className="dashboardCardMainPP">
           {i + 1}. {prize.title}
         </p>
-        <p className={styles.cardSubPP}>
-          <b>Status: </b>
-          {prize.status}
-        </p>
-        <p className={styles.cardSubPP}>
+        <p className="dashboardCardSubPP" style={{ margin: '10px' }}>
           <b>Winner: </b>
           {prize.name}
         </p>
@@ -136,32 +156,32 @@ const Dashboard = () => {
       </>
     ));
   } else {
-    pastPrizes = <p className={styles.cardMainPP}>No past prizes.</p>;
+    pastPrizes = <p className="dashboardCardMainPP">No past prizes.</p>;
   }
 
   return (
-    <div className={styles.container}>
+    <div className="dashboardContainer">
       <Navbar />
       <Grid container spacing={3} style={{ marginTop: '2%' }}>
         <Grid item xs={0.5} />
         <Grid item xs={5}>
-          <h1 className={styles.title}>Dashboard</h1>
-          <p className={styles.pogprizeTitle}>Hi, {user?.display_name}!</p>
-          <p className={styles.pogprizeText} style={{ marginTop: '5%' }}>
+          <h1 className="dashboardTitle">Dashboard</h1>
+          <p className="dashboardPogprizeTitle">Hi, {user?.display_name}!</p>
+          <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}>
             Some quick stats for you:
           </p>
           <Grid container style={{ paddingTop: '5%' }}>
             <Grid item xs>
               <Grid container direction="column">
                 <Grid item xs style={cardStyle}>
-                  <p className={styles.cardSub}>You have hosted:</p>
-                  <p className={styles.cardMain}>{totalPogPrizes()}</p>
-                  <p className={styles.cardSub}>PogPrizes</p>
+                  <p className="dashboardCardSub">You have hosted:</p>
+                  <p className="dashboardCardMain">{totalPogPrizes()}</p>
+                  <p className="dashboardCardSub">PogPrizes</p>
                 </Grid>
                 <Grid item xs style={cardStyle}>
-                  <p className={styles.cardSub}>Viewers redeemed:</p>
-                  <p className={styles.cardMain}>{totalPoints()}</p>
-                  <p className={styles.cardSub}>Channel Points</p>
+                  <p className="dashboardCardSub">Viewers redeemed:</p>
+                  <p className="dashboardCardMain">{totalPoints()}</p>
+                  <p className="dashboardCardSub">Channel Points</p>
                 </Grid>
               </Grid>
             </Grid>
@@ -169,9 +189,9 @@ const Dashboard = () => {
             <Grid item xs>
               <Grid container direction="column">
                 <Grid item xs style={cardStyle}>
-                  <p className={styles.cardSub}>Viewers entered:</p>
-                  <p className={styles.cardMain}>{totalEntries()}</p>
-                  <p className={styles.cardSub}>times</p>
+                  <p className="dashboardCardSub">Viewers entered:</p>
+                  <p className="dashboardCardMain">{totalEntries()}</p>
+                  <p className="dashboardCardSub">times</p>
                 </Grid>
                 <Grid item xs style={cardStyle}>
                   {currentPogCard}
@@ -184,7 +204,7 @@ const Dashboard = () => {
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdTimer size={30} />
-              <p className={styles.textsmall}>Past PogPrizes</p>
+              <p className="dashboardTextsmall">Prize Queue</p>
             </Grid>
             <Grid
               item
@@ -205,12 +225,12 @@ const Dashboard = () => {
           <Grid container direction="column">
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
-              <p className={styles.textsmall}>Leaderboard</p>
+              <p className="dashboardTextsmall">Past PogPrizes</p>
             </Grid>
             <Grid item xs style={cardStyle}>
-              {/* <p className={styles.cardSub}>Viewers entered:</p>
-                  <p className={styles.cardMain}>{totalEntries()}</p>
-                  <p className={styles.cardSub}>times</p> */}
+              {/* <p className="dashboardCardSub">Viewers entered:</p>
+                  <p className="dashboardCardMain">{totalEntries()}</p>
+                  <p className="dashboardCardSub">times</p> */}
             </Grid>
           </Grid>
         </Grid>
