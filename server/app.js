@@ -297,6 +297,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       broadcaster: broadcaster,
       name: winner
     });
+    console.log('PRIZE PRIZE PRIZE', prize)
     prize.save();
   });
 
