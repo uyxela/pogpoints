@@ -60,7 +60,7 @@ const PogPrizeProgress = () => {
   if (entries.length > 0) {
     entrylist = entries.map((data, i) => (
       <p className={styles.cardSub}>
-        {i + 1}. {data.viewer}
+        {i + 1}: {data.name}
       </p>
     ));
   } else {
@@ -200,7 +200,7 @@ const PogPrizeProgress = () => {
           >
             <Grid item xs style={{ textAlign: 'center' }}>
               <MdPeople size={30} />
-              <p className={styles.textsmall}>Top Entrants</p>
+              <p className={styles.textsmall}>Pogprize Entries</p>
             </Grid>
             <Grid
               item
@@ -211,6 +211,7 @@ const PogPrizeProgress = () => {
                 backgroundColor: 'white',
                 borderRadius: '20px',
                 minHeight: '70vh',
+                overflow: 'scroll',
               }}
             >
               {entrylist}

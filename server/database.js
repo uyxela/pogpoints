@@ -34,7 +34,8 @@ const pogPrizeSchema = new Schema({
   entries: [
     {
       time: { type: Date },
-      viewer: String
+      viewer: String,
+      name: String
     }
   ],
   broadcaster: {
