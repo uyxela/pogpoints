@@ -20,6 +20,10 @@ const prizeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
+  pogprize: {
+    type: Schema.Types.ObjectId,
+    ref: "PogPrize"
+  },
   name: String
 });
 

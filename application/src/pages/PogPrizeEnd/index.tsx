@@ -12,9 +12,9 @@ import {
   getPrizes,
   redeemReward,
 } from '../../components/auth/service';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-const PogPrizeEnd = () => {
+const PogPrizeEnd = props => {
 
   const cardStyle = {
     backgroundColor: 'white',
@@ -24,7 +24,9 @@ const PogPrizeEnd = () => {
     textAlign: 'center',
     alignItems: 'center',
   };
-
+  useEffect(() => {
+    console.log(location.state.pogPrize); // result: 'some_value'
+ }, [location]);
 
 
   return (

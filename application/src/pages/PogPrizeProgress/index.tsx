@@ -122,8 +122,9 @@ const PogPrizeProgress = () => {
                 className="progressButtonStyle"
                 // size="large"
                 onClick={() => {
-                  drawPogprize();
-                  setIsRunning(false);
+                  // drawPogprize();
+                  // setIsRunning(false);
+                  history.push({pathname:'/pogprizeend',state:{pogPrize:pogprize}})
                 }}
               >
                 PogStop

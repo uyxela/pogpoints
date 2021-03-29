@@ -295,6 +295,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
       title: pogprize.prizeDescription,
       status: "Unfulfilled",
       broadcaster: broadcaster,
+      pogprize: pogprize,
       name: winner
     });
     console.log("PRIZE PRIZE PRIZE", prize);
@@ -305,7 +306,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
 });
 
 app.get("/prizelist/:id", async (req, res, next) => {
-  const broadcaster = User.findOne({twitchid: req.params.id});
+  const broadcaster = await User.findOne({twitchid: req.params.id});
   const prizes = await Prize.find({broadcaster: broadcaster}).exec();
   res.json(prizes);
 });
