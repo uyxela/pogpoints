@@ -70,4 +70,3 @@ module.exports = {
   PogPrize,
   User
 };
-t;
