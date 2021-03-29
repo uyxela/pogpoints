@@ -263,7 +263,7 @@ app.post("/drawpogprize/:id", async (req, res, next) => {
     }
   );
 
-  console.log("pogprizes", pogprize, "i value", i, pogprize.entries;
+  console.log("pogprizes", pogprize, "i value", i, pogprize.entries);
   console.log(typeof pogprize.entries)
 
   // delete custom reward
