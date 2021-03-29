@@ -37,19 +37,12 @@ const PogPrizeEnd = (props) => {
         <Grid item xs={0.5} />
         <Grid item xs={8}>
           <h1 className="dashboardTitle">And our PogWinners are...</h1>
-<<<<<<< HEAD
           {/* {prizes?.map((prize) => (
             <p className="dashboardPogprizeText" style={{ marginTop: '%' }}>
               {prize.name} won {prize.title}
             </p>
           ))} */}
           <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}></p>
-=======
-          {prizes?.map(prize => <p className="dashboardPogprizeText" style={{marginTop: '%'}}>{prize.name} won {prize.title}</p>)}
-          <p className="dashboardPogprizeText" style={{ marginTop: '5%' }}>
-
-          </p>
->>>>>>> 0a792b61686a794a1d9a1283c1b1dabfe5256ff8
         </Grid>
       </Grid>
     </div>
