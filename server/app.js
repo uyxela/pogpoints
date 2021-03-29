@@ -323,7 +323,7 @@ app.put("/fulfillprize", async (req, res, next) => {
     { status: "Fulfilled" }
   );
 
-  res.sendStatus(301);
+  res.sendStatus(204);
 });
 
 app.get("/", (req, res, next) => {
