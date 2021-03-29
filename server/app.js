@@ -311,6 +311,14 @@ app.get("/prizelist/:id", async (req, res, next) => {
   res.json(prizes);
 });
 
+app.get("/winningprizes", async (req, res, next) => {
+  const { pogPrizeTitle, userId } = req.body;
+  const broadcaster = await User.findOne({twitchid: userId});
+  const pogprize = await PogPrize.findOne({ title: pogPrizeTitle });
+  const prizes = await Prize.find({broadcaster: broadcaster, pogprize: pogprize}).exec();
+  res.json(prizes);
+});
+
 app.put("/fulfillprize", async (req, res, next) => {
   const { title, name } = req.body;
 

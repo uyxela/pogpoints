@@ -124,6 +124,13 @@ export const redeemReward = async (title: String, name: String) => {
   });
 };
 
+export const getWinningPrizes = async (title: String) => {
+  return await axios.get(`${apiUrl}/winningprizes`, {
+    pogPrizeTitle: title,
+    userId: await getUserID(),
+  });
+};
+
 export const logOut = () => {
   deleteItem('accessToken');
   accessToken = null;

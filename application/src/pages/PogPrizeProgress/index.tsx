@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom';
 import Countdown from 'react-countdown';
 import useInterval from '../../components/hooks/useInterval';
 
-const PogPrizeProgress = () => {
+const PogPrizeProgress = props => {
   const [pogprize, setPogprize] = useState(null);
   const [isRunning, setIsRunning] = useState(true);
   const [entries, setEntries] = useState([]);

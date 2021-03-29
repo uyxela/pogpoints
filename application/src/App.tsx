@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/pogprize" component={PogPrize} />
         <Route path="/pogprizeprogress" component={PogPrizeProgress} />
-        <Route path="/PogPrizeEnd" component={PogPrizeEnd} />
+        <Route path="/pogprizeend" component={PogPrizeEnd} />
         <Route path="/" component={Start} />
       </AnimatedSwitch>
     </Router>
