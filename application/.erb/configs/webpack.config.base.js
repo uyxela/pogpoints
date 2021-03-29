@@ -21,6 +21,21 @@ export default {
           },
         },
       },
+      {
+        test: /\.css$/,
+        include: path.join(__dirname, 'src/'),
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'typings-for-css-modules-loader',
+            options: {
+              modules: true,
+              namedExport: true
+            }
+          }
+        ]
+      }
     ],
   },
 

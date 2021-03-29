@@ -88,7 +88,7 @@ const PogPrizeProgress = () => {
                 padding: '3%',
                 marginTop:'10%',
                 backgroundColor: '#232340',
-                borderRadius: '30px',
+                borderRadius: '20px',
               }}>
               <p className={styles.pogprizeTitle}>Title: {pogprize.title}</p>
               <p className={styles.pogprizeDesc}>
@@ -104,7 +104,7 @@ const PogPrizeProgress = () => {
                 className={styles.buttonStyle}
                 // size="large"
               >
-                Shutdown
+                PogStop
               </Button>
               {/* </Link> */}
             </Grid>
@@ -129,7 +129,7 @@ const PogPrizeProgress = () => {
                 marginTop: '3%',
                 textAlign: 'center',
                 backgroundColor: 'white',
-                borderRadius: '30px',
+                borderRadius: '20px',
               }}
             >
               <p className={styles.cardSub}>Draw ends in:</p>
@@ -164,7 +164,7 @@ const PogPrizeProgress = () => {
                 marginTop: '3%',
                 textAlign: 'center',
                 backgroundColor: 'white',
-                borderRadius: '30px',
+                borderRadius: '20px',
               }}
             >
               <p className={styles.cardSub}>Total points spent:</p>
@@ -193,7 +193,7 @@ const PogPrizeProgress = () => {
                 marginTop: '3%',
                 textAlign: 'center',
                 backgroundColor: 'white',
-                borderRadius: '30px',
+                borderRadius: '20px',
                 minHeight: '70vh',
               }}
             >
