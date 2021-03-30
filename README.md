@@ -8,7 +8,7 @@ PogPoints is a Twitch Channel Points integration that allows you to run draws an
 
 PogPoints is an application that integrates with the Twitch Channel Points API to allow streamers to run draws or giveaways (PogPrizes).
 
-![dashboard-2]\(images/dashboard-2)
+![dashboard-2]\(images/dashboard-2.png)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
