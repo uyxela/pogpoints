@@ -22,9 +22,9 @@ Upon ending the PogPrize, winners will be randomly selected from the entries and
 
 There are several windows that can be opened to display on the broadcast as sources for streaming software like OBS.
 
-![entries](https://github.com/uyxela/pogpoints/blob/main/images/window-entries.png)
-![info](https://github.com/uyxela/pogpoints/blob/main/images/window-info.png)
-![queue](https://github.com/uyxela/pogpoints/blob/main/images/window-queue.png)
+![entries](https://github.com/uyxela/pogpoints/blob/main/images/window-entries.png) ![info](https://github.com/uyxela/pogpoints/blob/main/images/window-info.png) ![queue](https://github.com/uyxela/pogpoints/blob/main/images/window-queue.png)
+
+
 
 ## Running the repo
 
